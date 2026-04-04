@@ -1,149 +1,191 @@
-export default function PetQAILandingPage() {
-  const features = [
+export default function PetQAIWebsite() {
+  const navItems = [
+    "หน้าแรก",
+    "วิสัยทัศน์",
+    "ฟีเจอร์",
+    "MVP",
+    "แพลตฟอร์ม",
+    "สำหรับพาร์ตเนอร์",
+    "ติดต่อ"
+  ];
+
+  const coreFeatures = [
     {
-      title: "AI ถามตอบเรื่องสัตว์เลี้ยง",
-      desc: "ช่วยตอบคำถามเบื้องต้นเกี่ยวกับสุนัขและแมวแบบเข้าใจง่าย ใช้งานเร็ว และเป็นมิตรต่อเจ้าของสัตว์เลี้ยง",
-      icon: "🐶",
+      title: "AI ถามตอบสุขภาพสัตว์เลี้ยง",
+      desc: "ช่วยตอบคำถามเบื้องต้นเรื่องสุนัขและแมวอย่างเข้าใจง่าย ใช้งานได้จริง และออกแบบให้ใช้งานเป็นมิตรสำหรับเจ้าของสัตว์เลี้ยงทุกวัย"
     },
     {
-      title: "โปรไฟล์สัตว์เลี้ยง",
-      desc: "บันทึกข้อมูลสำคัญของน้อง เช่น อายุ น้ำหนัก ประวัติวัคซีน อาการ และพฤติกรรมในที่เดียว",
-      icon: "🐱",
+      title: "Pet Profile + Health Timeline",
+      desc: "เก็บข้อมูลสัตว์เลี้ยง น้ำหนัก วัคซีน อาการ พฤติกรรม ยา และประวัติสำคัญไว้ในที่เดียว เพื่อให้ดูแลง่ายขึ้นทุกวัน"
     },
     {
       title: "Gentle Notifications",
-      desc: "ระบบเตือนแบบอ่อนโยน ช่วยให้การดูแลน้องเป็นเรื่องอบอุ่นและต่อเนื่องทุกวัน",
-      icon: "💛",
+      desc: "ระบบแจ้งเตือนแบบอ่อนโยน ชวนให้ดูแลสัตว์เลี้ยงด้วยความรู้สึกที่อบอุ่น ไม่แข็ง ไม่ห่างเหิน และไม่กดดันผู้ใช้งาน"
     },
     {
-      title: "บันทึกสุขภาพแบบง่าย",
-      desc: "จดอาการ ยา อาหาร และการเปลี่ยนแปลงต่าง ๆ เพื่อดูแนวโน้มสุขภาพระยะยาว",
-      icon: "📋",
+      title: "Pet Memorial",
+      desc: "พื้นที่เก็บความทรงจำ ภาพ ข้อความ และเรื่องราวดี ๆ ของสัตว์เลี้ยง เพื่อให้ความรักยังคงอยู่แม้ในวันที่คิดถึง"
     },
     {
-      title: "Pet Memorial & Emotional Timeline",
-      desc: "เก็บความทรงจำ ภาพ วิดีโอ และเรื่องราวสำคัญของน้องไว้ในพื้นที่ที่มีความหมาย",
-      icon: "🕊️",
+      title: "Pet Social + Emotional Platform",
+      desc: "โพสต์ภาพ คลิป และเรื่องราวของสัตว์เลี้ยงได้ในระบบ โดยเน้นความผูกพัน ความทรงจำ และการเชื่อมต่อของคนรักสัตว์อย่างมีเอกลักษณ์"
     },
     {
-      title: "พร้อมต่อยอดสู่แพลตฟอร์มเต็มรูปแบบ",
-      desc: "รองรับการขยายไปสู่คลินิก พาร์ตเนอร์ คอมมูนิตี้ และบริการดูแลสัตว์เลี้ยงในอนาคต",
-      icon: "🚀",
-    },
-  ]
+      title: "Clinic Integration",
+      desc: "วางโครงรองรับการเชื่อมข้อมูลกับคลินิกสัตวแพทย์ เพื่อดึงข้อมูลวัคซีน น้ำหนัก นัดหมาย และประวัติการรักษาในอนาคต"
+    }
+  ];
 
-  const steps = [
-    "สร้างโปรไฟล์ของคุณและสัตว์เลี้ยง",
-    "ถามคำถามสุขภาพหรือการดูแลรายวันกับ AI",
-    "บันทึกอาการ ยา วัคซีน และพฤติกรรม",
-    "รับการแจ้งเตือนแบบอ่อนโยนตามช่วงเวลา",
-    "สะสมความทรงจำและติดตามสุขภาพอย่างต่อเนื่อง",
-  ]
+  const mvpItems = [
+    "AI ตอบคำถามสัตว์เลี้ยง",
+    "ระบบโปรไฟล์สัตว์เลี้ยงและเจ้าของ",
+    "บันทึกสุขภาพพื้นฐานและไทม์ไลน์",
+    "แจ้งเตือนอ่อนโยน",
+    "โหมดดูแลสัตว์สูงวัย",
+    "UX ภาษาไทยที่เรียบง่าย ใช้งานง่ายจริง"
+  ];
+
+  const expansionItems = [
+    {
+      title: "Emotional Timeline",
+      desc: "บันทึกภาพ คลิป โพสต์ ความทรงจำ และเหตุการณ์สำคัญของสัตว์เลี้ยงแบบต่อเนื่อง"
+    },
+    {
+      title: "Community & Content Loop",
+      desc: "ชุมชนสำหรับคนรักสัตว์ พร้อมระบบคอนเทนต์ที่เติบโตจากการใช้งานจริงของผู้ใช้"
+    },
+    {
+      title: "Subscription Model",
+      desc: "รองรับแผน Free / Premium / Loving+ เพื่อขยายฟีเจอร์และสร้างรายได้อย่างยั่งยืน"
+    },
+    {
+      title: "Partner Ecosystem",
+      desc: "ต่อยอดสู่คลินิก ร้านค้า ประกันสัตว์เลี้ยง องค์กรการกุศล และโครงการเพื่อสังคมด้านสัตว์เลี้ยง"
+    }
+  ];
+
+  const partnerItems = [
+    "คลินิกสัตวแพทย์",
+    "นักลงทุนและพาร์ตเนอร์เชิงกลยุทธ์",
+    "องค์กรการกุศลและมูลนิธิช่วยสัตว์",
+    "แบรนด์สินค้าและบริการสำหรับสัตว์เลี้ยง"
+  ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 via-white to-orange-50 text-slate-900">
-      <header className="sticky top-0 z-50 border-b border-orange-100/80 bg-white/85 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-400 to-amber-500 text-xl shadow-md">
-              🐾
-            </div>
-            <div>
-              <p className="text-lg font-bold tracking-tight">PetQ AI</p>
-              <p className="text-xs text-slate-500">AI ดูแลสัตว์เลี้ยง เพื่อชีวิตที่ดีที่สุดของพวกเขา 🐶🐱</p>
-            </div>
+    <div className="min-h-screen bg-[#07111f] text-white">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-24 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-cyan-400/20 blur-3xl" />
+        <div className="absolute top-80 left-10 h-72 w-72 rounded-full bg-fuchsia-500/10 blur-3xl" />
+        <div className="absolute right-0 top-40 h-96 w-96 rounded-full bg-emerald-400/10 blur-3xl" />
+      </div>
+
+      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#07111f]/80 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+          <div>
+            <div className="text-xl font-semibold tracking-wide">PetQ AI</div>
+            <div className="text-xs text-white/60">AI ดูแลสัตว์เลี้ยง เพื่อชีวิตที่ดีที่สุดของพวกเขา 🐶🐱</div>
           </div>
 
-          <nav className="hidden items-center gap-6 md:flex">
-            <a href="#features" className="text-sm text-slate-600 transition hover:text-slate-900">ฟีเจอร์</a>
-            <a href="#how-it-works" className="text-sm text-slate-600 transition hover:text-slate-900">การทำงาน</a>
-            <a href="#vision" className="text-sm text-slate-600 transition hover:text-slate-900">วิสัยทัศน์</a>
-            <a href="#waitlist" className="rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:scale-[1.02]">เข้าร่วม Waitlist</a>
+          <nav className="hidden gap-6 lg:flex">
+            {navItems.map((item) => (
+              <a
+                key={item}
+                href={`#${item}`}
+                className="text-sm text-white/75 transition hover:text-white"
+              >
+                {item}
+              </a>
+            ))}
           </nav>
+
+          <a
+            href="#ติดต่อ"
+            className="rounded-full border border-cyan-300/30 bg-cyan-400/10 px-4 py-2 text-sm font-medium text-cyan-100 transition hover:bg-cyan-400/20"
+          >
+            ติดต่อทีมงาน
+          </a>
         </div>
       </header>
 
-      <main>
-        <section className="relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(251,191,36,0.20),transparent_30%),radial-gradient(circle_at_left,rgba(249,115,22,0.10),transparent_25%)]" />
-          <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-24">
-            <div className="flex flex-col justify-center">
-              <div className="mb-5 inline-flex w-fit items-center rounded-full border border-orange-200 bg-white px-4 py-2 text-sm font-medium text-orange-700 shadow-sm">
-                เปิดทางสู่แพลตฟอร์มดูแลสัตว์เลี้ยงไทยยุคใหม่
-              </div>
-
-              <h1 className="max-w-3xl text-4xl font-black leading-tight tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
-                รัก ขอบคุณหมาและแมว
-                <span className="block bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">
-                  เราจะตอบแทนให้ดีที่สุด
-                </span>
-              </h1>
-
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-                PetQ AI คือแพลตฟอร์มที่ออกแบบมาเพื่อช่วยให้เจ้าของดูแลสัตว์เลี้ยงได้ง่ายขึ้น ทั้งด้านสุขภาพ การแจ้งเตือน ความทรงจำ และความผูกพันระยะยาว ระหว่างคุณกับน้องที่คุณรัก
-              </p>
-
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                <a
-                  href="#waitlist"
-                  className="inline-flex items-center justify-center rounded-2xl bg-slate-900 px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-slate-900/10 transition hover:-translate-y-0.5"
-                >
-                  สมัครรับสิทธิ์รอบแรก
-                </a>
-                <a
-                  href="#features"
-                  className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-6 py-3.5 text-base font-semibold text-slate-800 shadow-sm transition hover:border-slate-300 hover:bg-slate-50"
-                >
-                  ดูฟีเจอร์ทั้งหมด
-                </a>
-              </div>
-
-              <div className="mt-10 grid max-w-xl grid-cols-1 gap-4 sm:grid-cols-3">
-                <div className="rounded-2xl border border-white/60 bg-white/80 p-4 shadow-sm backdrop-blur">
-                  <p className="text-2xl font-black">MVP</p>
-                  <p className="mt-1 text-sm text-slate-600">เริ่มจากสิ่งที่คนเลี้ยงสัตว์ต้องใช้จริง</p>
-                </div>
-                <div className="rounded-2xl border border-white/60 bg-white/80 p-4 shadow-sm backdrop-blur">
-                  <p className="text-2xl font-black">Emotional</p>
-                  <p className="mt-1 text-sm text-slate-600">ดูแลทั้งสุขภาพและความผูกพัน</p>
-                </div>
-                <div className="rounded-2xl border border-white/60 bg-white/80 p-4 shadow-sm backdrop-blur">
-                  <p className="text-2xl font-black">Scalable</p>
-                  <p className="mt-1 text-sm text-slate-600">พร้อมขยายสู่คลินิก พาร์ตเนอร์ และคอมมูนิตี้</p>
-                </div>
-              </div>
+      <main className="relative z-10">
+        <section id="หน้าแรก" className="mx-auto grid max-w-7xl gap-10 px-6 pb-20 pt-16 lg:grid-cols-[1.15fr_0.85fr] lg:px-8 lg:pt-24">
+          <div className="flex flex-col justify-center">
+            <div className="mb-5 inline-flex w-fit items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-cyan-100 shadow-lg shadow-cyan-500/10">
+              เปิดตัวแพลตฟอร์มใหม่ของ PetQ AI
             </div>
 
-            <div className="flex items-center justify-center">
-              <div className="w-full max-w-2xl rounded-[2rem] border border-orange-100 bg-white p-4 shadow-2xl shadow-orange-100/50 sm:p-6">
-                <div className="rounded-[1.5rem] bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 p-6 text-white">
-                  <div className="mb-4 flex items-center justify-between">
-                    <div>
-                      <p className="text-sm text-orange-200">ตัวอย่างประสบการณ์ใช้งาน</p>
-                      <h2 className="text-2xl font-bold">ผู้ช่วยดูแลสัตว์เลี้ยงประจำบ้าน</h2>
+            <h1 className="max-w-4xl text-4xl font-semibold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl">
+              เทคโนโลยีเพื่อสัตว์เลี้ยง
+              <span className="block bg-gradient-to-r from-cyan-300 via-white to-emerald-200 bg-clip-text text-transparent">
+                ที่เริ่มจากความรัก และถูกออกแบบเพื่อการดูแลระยะยาว
+              </span>
+            </h1>
+
+            <p className="mt-6 max-w-2xl text-base leading-8 text-white/70 md:text-lg">
+              PetQ AI คือแพลตฟอร์ม AI สำหรับคนรักสัตว์เลี้ยง ที่รวมการดูแลสุขภาพ ข้อมูลสำคัญ ความผูกพัน ความทรงจำ และการเชื่อมต่อกับบริการในอนาคตไว้ในประสบการณ์เดียว
+            </p>
+
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <a
+                href="#ฟีเจอร์"
+                className="rounded-2xl bg-white px-6 py-3 text-center text-sm font-semibold text-slate-900 transition hover:opacity-90"
+              >
+                ดูฟีเจอร์หลัก
+              </a>
+              <a
+                href="#สำหรับพาร์ตเนอร์"
+                className="rounded-2xl border border-white/15 bg-white/5 px-6 py-3 text-center text-sm font-semibold text-white transition hover:bg-white/10"
+              >
+                ดูโอกาสร่วมพัฒนา
+              </a>
+            </div>
+
+            <div className="mt-10 grid gap-4 sm:grid-cols-3">
+              {[
+                ["MVP Focus", "เรียบง่าย ใช้งานได้จริง"],
+                ["Emotional Design", "อบอุ่นและมีความหมาย"],
+                ["Scalable Platform", "ต่อยอดระดับประเทศและระดับโลก"]
+              ].map(([title, desc]) => (
+                <div key={title} className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur">
+                  <div className="text-sm font-semibold text-white">{title}</div>
+                  <div className="mt-2 text-sm leading-6 text-white/65">{desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex items-center justify-center">
+            <div className="w-full rounded-[32px] border border-white/10 bg-white/5 p-4 shadow-2xl shadow-cyan-900/30 backdrop-blur-xl">
+              <div className="rounded-[28px] border border-white/10 bg-gradient-to-br from-[#0c1b30] via-[#0f2038] to-[#10252b] p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="text-sm text-white/60">Brand Soul</div>
+                    <div className="mt-1 text-2xl font-semibold">รัก ขอบคุณหมาและแมว</div>
+                  </div>
+                  <div className="rounded-2xl border border-emerald-300/20 bg-emerald-400/10 px-3 py-2 text-xs text-emerald-200">
+                    Human + AI + Care
+                  </div>
+                </div>
+
+                <div className="mt-6 grid gap-4">
+                  <div className="rounded-3xl bg-white/5 p-5">
+                    <div className="text-sm text-white/60">คำสัญญาของแบรนด์</div>
+                    <div className="mt-2 text-lg font-medium leading-8 text-white/90">
+                      เราจะตอบแทนให้ดีที่สุด ผ่านเทคโนโลยีที่ช่วยให้สัตว์เลี้ยงได้รับการดูแลดีขึ้นจริงในทุกวัน
                     </div>
-                    <div className="rounded-2xl bg-white/10 px-3 py-2 text-sm">Beta</div>
                   </div>
 
-                  <div className="space-y-4">
-                    <div className="rounded-2xl bg-white/10 p-4">
-                      <p className="text-sm text-orange-100">คำถามจากเจ้าของ</p>
-                      <p className="mt-1 font-medium">“น้องแมววันนี้เบื่ออาหาร ควรสังเกตอะไรบ้าง?”</p>
-                    </div>
-                    <div className="rounded-2xl bg-amber-400/15 p-4">
-                      <p className="text-sm text-orange-100">PetQ AI ตอบ</p>
-                      <p className="mt-1 text-sm leading-7 text-slate-100">
-                        สามารถเริ่มจากสังเกตการกินน้ำ อาการซึม อาเจียน ถ่ายเหลว และดูว่ามีพฤติกรรมผิดปกติร่วมด้วยหรือไม่ หากอาการต่อเนื่อง ควรพบสัตวแพทย์เพื่อประเมินเพิ่มเติม
-                      </p>
-                    </div>
-                    <div className="grid gap-4 sm:grid-cols-2">
-                      <div className="rounded-2xl bg-white/10 p-4">
-                        <p className="text-sm text-orange-100">แจ้งเตือนอ่อนโยน</p>
-                        <p className="mt-1 text-sm text-slate-100">“วันนี้น้องยังไม่ได้กินข้าวเย็นนะ ลองชวนด้วยคำอ้อนเบา ๆ ดูไหม 💛”</p>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="rounded-3xl border border-white/10 bg-black/20 p-5">
+                      <div className="text-sm text-cyan-200">Health</div>
+                      <div className="mt-2 text-sm leading-7 text-white/75">
+                        คำถามสุขภาพ บันทึกข้อมูล และติดตามการดูแลอย่างต่อเนื่อง
                       </div>
-                      <div className="rounded-2xl bg-white/10 p-4">
-                        <p className="text-sm text-orange-100">บันทึกสุขภาพ</p>
-                        <p className="mt-1 text-sm text-slate-100">น้ำหนัก / วัคซีน / อาหาร / พฤติกรรม / ยา</p>
+                    </div>
+                    <div className="rounded-3xl border border-white/10 bg-black/20 p-5">
+                      <div className="text-sm text-pink-200">Emotion</div>
+                      <div className="mt-2 text-sm leading-7 text-white/75">
+                        ความทรงจำ ความรัก และการออกแบบที่ทำให้เจ้าของรู้สึกใกล้ชิดกับสัตว์เลี้ยงมากขึ้น
                       </div>
                     </div>
                   </div>
@@ -153,55 +195,84 @@ export default function PetQAILandingPage() {
           </div>
         </section>
 
-        <section id="features" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-600">Core Features</p>
-            <h2 className="mt-4 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
-              ฟีเจอร์สำคัญที่ทำให้ PetQ AI แตกต่าง
-            </h2>
-            <p className="mt-4 text-lg leading-8 text-slate-600">
-              ไม่ใช่แค่แอปถามตอบ แต่คือระบบที่ออกแบบมาเพื่อดูแลสัตว์เลี้ยงอย่างลึกซึ้ง ทั้งข้อมูล สุขภาพ ความสัมพันธ์ และอนาคตของแพลตฟอร์ม
+        <section id="วิสัยทัศน์" className="mx-auto max-w-7xl px-6 py-8 lg:px-8 lg:py-16">
+          <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="rounded-[32px] border border-white/10 bg-white/5 p-8">
+              <div className="text-sm uppercase tracking-[0.2em] text-cyan-200/80">Vision</div>
+              <h2 className="mt-4 text-3xl font-semibold md:text-4xl">สร้างอนาคตที่สัตว์เลี้ยงได้รับการดูแลอย่างดีที่สุด</h2>
+              <p className="mt-5 text-base leading-8 text-white/70">
+                PetQ AI เกิดจากแนวคิดว่า ความรักของสัตว์เลี้ยงมีคุณค่า และมนุษย์ควรตอบแทนด้วยการดูแลที่ดีที่สุด ทั้งด้านสุขภาพ อารมณ์ ความปลอดภัย และคุณภาพชีวิตในระยะยาว
+              </p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              {[
+                {
+                  title: "แบรนด์ที่มีหัวใจ",
+                  desc: "วางรากฐานจากความรัก ความกตัญญู และความตั้งใจที่จะยกระดับการดูแลสัตว์เลี้ยงอย่างจริงจัง"
+                },
+                {
+                  title: "เทคโนโลยีที่ใช้งานได้จริง",
+                  desc: "เริ่มจาก MVP ที่เรียบง่ายก่อน แล้วขยายเป็นระบบขนาดใหญ่ที่เชื่อมบริการจริงในตลาด"
+                },
+                {
+                  title: "ประสบการณ์แบบไทย",
+                  desc: "ออกแบบภาษาและ UX ให้คนไทยใช้ง่าย รู้สึกอบอุ่น และเข้าถึงได้ทั้งครอบครัว"
+                },
+                {
+                  title: "ขยายได้ระดับโลก",
+                  desc: "รองรับการเติบโตสู่แพลตฟอร์มสุขภาพสัตว์เลี้ยงครบวงจร พร้อมพาร์ตเนอร์และระบบธุรกิจในอนาคต"
+                }
+              ].map((item) => (
+                <div key={item.title} className="rounded-[28px] border border-white/10 bg-[#0a1627] p-6">
+                  <div className="text-lg font-semibold">{item.title}</div>
+                  <p className="mt-3 text-sm leading-7 text-white/70">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="ฟีเจอร์" className="mx-auto max-w-7xl px-6 py-8 lg:px-8 lg:py-16">
+          <div className="mb-8 max-w-2xl">
+            <div className="text-sm uppercase tracking-[0.2em] text-cyan-200/80">Core Features</div>
+            <h2 className="mt-3 text-3xl font-semibold md:text-4xl">ฟีเจอร์หลักของแพลตฟอร์มใหม่</h2>
+            <p className="mt-4 text-base leading-8 text-white/70">
+              โครงสร้างเว็บไซต์ใหม่ถูกออกแบบให้สะท้อนทั้งสิ่งที่ทำได้ตอนนี้ และสิ่งที่กำลังเติบโตต่อไปของ PetQ AI อย่างชัดเจน
             </p>
           </div>
 
-          <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {features.map((item) => (
-              <div
-                key={item.title}
-                className="group rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
-              >
-                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-100 to-amber-100 text-2xl">
-                  {item.icon}
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {coreFeatures.map((item) => (
+              <div key={item.title} className="rounded-[30px] border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:bg-white/[0.07]">
+                <div className="inline-flex rounded-2xl border border-cyan-300/20 bg-cyan-400/10 px-3 py-1 text-xs text-cyan-100">
+                  PetQ Module
                 </div>
-                <h3 className="text-xl font-bold tracking-tight text-slate-900">{item.title}</h3>
-                <p className="mt-3 leading-7 text-slate-600">{item.desc}</p>
+                <h3 className="mt-5 text-xl font-semibold">{item.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-white/70">{item.desc}</p>
               </div>
             ))}
           </div>
         </section>
 
-        <section id="how-it-works" className="bg-slate-950 py-16 text-white lg:py-24">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid gap-12 lg:grid-cols-2">
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-300">How It Works</p>
-                <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">
-                  ใช้งานง่ายตั้งแต่วันแรก
-                </h2>
-                <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-300">
-                  เราออกแบบให้ผู้ใช้เริ่มต้นได้ทันที ไม่ซับซ้อน และค่อย ๆ ขยายไปสู่ระบบดูแลสัตว์เลี้ยงที่ครบขึ้นในอนาคต
-                </p>
-              </div>
+        <section id="MVP" className="mx-auto max-w-7xl px-6 py-8 lg:px-8 lg:py-16">
+          <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
+            <div className="rounded-[32px] border border-white/10 bg-gradient-to-br from-cyan-500/10 to-blue-500/5 p-8">
+              <div className="text-sm uppercase tracking-[0.2em] text-cyan-200/80">MVP Strategy</div>
+              <h2 className="mt-3 text-3xl font-semibold md:text-4xl">เริ่มแบบเรียบง่าย แต่ชนะด้วยความชัดเจน</h2>
+              <p className="mt-4 text-base leading-8 text-white/70">
+                เว็บไซต์ใหม่นี้สะท้อนแนวทาง MVP ของ PetQ AI ที่เน้นใช้งานจริง เข้าใจง่าย และพร้อมขยายทีละชั้นอย่างมั่นคง
+              </p>
+            </div>
 
-              <div className="space-y-4">
-                {steps.map((step, index) => (
-                  <div key={step} className="flex items-start gap-4 rounded-3xl border border-white/10 bg-white/5 p-5">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-orange-400 font-black text-slate-950">
+            <div className="rounded-[32px] border border-white/10 bg-white/5 p-8">
+              <div className="grid gap-4">
+                {mvpItems.map((item, index) => (
+                  <div key={item} className="flex items-start gap-4 rounded-2xl border border-white/10 bg-black/10 p-4">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-sm font-semibold text-slate-900">
                       {index + 1}
                     </div>
-                    <div>
-                      <p className="text-lg font-semibold">{step}</p>
-                    </div>
+                    <div className="pt-1 text-sm leading-7 text-white/80">{item}</div>
                   </div>
                 ))}
               </div>
@@ -209,113 +280,146 @@ export default function PetQAILandingPage() {
           </div>
         </section>
 
-        <section id="vision" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="rounded-[2rem] border border-orange-100 bg-gradient-to-br from-orange-50 to-amber-50 p-8 shadow-sm sm:p-10">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-700">Vision</p>
-              <h2 className="mt-4 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
-                เราเชื่อว่าสัตว์เลี้ยงควรได้รับการดูแลที่ดีที่สุด
-              </h2>
-              <p className="mt-5 text-lg leading-8 text-slate-700">
-                PetQ AI ถูกสร้างขึ้นจากความรัก ความกตัญญู และความตั้งใจที่จะตอบแทนหมาและแมวให้ดีที่สุด ผ่านเทคโนโลยีที่เข้าถึงง่าย ใช้ได้จริง และมีหัวใจ
-              </p>
-              <p className="mt-5 text-lg leading-8 text-slate-700">
-                เป้าหมายของเราคือพัฒนาแพลตฟอร์มที่ช่วยให้เจ้าของสัตว์เลี้ยงดูแลน้องได้ดีขึ้นทุกวัน พร้อมขยายสู่ระบบที่เชื่อมต่อคลินิก พาร์ตเนอร์ ข้อมูลสุขภาพ คอนเทนต์ และชุมชนในอนาคต
+        <section id="แพลตฟอร์ม" className="mx-auto max-w-7xl px-6 py-8 lg:px-8 lg:py-16">
+          <div className="mb-8 max-w-2xl">
+            <div className="text-sm uppercase tracking-[0.2em] text-cyan-200/80">Future Platform</div>
+            <h2 className="mt-3 text-3xl font-semibold md:text-4xl">มากกว่าเว็บเปิดตัว แต่คือฐานของแพลตฟอร์มระยะยาว</h2>
+          </div>
+
+          <div className="grid gap-6 lg:grid-cols-2">
+            {expansionItems.map((item) => (
+              <div key={item.title} className="rounded-[30px] border border-white/10 bg-[#0a1627] p-8">
+                <h3 className="text-2xl font-semibold">{item.title}</h3>
+                <p className="mt-4 text-sm leading-8 text-white/70">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="สำหรับพาร์ตเนอร์" className="mx-auto max-w-7xl px-6 py-8 lg:px-8 lg:py-16">
+          <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="rounded-[32px] border border-white/10 bg-white/5 p-8">
+              <div className="text-sm uppercase tracking-[0.2em] text-cyan-200/80">Partnership</div>
+              <h2 className="mt-3 text-3xl font-semibold md:text-4xl">เปิดรับการเติบโตร่วมกัน</h2>
+              <p className="mt-4 text-base leading-8 text-white/70">
+                เว็บไซต์เวอร์ชันใหม่นี้ยังรองรับการสื่อสารกับนักลงทุน พาร์ตเนอร์ และองค์กรที่ต้องการร่วมสร้างระบบดูแลสัตว์เลี้ยงที่มีความหมายจริง
               </p>
             </div>
 
-            <div className="grid gap-6">
-              <div className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm">
-                <p className="text-sm font-semibold text-slate-500">เหมาะสำหรับ</p>
-                <div className="mt-4 flex flex-wrap gap-3">
-                  {[
-                    "เจ้าของสุนัข",
-                    "เจ้าของแมว",
-                    "บ้านที่มีสัตว์สูงวัย",
-                    "ผู้เริ่มเลี้ยงสัตว์",
-                    "ครอบครัวที่ดูแลร่วมกัน",
-                  ].map((tag) => (
-                    <span key={tag} className="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">
-                      {tag}
-                    </span>
-                  ))}
+            <div className="grid gap-4 sm:grid-cols-2">
+              {partnerItems.map((item) => (
+                <div key={item} className="rounded-[28px] border border-white/10 bg-[#0b1a2b] p-6 text-sm leading-7 text-white/80">
+                  {item}
                 </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-7xl px-6 py-8 lg:px-8 lg:py-16">
+          <div className="rounded-[36px] border border-white/10 bg-gradient-to-r from-[#0f1e32] via-[#102338] to-[#13262b] p-8 md:p-10">
+            <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+              <div>
+                <div className="text-sm uppercase tracking-[0.2em] text-cyan-200/80">Brand Promise</div>
+                <h2 className="mt-3 text-3xl font-semibold md:text-4xl">
+                  รัก ขอบคุณหมาและแมว
+                  <span className="block text-white/80">เราจะตอบแทนให้ดีที่สุด</span>
+                </h2>
+                <p className="mt-5 max-w-2xl text-base leading-8 text-white/70">
+                  PetQ AI ไม่ได้เริ่มต้นจากคำว่าเทคโนโลยีเพียงอย่างเดียว แต่เริ่มจากหัวใจของคนที่อยากให้สัตว์ทุกตัวได้รับชีวิตที่ดีขึ้นจริง และนี่คือเหตุผลที่เว็บไซต์ใหม่ต้องถ่ายทอดทั้งความน่าเชื่อถือ ความอบอุ่น และศักยภาพในการเติบโตไปพร้อมกัน
+                </p>
               </div>
 
-              <div className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-sm">
-                <p className="text-sm font-semibold text-slate-500">จุดยืนของแบรนด์</p>
-                <p className="mt-4 text-lg font-semibold text-slate-900">
-                  “AI ดูแลสัตว์เลี้ยง เพื่อชีวิตที่ดีที่สุดของพวกเขา 🐶🐱”
-                </p>
-                <p className="mt-3 leading-7 text-slate-600">
-                  แบรนด์นี้ไม่ได้สร้างขึ้นเพียงเพื่อเทคโนโลยี แต่สร้างขึ้นเพื่อคุณภาพชีวิตที่ดีขึ้นของสัตว์เลี้ยงในทุกบ้าน
-                </p>
+              <div className="rounded-[30px] border border-white/10 bg-black/20 p-6">
+                <div className="text-sm text-white/60">พร้อมสำหรับ</div>
+                <div className="mt-4 grid gap-3">
+                  {[
+                    "หน้าเปิดตัวแบรนด์",
+                    "หน้าอธิบายฟีเจอร์และวิสัยทัศน์",
+                    "หน้าเสนอพาร์ตเนอร์และนักลงทุน",
+                    "ฐานสำหรับต่อยอดระบบฟอร์ม / CRM / แอปในอนาคต"
+                  ].map((item) => (
+                    <div key={item} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/80">
+                      {item}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="waitlist" className="pb-20">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <div className="rounded-[2rem] bg-slate-900 p-8 text-white shadow-2xl shadow-slate-900/15 sm:p-10 lg:p-12">
-              <div className="mx-auto max-w-2xl text-center">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-orange-300">Join the Waitlist</p>
-                <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">
-                  ร่วมเป็นกลุ่มแรกที่ติดตาม PetQ AI
-                </h2>
-                <p className="mt-4 text-lg leading-8 text-slate-300">
-                  เหมาะสำหรับผู้สนใจทดลองใช้งาน พาร์ตเนอร์ คลินิก นักลงทุน หรือผู้ที่อยากติดตามการเปิดตัวอย่างเป็นทางการ
-                </p>
-              </div>
+        <section id="ติดต่อ" className="mx-auto max-w-7xl px-6 pb-20 pt-8 lg:px-8 lg:pb-24">
+          <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+            <div className="rounded-[32px] border border-white/10 bg-white/5 p-8">
+              <div className="text-sm uppercase tracking-[0.2em] text-cyan-200/80">Contact</div>
+              <h2 className="mt-3 text-3xl font-semibold md:text-4xl">พูดคุยกับทีม PetQ AI</h2>
+              <p className="mt-4 text-base leading-8 text-white/70">
+                สำหรับความร่วมมือ พาร์ตเนอร์ คลินิก สื่อ หรือนักลงทุน สามารถติดต่อทีมงานเพื่อพูดคุยแนวทางการพัฒนาในระยะต่อไปได้
+              </p>
 
-              <form className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-2">
+              <div className="mt-8 space-y-4 text-sm text-white/75">
+                <div className="rounded-2xl border border-white/10 bg-black/10 p-4">
+                  <div className="text-white/50">อีเมลติดต่อ</div>
+                  <div className="mt-1 font-medium text-white">contact@petqai.com</div>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-black/10 p-4">
+                  <div className="text-white/50">เหมาะสำหรับ</div>
+                  <div className="mt-1 font-medium text-white">Partnership / Investor / Clinic / Media</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-[32px] border border-white/10 bg-[#0a1627] p-8">
+              <div className="grid gap-4">
                 <input
                   type="text"
                   placeholder="ชื่อของคุณ"
-                  className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white placeholder:text-slate-400 outline-none ring-0 transition focus:border-orange-300"
+                  className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/35 outline-none transition focus:border-cyan-300/40"
                 />
                 <input
                   type="email"
-                  placeholder="อีเมล"
-                  className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white placeholder:text-slate-400 outline-none ring-0 transition focus:border-orange-300"
+                  placeholder="อีเมลสำหรับติดต่อกลับ"
+                  className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/35 outline-none transition focus:border-cyan-300/40"
                 />
                 <input
                   type="text"
-                  placeholder="คุณเป็นใคร เช่น เจ้าของสัตว์ / คลินิก / นักลงทุน"
-                  className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white placeholder:text-slate-400 outline-none ring-0 transition focus:border-orange-300 sm:col-span-2"
+                  placeholder="องค์กร / บริษัท / คลินิก"
+                  className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/35 outline-none transition focus:border-cyan-300/40"
                 />
+                <select className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-300/40">
+                  <option className="text-slate-900">ประเภทความสนใจ</option>
+                  <option className="text-slate-900">นักลงทุน</option>
+                  <option className="text-slate-900">คลินิกสัตวแพทย์</option>
+                  <option className="text-slate-900">พาร์ตเนอร์ธุรกิจ</option>
+                  <option className="text-slate-900">สื่อ / อื่น ๆ</option>
+                </select>
                 <textarea
-                  placeholder="บอกเราได้ว่าคุณอยากเห็นอะไรใน PetQ AI"
                   rows={5}
-                  className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-white placeholder:text-slate-400 outline-none ring-0 transition focus:border-orange-300 sm:col-span-2"
+                  placeholder="ข้อความที่ต้องการส่งถึงทีม PetQ AI"
+                  className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/35 outline-none transition focus:border-cyan-300/40"
                 />
-                <button
-                  type="submit"
-                  className="sm:col-span-2 inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-orange-400 to-amber-400 px-6 py-4 text-base font-bold text-slate-950 transition hover:brightness-105"
-                >
-                  ส่งข้อมูลและเข้าร่วม Waitlist
+                <button className="rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:opacity-90">
+                  ส่งข้อความ
                 </button>
-              </form>
-
-              <p className="mt-5 text-center text-sm text-slate-400">
-                เวอร์ชันนี้เป็นหน้าเปิดตัวพร้อมนำไปต่อยอดเชื่อมระบบฟอร์ม, CRM, อีเมล, หรือฐานข้อมูลได้ทันที
-              </p>
+                <p className="text-xs leading-6 text-white/45">
+                  เวอร์ชันนี้เป็นหน้าเว็บไซต์พร้อมต่อยอดระบบส่งฟอร์ม, CRM, Google Sheets หรือ Email Automation ในลำดับถัดไป
+                </p>
+              </div>
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="border-t border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-8 text-sm text-slate-500 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+      <footer className="border-t border-white/10 bg-black/20">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-8 text-sm text-white/55 lg:flex-row lg:items-center lg:justify-between lg:px-8">
           <div>
-            <p className="font-semibold text-slate-800">PetQ AI</p>
-            <p>แพลตฟอร์มดูแลสัตว์เลี้ยงด้วย AI ที่ออกแบบมาเพื่อความรัก ความเข้าใจ และอนาคตที่ดีกว่า</p>
+            <div className="font-medium text-white/80">PetQ AI</div>
+            <div>AI ดูแลสัตว์เลี้ยง เพื่อชีวิตที่ดีที่สุดของพวกเขา 🐶🐱</div>
           </div>
-          <div className="text-slate-500">
-            © 2026 PetQ AI. All rights reserved.
-          </div>
+          <div>© 2026 PetQ AI. All rights reserved.</div>
         </div>
       </footer>
     </div>
-  )
+  );
 }
