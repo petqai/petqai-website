@@ -3,1289 +3,479 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PetQ AI</title>
-  <meta name="description" content="PetQ AI แพลตฟอร์มดิจิทัลสำหรับประสบการณ์การดูแลสัตว์เลี้ยงอย่างเป็นระบบ เรียบหรู และอบอุ่น" />
-  <meta name="theme-color" content="#06070a" />
+  <title>PetQ AI – ระบบดูแลสัตว์เลี้ยงอัจฉริยะ</title>
+  <meta name="description" content="PetQ AI แพลตฟอร์มดิจิทัลสำหรับดูแลสัตว์เลี้ยงแบบครบวงจร ทั้งโปรไฟล์สัตว์เลี้ยง การติดตามข้อมูล ระบบแจ้งเตือนอ่อนโยน คลังความทรงจำ และระบบติดต่อสำหรับผู้สนใจ พาร์ตเนอร์ และนักลงทุน" />
+  <meta name="theme-color" content="#0b1020" />
   <meta name="referrer" content="no-referrer" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#070b14',
+            panel: '#0f1728',
+            gold: '#d8b15c',
+            goldsoft: '#f4e2aa',
+            line: 'rgba(255,255,255,0.08)'
+          },
+          boxShadow: {
+            luxury: '0 25px 80px rgba(0,0,0,0.40)'
+          },
+          borderRadius: {
+            xl2: '1.5rem',
+            xl3: '2rem'
+          },
+          animation: {
+            floaty: 'floaty 6s ease-in-out infinite',
+            glow: 'glow 5s ease-in-out infinite',
+            fadeup: 'fadeup .8s ease forwards'
+          },
+          keyframes: {
+            floaty: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' }
+            },
+            glow: {
+              '0%, 100%': { opacity: '0.55', transform: 'scale(1)' },
+              '50%': { opacity: '0.85', transform: 'scale(1.08)' }
+            },
+            fadeup: {
+              '0%': { opacity: '0', transform: 'translateY(24px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    :root {
-      --bg: #05070b;
-      --bg-2: #0b1020;
-      --panel: rgba(255,255,255,0.06);
-      --panel-2: rgba(255,255,255,0.04);
-      --line: rgba(255,255,255,0.1);
-      --text: #ffffff;
-      --muted: rgba(255,255,255,0.68);
-      --soft: rgba(255,255,255,0.5);
-      --gold: #d7b25f;
-      --gold-soft: #f4e1a4;
-      --blue: #87c8ff;
-      --glow: 0 30px 80px rgba(0,0,0,0.45);
-      --radius-xl: 36px;
-      --radius-lg: 24px;
-      --radius-md: 18px;
-      --max: 1220px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Prompt', sans-serif;
-      color: var(--text);
       background:
-        radial-gradient(circle at 20% 0%, rgba(135,200,255,0.12), transparent 26%),
-        radial-gradient(circle at 80% 10%, rgba(215,178,95,0.14), transparent 28%),
-        linear-gradient(180deg, #020305 0%, #05070b 28%, #09101d 100%);
-      overflow-x: hidden;
+        radial-gradient(circle at top left, rgba(94, 164, 255, 0.10), transparent 28%),
+        radial-gradient(circle at top right, rgba(216, 177, 92, 0.14), transparent 24%),
+        linear-gradient(180deg, #04070c 0%, #08101d 45%, #0c1524 100%);
     }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background:
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
-      pointer-events: none;
-      opacity: 0.35;
-      z-index: 0;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .container {
-      width: min(92%, var(--max));
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(18px);
-      background: rgba(5,7,11,0.58);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 16px 0;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 600;
-      letter-spacing: 0.2px;
-    }
-
-    .brand-mark {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, rgba(255,255,255,0.18), rgba(215,178,95,0.35));
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: var(--glow);
-      font-size: 1.2rem;
-    }
-
-    .brand small {
-      display: block;
-      color: var(--soft);
-      font-size: 0.75rem;
-      font-weight: 400;
-      margin-top: 1px;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .nav-links a:hover {
-      color: #fff;
-    }
-
-    .nav-cta,
-    .button-primary,
-    .button-secondary,
-    .contact-button {
-      transition: transform .25s ease, box-shadow .25s ease, opacity .25s ease;
-    }
-
-    .nav-cta:hover,
-    .button-primary:hover,
-    .button-secondary:hover,
-    .contact-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 34px rgba(0,0,0,0.25);
-    }
-
-    .nav-cta {
-      padding: 11px 18px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--gold), var(--gold-soft));
-      color: #161616;
-      font-weight: 600;
-    }
-
-    .hero {
-      padding: 96px 0 70px;
-    }
-
-    .hero-wrap {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 34px;
-      align-items: center;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 9px 15px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: #f4deb0;
-      margin-bottom: 18px;
-      font-size: 0.92rem;
-      animation: floatSoft 4s ease-in-out infinite;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.7rem, 5.4vw, 5.8rem);
-      line-height: 0.98;
-      letter-spacing: -2px;
-      margin-bottom: 20px;
-    }
-
-    .hero h1 .gold {
-      color: var(--gold-soft);
-      text-shadow: 0 0 26px rgba(215,178,95,0.16);
-    }
-
-    .hero p {
-      max-width: 720px;
-      color: var(--muted);
-      font-size: 1.06rem;
-      margin-bottom: 28px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-bottom: 22px;
-    }
-
-    .button-primary,
-    .button-secondary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 14px 24px;
-      border-radius: 999px;
-      font-weight: 600;
-    }
-
-    .button-primary {
-      background: linear-gradient(135deg, var(--gold), var(--gold-soft));
-      color: #151515;
-    }
-
-    .button-secondary {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: #fff;
-    }
-
-    .hero-note {
-      color: var(--soft);
-      font-size: 0.94rem;
-    }
-
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 26px;
-    }
-
-    .hero-tag {
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    .showcase {
-      position: relative;
-      min-height: 660px;
-      display: grid;
-      place-items: center;
-    }
-
-    .orb {
-      position: absolute;
-      border-radius: 999px;
-      filter: blur(24px);
-      opacity: 0.7;
-      animation: pulseOrb 6s ease-in-out infinite;
-    }
-
-    .orb.one {
-      width: 220px;
-      height: 220px;
-      background: rgba(135,200,255,0.16);
-      top: 40px;
-      right: 30px;
-    }
-
-    .orb.two {
-      width: 260px;
-      height: 260px;
-      background: rgba(215,178,95,0.13);
-      bottom: 40px;
-      left: 20px;
-      animation-delay: 1s;
-    }
-
-    .device {
-      width: min(100%, 470px);
-      padding: 18px;
-      border-radius: 40px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0.04));
-      border: 1px solid rgba(255,255,255,0.14);
-      box-shadow: 0 30px 100px rgba(0,0,0,0.45);
-      position: relative;
-      z-index: 2;
-      transform: perspective(1200px) rotateY(-7deg) rotateX(7deg);
-      animation: deviceFloat 6s ease-in-out infinite;
-    }
-
-    .device-screen {
-      min-height: 610px;
-      border-radius: 30px;
-      padding: 20px;
-      background:
-        radial-gradient(circle at top right, rgba(215,178,95,0.12), transparent 28%),
-        linear-gradient(180deg, #0c1120 0%, #111827 100%);
-      border: 1px solid rgba(255,255,255,0.08);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .device-screen::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,0.08) 50%, transparent 80%);
-      transform: translateX(-120%);
-      animation: shine 5s linear infinite;
-    }
-
-    .screen-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-      color: #f3dca6;
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .screen-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-
-    .glass-card {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 22px;
-      padding: 16px;
-      backdrop-filter: blur(12px);
-    }
-
-    .glass-card h4 {
-      font-size: 0.95rem;
-      margin-bottom: 6px;
-    }
-
-    .glass-card p {
-      color: var(--muted);
-      font-size: 0.86rem;
-      line-height: 1.45;
-    }
-
-    .feature-stack {
-      display: grid;
-      gap: 12px;
-      margin-top: 12px;
-    }
-
-    .feature-line {
-      padding: 14px 15px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: var(--muted);
-      font-size: 0.9rem;
-      transform: translateY(0);
-      animation: floatTiny 5s ease-in-out infinite;
-    }
-
-    .feature-line:nth-child(2) { animation-delay: .6s; }
-    .feature-line:nth-child(3) { animation-delay: 1.2s; }
-    .feature-line:nth-child(4) { animation-delay: 1.8s; }
-
-    .section {
-      padding: 34px 0 44px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .section-head {
-      text-align: center;
-      margin-bottom: 26px;
-    }
-
-    .section-head h2 {
-      font-size: clamp(2rem, 4vw, 3.6rem);
-      letter-spacing: -1px;
-      margin-bottom: 10px;
-    }
-
-    .section-head p {
-      max-width: 760px;
-      margin: 0 auto;
-      color: var(--muted);
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-top: 8px;
-    }
-
-    .stat {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 24px;
-      padding: 24px 20px;
-      box-shadow: var(--glow);
-      transition: transform .3s ease, border-color .3s ease;
-    }
-
-    .stat:hover,
-    .premium-card:hover,
-    .story-card:hover,
-    .roadmap-card:hover,
-    .pricing-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(215,178,95,0.22);
-    }
-
-    .stat strong {
-      display: block;
-      color: var(--gold-soft);
-      font-size: 1.5rem;
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
-
-    .stat span {
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
-
-    .premium-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-
-    .premium-card {
+    .glass {
       background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 28px;
-      padding: 28px;
-      box-shadow: var(--glow);
-      transition: transform .3s ease, border-color .3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .premium-card::after {
-      content: "";
-      position: absolute;
-      inset: auto -20% -60% auto;
-      width: 180px;
-      height: 180px;
-      background: radial-gradient(circle, rgba(215,178,95,0.16), transparent 70%);
-      border-radius: 999px;
-      pointer-events: none;
-    }
-
-    .icon-box {
-      width: 58px;
-      height: 58px;
-      display: grid;
-      place-items: center;
-      border-radius: 20px;
-      font-size: 1.35rem;
-      margin-bottom: 18px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.16), rgba(215,178,95,0.24));
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .premium-card h3 {
-      font-size: 1.14rem;
-      margin-bottom: 10px;
-    }
-
-    .premium-card p {
-      color: var(--muted);
-      font-size: 0.96rem;
-    }
-
-    .story-wrap {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-
-    .story-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 30px;
-      padding: 30px;
-      box-shadow: var(--glow);
-      transition: transform .3s ease, border-color .3s ease;
-    }
-
-    .story-card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 12px;
-      color: #f2ddb0;
-    }
-
-    .story-card p {
-      color: var(--muted);
-    }
-
-    .roadmap {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
-
-    .roadmap-card {
-      padding: 24px;
-      border-radius: 24px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: var(--glow);
-      transition: transform .3s ease, border-color .3s ease;
-    }
-
-    .phase {
-      display: inline-block;
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--gold), var(--gold-soft));
-      color: #141414;
-      font-weight: 600;
-      font-size: 0.8rem;
-      margin-bottom: 12px;
-    }
-
-    .roadmap-card h3 {
-      font-size: 1.08rem;
-      margin-bottom: 10px;
-    }
-
-    .roadmap-card p {
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
-
-    .pricing {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-
-    .pricing-card {
-      position: relative;
-      padding: 28px;
-      border-radius: 30px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.04));
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: var(--glow);
-      transition: transform .3s ease, border-color .3s ease;
-    }
-
-    .pricing-card.highlight {
-      border-color: rgba(215,178,95,0.26);
-      background: linear-gradient(180deg, rgba(215,178,95,0.13), rgba(255,255,255,0.04));
-    }
-
-    .pricing-badge {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--gold), var(--gold-soft));
-      color: #171717;
-      font-size: 0.78rem;
-      font-weight: 600;
-    }
-
-    .pricing-card h3 {
-      font-size: 1.2rem;
-      margin-bottom: 8px;
-    }
-
-    .pricing-name {
-      font-size: 2rem;
-      color: var(--gold-soft);
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .pricing-sub {
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
-
-    .pricing-list {
-      display: grid;
-      gap: 10px;
-      color: var(--muted);
-      margin-bottom: 22px;
-      font-size: 0.95rem;
-    }
-
-    .contact-shell {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 24px;
-      padding: 32px;
-      border-radius: 34px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
-      border: 1px solid rgba(215,178,95,0.18);
-      box-shadow: var(--glow);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .contact-shell::before {
-      content: "";
-      position: absolute;
-      width: 260px;
-      height: 260px;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(135,200,255,0.12), transparent 70%);
-      top: -80px;
-      right: -60px;
-      pointer-events: none;
-    }
-
-    .contact-copy h2 {
-      font-size: clamp(2rem, 4vw, 3.4rem);
-      letter-spacing: -1px;
-      margin-bottom: 12px;
-    }
-
-    .contact-copy p {
-      color: var(--muted);
-      margin-bottom: 18px;
-    }
-
-    .contact-points {
-      display: grid;
-      gap: 12px;
-    }
-
-    .contact-point {
-      padding: 15px 16px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: var(--muted);
-    }
-
-    .contact-form {
-      padding: 24px;
-      border-radius: 26px;
-      background: rgba(5,7,11,0.45);
       border: 1px solid rgba(255,255,255,0.08);
       backdrop-filter: blur(16px);
     }
-
-    .contact-form h3 {
-      margin-bottom: 14px;
-      font-size: 1.16rem;
-    }
-
-    .field {
-      margin-bottom: 14px;
-    }
-
-    .input,
-    .textarea,
-    .select {
-      width: 100%;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: #fff;
-      border-radius: 16px;
-      padding: 14px 15px;
-      font-family: inherit;
-      font-size: 0.96rem;
-      outline: none;
-      transition: border-color .25s ease, background .25s ease;
-    }
-
-    .input:focus,
-    .textarea:focus,
-    .select:focus {
-      border-color: rgba(215,178,95,0.4);
-      background: rgba(255,255,255,0.08);
-    }
-
-    .textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .input::placeholder,
-    .textarea::placeholder {
-      color: rgba(255,255,255,0.42);
-    }
-
-    .contact-button {
-      width: 100%;
-      border: 0;
-      cursor: pointer;
-      padding: 14px 18px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, var(--gold), var(--gold-soft));
-      color: #171717;
-      font-family: inherit;
-      font-size: 0.97rem;
-      font-weight: 600;
-    }
-
-    .form-status {
-      margin-top: 12px;
-      color: var(--soft);
-      font-size: 0.9rem;
-    }
-
-    footer {
-      padding: 30px 0 40px;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      margin-top: 20px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .footer-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .footer-left {
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
-
-    .reveal {
+    .section-reveal {
       opacity: 0;
-      transform: translateY(24px);
+      transform: translateY(20px);
       transition: opacity .8s ease, transform .8s ease;
     }
-
-    .reveal.show {
+    .section-reveal.show {
       opacity: 1;
       transform: translateY(0);
     }
-
-    @keyframes floatSoft {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-4px); }
-    }
-
-    @keyframes deviceFloat {
-      0%,100% { transform: perspective(1200px) rotateY(-7deg) rotateX(7deg) translateY(0); }
-      50% { transform: perspective(1200px) rotateY(-7deg) rotateX(7deg) translateY(-10px); }
-    }
-
-    @keyframes pulseOrb {
-      0%,100% { transform: scale(1); opacity: .55; }
-      50% { transform: scale(1.08); opacity: .8; }
-    }
-
-    @keyframes shine {
-      0% { transform: translateX(-120%); }
-      100% { transform: translateX(120%); }
-    }
-
-    @keyframes floatTiny {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-3px); }
-    }
-
-    @media (max-width: 1080px) {
-      .hero-wrap,
-      .story-wrap,
-      .contact-shell {
-        grid-template-columns: 1fr;
-      }
-
-      .stats,
-      .roadmap {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .premium-grid,
-      .pricing {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .showcase {
-        min-height: auto;
-      }
-    }
-
-    @media (max-width: 740px) {
-      .nav {
-        flex-wrap: wrap;
-      }
-
-      .nav-links {
-        width: 100%;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 14px;
-      }
-
-      .hero {
-        padding-top: 74px;
-      }
-
-      .stats,
-      .premium-grid,
-      .roadmap,
-      .pricing,
-      .screen-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-actions {
-        flex-direction: column;
-      }
-
-      .button-primary,
-      .button-secondary {
-        width: 100%;
-      }
-
-      .device {
-        transform: none;
-      }
-
-      .footer-wrap {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
   </style>
 </head>
-<body>
-  <header class="topbar">
-    <div class="container nav">
-      <a href="#top" class="brand">
-        <span class="brand-mark">🐾</span>
-        <span>PetQ AI<small>Luxury Digital Experience</small></span>
+<body class="text-white font-[Prompt] overflow-x-hidden">
+
+  <div class="fixed inset-0 pointer-events-none opacity-30" aria-hidden="true">
+    <div class="absolute top-20 left-10 w-64 h-64 rounded-full bg-sky-400/10 blur-3xl animate-glow"></div>
+    <div class="absolute bottom-10 right-10 w-72 h-72 rounded-full bg-yellow-300/10 blur-3xl animate-glow"></div>
+  </div>
+
+  <header class="sticky top-0 z-50 border-b border-white/5 backdrop-blur-xl bg-black/30">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-4">
+      <a href="#top" class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-2xl glass shadow-luxury flex items-center justify-center text-lg">🐾</div>
+        <div>
+          <div class="font-semibold tracking-wide">PetQ AI</div>
+          <div class="text-xs text-white/50">ระบบดูแลสัตว์เลี้ยงดิจิทัล</div>
+        </div>
       </a>
 
-      <nav class="nav-links">
-        <a href="#features">Features</a>
-        <a href="#story">Vision</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#pricing">Plans</a>
-        <a href="#contact">Contact</a>
+      <nav class="hidden md:flex items-center gap-6 text-sm text-white/70">
+        <a href="#home" class="hover:text-white transition">หน้าแรก</a>
+        <a href="#features" class="hover:text-white transition">ฟีเจอร์</a>
+        <a href="#app" class="hover:text-white transition">ภาพรวมแอป</a>
+        <a href="#plans" class="hover:text-white transition">แพ็กเกจ</a>
+        <a href="#contact" class="hover:text-white transition">ติดต่อ</a>
       </nav>
 
-      <a href="#contact" class="nav-cta">Join Waitlist</a>
+      <a href="#contact" class="inline-flex items-center justify-center px-5 py-3 rounded-full bg-gradient-to-r from-gold to-goldsoft text-black font-semibold shadow-luxury hover:-translate-y-0.5 transition">ขออัปเดตโครงการ</a>
     </div>
   </header>
 
   <main id="top">
-    <section class="hero">
-      <div class="container hero-wrap">
-        <div class="reveal">
-          <div class="eyebrow">✨ Investor-Grade Brand Presentation</div>
-          <h1>
+    <section id="home" class="relative">
+      <div class="max-w-7xl mx-auto px-4 md:px-6 pt-16 md:pt-24 pb-16 md:pb-24 grid lg:grid-cols-2 gap-10 items-center">
+        <div class="section-reveal">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-yellow-100 mb-5 animate-floaty">
+            ✨ UX ภาษาไทยทั้งระบบ • Investor Mode • Premium App Direction
+          </div>
+
+          <h1 class="text-4xl md:text-6xl font-bold leading-tight tracking-tight">
             PetQ AI<br>
-            <span class="gold">A premium digital platform direction</span><br>
-            for the future of pet care
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-goldsoft to-gold">แอปดูแลสัตว์เลี้ยง</span><br>
+            ที่ออกแบบทั้งระบบเพื่อการเติบโตจริง
           </h1>
-          <p>
-            This launch website is structured to present PetQ AI as a brand with long-term product vision, premium market positioning, and scalable platform potential. It is designed to communicate clarity, discipline, and readiness to grow from a launch brand into a larger digital ecosystem.
+
+          <p class="mt-6 text-white/70 text-base md:text-lg max-w-2xl leading-8">
+            เวอร์ชันนี้ถูกออกแบบใหม่ทั้งหน้าเว็บและประสบการณ์ใช้งานภาษาไทย เพื่อให้ PetQ AI ดูเป็นผลิตภัณฑ์ระดับพรีเมียม ใช้สื่อสารกับผู้ใช้ทั่วไป พาร์ตเนอร์ และนักลงทุนได้ในหน้าเดียว พร้อมโครงเชื่อม Lead System เวอร์ชันล่าสุดสำหรับใช้งานจริง
           </p>
 
-          <div class="hero-actions">
-            <a href="#contact" class="button-primary">Request Updates</a>
-            <a href="#features" class="button-secondary">View Platform Direction</a>
+          <div class="mt-8 flex flex-col sm:flex-row gap-4">
+            <a href="#contact" class="inline-flex justify-center items-center px-6 py-4 rounded-full bg-gradient-to-r from-gold to-goldsoft text-black font-semibold hover:-translate-y-0.5 transition">ติดต่อทีมงาน / นักลงทุน</a>
+            <a href="#features" class="inline-flex justify-center items-center px-6 py-4 rounded-full glass font-medium hover:-translate-y-0.5 transition">ดูภาพรวมระบบ</a>
           </div>
 
-          <div class="hero-note">
-            Built to signal brand quality, product ambition, and a roadmap suitable for premium users, partners, and investors.
-          </div>
-
-          <div class="hero-tags">
-            <span class="hero-tag">Premium Positioning</span>
-            <span class="hero-tag">Scalable Product Vision</span>
-            <span class="hero-tag">Investor-Ready Presence</span>
-            <span class="hero-tag">Brand-Led Execution</span>
+          <div class="mt-8 flex flex-wrap gap-3 text-sm text-white/70">
+            <span class="px-4 py-2 rounded-full glass">โปรไฟล์สัตว์เลี้ยง</span>
+            <span class="px-4 py-2 rounded-full glass">ติดตามข้อมูล</span>
+            <span class="px-4 py-2 rounded-full glass">แจ้งเตือนอ่อนโยน</span>
+            <span class="px-4 py-2 rounded-full glass">ความทรงจำ & ไทม์ไลน์</span>
+            <span class="px-4 py-2 rounded-full glass">Lead System พร้อมใช้</span>
           </div>
         </div>
 
-        <div class="showcase reveal">
-          <div class="orb one"></div>
-          <div class="orb two"></div>
+        <div class="section-reveal relative">
+          <div class="absolute -top-4 -right-2 w-40 h-40 rounded-full bg-yellow-300/10 blur-3xl animate-glow"></div>
+          <div class="absolute -bottom-6 left-0 w-40 h-40 rounded-full bg-sky-400/10 blur-3xl animate-glow"></div>
 
-          <div class="device">
-            <div class="device-screen">
-              <div class="screen-bar">
-                <span>PetQ AI Interface</span>
-                <span>● Live Concept</span>
-              </div>
-
-              <div class="screen-grid">
-                <div class="glass-card">
-                  <h4>Pet Profile</h4>
-                  <p>จัดการข้อมูลสัตว์เลี้ยงในรูปแบบที่ดูสวย สะอาดตา และพร้อมใช้งานจริง</p>
+          <div class="max-w-md mx-auto p-4 rounded-[2.4rem] glass shadow-luxury animate-floaty">
+            <div class="rounded-[1.8rem] bg-gradient-to-b from-slate-900 to-slate-800 border border-white/5 p-5 min-h-[680px] relative overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-yellow-200/5"></div>
+              <div class="relative z-10">
+                <div class="flex items-center justify-between text-sm text-yellow-100 mb-4">
+                  <span>PetQ AI App Preview</span>
+                  <span>● Live Concept</span>
                 </div>
-                <div class="glass-card">
-                  <h4>Warm Reminders</h4>
-                  <p>ประสบการณ์แจ้งเตือนที่นุ่มนวลและเข้ากับภาพลักษณ์ของแบรนด์</p>
+
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                  <div class="glass rounded-3xl p-4">
+                    <div class="text-sm font-semibold mb-1">โปรไฟล์น้อง Milo</div>
+                    <div class="text-xs text-white/60">แมว • อายุ 3 ปี • น้ำหนัก 4.2 กก.</div>
+                  </div>
+                  <div class="glass rounded-3xl p-4">
+                    <div class="text-sm font-semibold mb-1">แจ้งเตือนวันนี้</div>
+                    <div class="text-xs text-white/60">บันทึกอาหาร / ตรวจน้ำหนัก / อัปเดตรูป</div>
+                  </div>
+                </div>
+
+                <div class="glass rounded-3xl p-4 mb-3">
+                  <div class="text-sm font-semibold mb-1">ศูนย์กลางการดูแล</div>
+                  <div class="text-xs text-white/60 leading-6">รวมข้อมูลสัตว์เลี้ยง กิจกรรม ความทรงจำ และฟีเจอร์สำคัญไว้ในหน้าหลักเดียว</div>
+                </div>
+
+                <div class="space-y-3">
+                  <div class="glass rounded-2xl p-4 text-sm text-white/75">📋 ข้อมูลสัตว์เลี้ยงแบบเป็นระเบียบ อ่านง่าย ใช้งานต่อได้ทันที</div>
+                  <div class="glass rounded-2xl p-4 text-sm text-white/75">💛 ระบบแจ้งเตือนภาษาไทยที่ให้ความรู้สึกอบอุ่นและไม่แข็ง</div>
+                  <div class="glass rounded-2xl p-4 text-sm text-white/75">🕰️ ไทม์ไลน์ความทรงจำสำหรับบันทึกชีวิตสัตว์เลี้ยงในระยะยาว</div>
+                  <div class="glass rounded-2xl p-4 text-sm text-white/75">🚀 โครงพร้อมต่อยอดเป็นเว็บแอปและผลิตภัณฑ์ใช้งานจริง</div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 mt-4">
+                  <div class="glass rounded-2xl p-4 text-center text-sm">หน้าหลัก</div>
+                  <div class="glass rounded-2xl p-4 text-center text-sm">โปรไฟล์</div>
+                  <div class="glass rounded-2xl p-4 text-center text-sm">ไทม์ไลน์</div>
+                  <div class="glass rounded-2xl p-4 text-center text-sm">แจ้งเตือน</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-6 md:py-10">
+      <div class="max-w-7xl mx-auto px-4 md:px-6">
+        <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-4 section-reveal">
+          <div class="glass rounded-3xl p-6 shadow-luxury">
+            <div class="text-goldsoft text-2xl font-bold">Brand</div>
+            <div class="mt-2 text-white/65 text-sm leading-6">วางภาพลักษณ์ให้ดูเป็น premium pet technology platform ตั้งแต่ impression แรก</div>
+          </div>
+          <div class="glass rounded-3xl p-6 shadow-luxury">
+            <div class="text-goldsoft text-2xl font-bold">Product</div>
+            <div class="mt-2 text-white/65 text-sm leading-6">มีโครงครบทั้งเว็บไซต์ ฟีเจอร์หลัก UX ภาษาไทย และจุดเชื่อมต่อไปสู่ระบบใช้งานจริง</div>
+          </div>
+          <div class="glass rounded-3xl p-6 shadow-luxury">
+            <div class="text-goldsoft text-2xl font-bold">Lead</div>
+            <div class="mt-2 text-white/65 text-sm leading-6">เชื่อมฟอร์มเวอร์ชันล่าสุดสำหรับเก็บผู้สนใจ พาร์ตเนอร์ และนักลงทุนได้ในระบบเดียว</div>
+          </div>
+          <div class="glass rounded-3xl p-6 shadow-luxury">
+            <div class="text-goldsoft text-2xl font-bold">Scale</div>
+            <div class="mt-2 text-white/65 text-sm leading-6">พร้อมต่อยอดเป็น Dashboard, Member Area, Web App และระบบธุรกิจในเฟสถัดไป</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-4 md:px-6">
+        <div class="section-reveal text-center max-w-3xl mx-auto mb-10">
+          <h2 class="text-3xl md:text-5xl font-bold tracking-tight">UX ภาษาไทยทั้งระบบ</h2>
+          <p class="mt-4 text-white/70 leading-8">หน้าเว็บนี้ถูกเขียนใหม่ให้เหมาะกับผู้ใช้ไทยทั้งฝั่งแบรนด์ ผลิตภัณฑ์ และการติดต่อ โดยทำให้ทุก section อ่านง่าย ดูแพง และสื่อสารชัด</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div class="section-reveal glass rounded-[2rem] p-7 shadow-luxury">
+            <div class="text-3xl mb-4">📋</div>
+            <h3 class="text-xl font-semibold mb-3">โปรไฟล์สัตว์เลี้ยง</h3>
+            <p class="text-white/70 leading-7">เก็บข้อมูลสัตว์เลี้ยงเป็นระเบียบ อ่านง่าย และพร้อมต่อยอดสู่ระบบประวัติที่ใช้งานจริงได้ในอนาคต</p>
+          </div>
+
+          <div class="section-reveal glass rounded-[2rem] p-7 shadow-luxury">
+            <div class="text-3xl mb-4">📈</div>
+            <h3 class="text-xl font-semibold mb-3">ติดตามข้อมูลสำคัญ</h3>
+            <p class="text-white/70 leading-7">ช่วยให้ผู้ใช้เห็นภาพรวมของกิจกรรม การอัปเดต และข้อมูลที่ต้องการติดตามในมุมมองเดียว</p>
+          </div>
+
+          <div class="section-reveal glass rounded-[2rem] p-7 shadow-luxury">
+            <div class="text-3xl mb-4">💛</div>
+            <h3 class="text-xl font-semibold mb-3">ระบบแจ้งเตือนอ่อนโยน</h3>
+            <p class="text-white/70 leading-7">ออกแบบถ้อยคำและโครง UX ให้ความรู้สึกอบอุ่น เหมาะกับแบรนด์สัตว์เลี้ยงที่ต้องการความผูกพันกับผู้ใช้</p>
+          </div>
+
+          <div class="section-reveal glass rounded-[2rem] p-7 shadow-luxury">
+            <div class="text-3xl mb-4">🕰️</div>
+            <h3 class="text-xl font-semibold mb-3">ไทม์ไลน์และความทรงจำ</h3>
+            <p class="text-white/70 leading-7">รองรับแนวคิดการบันทึกภาพ คลิป และเหตุการณ์สำคัญ ให้กลายเป็นพื้นที่ความทรงจำของสัตว์เลี้ยงแต่ละตัว</p>
+          </div>
+
+          <div class="section-reveal glass rounded-[2rem] p-7 shadow-luxury">
+            <div class="text-3xl mb-4">💎</div>
+            <h3 class="text-xl font-semibold mb-3">หน้าเปิดตัวระดับพรีเมียม</h3>
+            <p class="text-white/70 leading-7">เหมาะสำหรับใช้เป็นหน้าเปิดตัวทางการของแบรนด์ ใช้คุยกับลูกค้า พาร์ตเนอร์ หรือผู้สนใจเชิงธุรกิจได้ทันที</p>
+          </div>
+
+          <div class="section-reveal glass rounded-[2rem] p-7 shadow-luxury">
+            <div class="text-3xl mb-4">🚀</div>
+            <h3 class="text-xl font-semibold mb-3">ต่อยอดเป็นแอปได้ทั้งระบบ</h3>
+            <p class="text-white/70 leading-7">โครงสร้าง section, design language และฟอร์มต่างๆ ถูกจัดให้พร้อมแตกต่อเป็นหลายหน้าและเว็บแอปในระยะถัดไป</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="app" class="py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-4 md:px-6">
+        <div class="grid lg:grid-cols-2 gap-8 items-center">
+          <div class="section-reveal glass rounded-[2rem] p-8 shadow-luxury">
+            <div class="text-sm text-goldsoft mb-3">APP OVERVIEW</div>
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight">ภาพรวมแอปที่มองเห็นได้จริงในหน้าเดียว</h2>
+            <p class="mt-4 text-white/70 leading-8">
+              เวอร์ชันนี้ไม่ได้เป็นแค่ landing page แต่ถูกจัดวางให้สื่อสารเหมือนเป็นต้นแบบของแอปทั้งระบบ ผู้ชมจึงมองเห็นได้ตั้งแต่หน้าหลัก ฟีเจอร์หลัก โครง UX และเส้นทางการเติบโตของผลิตภัณฑ์ในอนาคต
+            </p>
+            <div class="mt-6 grid sm:grid-cols-2 gap-4">
+              <div class="glass rounded-3xl p-5">
+                <div class="font-semibold mb-2">หน้าแรก</div>
+                <div class="text-sm text-white/65">รวมสถานะ ฟีเจอร์ และการเข้าถึงส่วนสำคัญของระบบ</div>
+              </div>
+              <div class="glass rounded-3xl p-5">
+                <div class="font-semibold mb-2">โปรไฟล์</div>
+                <div class="text-sm text-white/65">มุมมองข้อมูลสัตว์เลี้ยงที่พร้อมต่อยอดเป็น dashboard ส่วนตัว</div>
+              </div>
+              <div class="glass rounded-3xl p-5">
+                <div class="font-semibold mb-2">ไทม์ไลน์</div>
+                <div class="text-sm text-white/65">พื้นที่เก็บภาพและเรื่องราวในรูปแบบที่ดูอบอุ่นและเป็นส่วนตัว</div>
+              </div>
+              <div class="glass rounded-3xl p-5">
+                <div class="font-semibold mb-2">ระบบติดต่อ</div>
+                <div class="text-sm text-white/65">ฟอร์มสำหรับเก็บ lead และขยายเป็น workflow เชิงธุรกิจได้</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-reveal grid gap-4">
+            <div class="glass rounded-[2rem] p-6 shadow-luxury">
+              <div class="text-sm text-goldsoft mb-2">WHY THIS MATTERS</div>
+              <div class="text-2xl font-bold mb-3">เว็บนี้ช่วยให้ PetQ AI ดูเป็นมากกว่าแนวคิด</div>
+              <div class="text-white/70 leading-7">ทำให้แบรนด์มีตัวตนชัด มีภาพผลิตภัณฑ์ชัด และมีจุดเชื่อมสำหรับการเก็บความสนใจจริงจากผู้ที่เข้ามาเยี่ยมชม</div>
+            </div>
+            <div class="glass rounded-[2rem] p-6 shadow-luxury">
+              <div class="text-sm text-goldsoft mb-2">INVESTOR VIEW</div>
+              <div class="text-2xl font-bold mb-3">พร้อมใช้ในบทสนทนากับผู้สนใจเชิงธุรกิจ</div>
+              <div class="text-white/70 leading-7">มีทั้ง positioning, feature framing, future structure และ lead form ที่ทำให้หน้าเดียวคุยเรื่องโครงการได้กว้างขึ้น</div>
+            </div>
+            <div class="glass rounded-[2rem] p-6 shadow-luxury">
+              <div class="text-sm text-goldsoft mb-2">NEXT STEP</div>
+              <div class="text-2xl font-bold mb-3">พร้อมต่อเป็นหลายหน้าและ web app</div>
+              <div class="text-white/70 leading-7">เมื่อพร้อม คุณสามารถแตกต่อเป็นหน้า About, Features, Pricing, Legal, Dashboard และ Member Area ได้ต่อเนื่อง</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="plans" class="py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-4 md:px-6">
+        <div class="section-reveal text-center max-w-3xl mx-auto mb-10">
+          <h2 class="text-3xl md:text-5xl font-bold tracking-tight">โครงแพ็กเกจและทิศทางรายได้</h2>
+          <p class="mt-4 text-white/70 leading-8">แม้ตอนนี้จะเป็นหน้าเปิดตัว แต่การวางโครง access level ช่วยให้ภาพธุรกิจดูพร้อมขึ้นและต่อยอดได้ง่ายขึ้น</p>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-6">
+          <div class="section-reveal glass rounded-[2rem] p-8 shadow-luxury">
+            <div class="text-sm text-goldsoft mb-2">Starter</div>
+            <h3 class="text-3xl font-bold mb-3">Core</h3>
+            <p class="text-white/65 mb-6">เหมาะกับผู้เริ่มต้นติดตามแบรนด์และสำรวจประสบการณ์เริ่มต้นของแพลตฟอร์ม</p>
+            <div class="space-y-3 text-white/75 text-sm">
+              <div>• ใช้เป็น entry point ของผู้สนใจทั่วไป</div>
+              <div>• เหมาะกับการสร้างฐานผู้ใช้แรกเริ่ม</div>
+              <div>• รองรับ funnel ระยะต้นของแบรนด์</div>
+            </div>
+          </div>
+
+          <div class="section-reveal glass rounded-[2rem] p-8 shadow-luxury border border-yellow-200/20 bg-gradient-to-b from-yellow-100/10 to-white/5">
+            <div class="inline-flex px-3 py-1 rounded-full bg-gradient-to-r from-gold to-goldsoft text-black text-xs font-semibold mb-3">Recommended</div>
+            <div class="text-sm text-goldsoft mb-2">Premium</div>
+            <h3 class="text-3xl font-bold mb-3">Signature</h3>
+            <p class="text-white/65 mb-6">เป็นแกนหลักของรายได้ในอนาคต รองรับผู้ใช้ที่ต้องการประสบการณ์ใช้งานที่ลึกและต่อเนื่องกว่าเดิม</p>
+            <div class="space-y-3 text-white/75 text-sm">
+              <div>• เหมาะกับ recurring revenue structure</div>
+              <div>• รองรับความผูกพันและการใช้งานซ้ำ</div>
+              <div>• ช่วยให้ภาพธุรกิจดูแข็งแรงขึ้น</div>
+            </div>
+          </div>
+
+          <div class="section-reveal glass rounded-[2rem] p-8 shadow-luxury">
+            <div class="text-sm text-goldsoft mb-2">Extended</div>
+            <h3 class="text-3xl font-bold mb-3">Elite</h3>
+            <p class="text-white/65 mb-6">ใช้ framing สำหรับฟีเจอร์ขยายและบริการมูลค่าสูง เมื่อระบบและฐานผู้ใช้เติบโตมากขึ้น</p>
+            <div class="space-y-3 text-white/75 text-sm">
+              <div>• รองรับบริการเสริมในอนาคต</div>
+              <div>• เหมาะกับ premium brand narrative</div>
+              <div>• ใช้สื่อสาร long-term upside ได้ดี</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-4 md:px-6">
+        <div class="grid lg:grid-cols-2 gap-8 items-start">
+          <div class="section-reveal glass rounded-[2rem] p-8 shadow-luxury">
+            <div class="text-sm text-goldsoft mb-3">CONTACT / LEAD SYSTEM</div>
+            <h2 class="text-3xl md:text-5xl font-bold tracking-tight">ติดต่อทีมงาน PetQ AI</h2>
+            <p class="mt-4 text-white/70 leading-8">
+              ส่วนนี้เชื่อมกับ Lead System เวอร์ชันล่าสุด เพื่อให้คุณเก็บข้อมูลผู้สนใจ พาร์ตเนอร์ หรือผู้ที่ต้องการพูดคุยเชิงธุรกิจได้อย่างเป็นระบบมากขึ้น พร้อมต่อเข้า Google Sheets และอีเมลแจ้งเตือนได้ทันที
+            </p>
+            <div class="mt-6 space-y-3 text-sm text-white/70">
+              <div class="glass rounded-2xl p-4">เหมาะสำหรับใช้เป็นหน้าเปิดตัวอย่างเป็นทางการของแบรนด์</div>
+              <div class="glass rounded-2xl p-4">รองรับการเก็บ lead ได้จริงผ่าน Apps Script และ Google Sheets</div>
+              <div class="glass rounded-2xl p-4">พร้อมใช้คุยกับนักลงทุน พาร์ตเนอร์ และสื่อ ในหน้าเดียว</div>
+            </div>
+          </div>
+
+          <div class="section-reveal glass rounded-[2rem] p-8 shadow-luxury">
+            <h3 class="text-2xl font-bold mb-6">ส่งข้อมูลติดต่อ</h3>
+
+            <form id="leadForm" class="space-y-4">
+              <div>
+                <label class="block text-sm text-white/70 mb-2">ชื่อของคุณ</label>
+                <input type="text" name="name" placeholder="เช่น เอกชัย เมืองจร" required class="w-full px-4 py-4 rounded-2xl bg-black/30 border border-white/10 focus:border-yellow-200/40 outline-none">
+              </div>
+
+              <div>
+                <label class="block text-sm text-white/70 mb-2">อีเมล</label>
+                <input type="email" name="email" placeholder="เช่น contact@company.com" required class="w-full px-4 py-4 rounded-2xl bg-black/30 border border-white/10 focus:border-yellow-200/40 outline-none">
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm text-white/70 mb-2">บริษัท / องค์กร</label>
+                  <input type="text" name="company" placeholder="ถ้ามี" class="w-full px-4 py-4 rounded-2xl bg-black/30 border border-white/10 focus:border-yellow-200/40 outline-none">
+                </div>
+                <div>
+                  <label class="block text-sm text-white/70 mb-2">ตำแหน่ง</label>
+                  <input type="text" name="role" placeholder="เช่น Founder / Investor" class="w-full px-4 py-4 rounded-2xl bg-black/30 border border-white/10 focus:border-yellow-200/40 outline-none">
                 </div>
               </div>
 
-              <div class="feature-stack">
-                <div class="feature-line">ไทม์ไลน์ความทรงจำที่ออกแบบให้ดูพรีเมียมและเป็นส่วนตัว</div>
-                <div class="feature-line">โครงสร้างพร้อมต่อยอดสู่ระบบสมาชิกและแดชบอร์ดใช้งานจริง</div>
-                <div class="feature-line">รองรับภาพลักษณ์แบบบริษัทเทคโนโลยีที่พร้อมเติบโต</div>
-                <div class="feature-line">ใช้เป็นหน้าเปิดตัว เว็บแบรนด์ หรือจุดเริ่มต้นของ MVP ได้ทันที</div>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm text-white/70 mb-2">ประเภทผู้ติดต่อ</label>
+                  <select name="type" class="w-full px-4 py-4 rounded-2xl bg-black/30 border border-white/10 focus:border-yellow-200/40 outline-none">
+                    <option value="Investor">นักลงทุน</option>
+                    <option value="Partner">พาร์ตเนอร์</option>
+                    <option value="Media">สื่อ / องค์กร</option>
+                    <option value="General">ทั่วไป</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm text-white/70 mb-2">หัวข้อที่สนใจ</label>
+                  <input type="text" name="interest" placeholder="เช่น Investment / Partnership" class="w-full px-4 py-4 rounded-2xl bg-black/30 border border-white/10 focus:border-yellow-200/40 outline-none">
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section class="section">
-      <div class="container">
-        <div class="stats reveal">
-          <div class="stat">
-            <strong>Luxury</strong>
-            <span>โทนภาพลักษณ์เรียบหรู ดูแพง และมีมิติแบบแบรนด์ระดับบน</span>
-          </div>
-          <div class="stat">
-            <strong>Motion</strong>
-            <span>มีแอนิเมชันที่นุ่มนวล ช่วยให้เว็บไซต์ดูมีชีวิตและทันสมัย</span>
-          </div>
-          <div class="stat">
-            <strong>Structure</strong>
-            <span>วาง section ชัดเจน พร้อมแตกต่อเป็นหลายหน้าในอนาคต</span>
-          </div>
-          <div class="stat">
-            <strong>Scale</strong>
-            <span>พร้อมใช้เป็นฐานของแบรนด์ เว็บไซต์ และเว็บแอปในระยะถัดไป</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="features" class="section">
-      <div class="container">
-        <div class="section-head reveal">
-          <h2>Investor Mode Presentation</h2>
-          <p>
-            This version emphasizes strategic positioning, premium execution, and platform scalability so the brand feels more fundable, more structured, and more credible from the first impression.
-          </p>
-        </div>
-
-        <div class="premium-grid">
-          <div class="premium-card reveal">
-            <div class="icon-box">🧊</div>
-            <h3>Premium Market Positioning</h3>
-            <p>Visual language is elevated to support higher perceived brand value, stronger pricing power, and clearer premium differentiation.</p>
-          </div>
-
-          <div class="premium-card reveal">
-            <div class="icon-box">✨</div>
-            <h3>Product-Led Storytelling</h3>
-            <p>Each section is arranged to communicate product ambition, not just aesthetics, helping viewers understand the path from launch page to platform.</p>
-          </div>
-
-          <div class="premium-card reveal">
-            <div class="icon-box">🎯</div>
-            <h3>Scalable Architecture</h3>
-            <p>The layout supports future expansion into multiple pages, onboarding flows, dashboards, and a stronger product ecosystem.</p>
-          </div>
-
-          <div class="premium-card reveal">
-            <div class="icon-box">🪞</div>
-            <h3>Fundable First Impression</h3>
-            <p>The interface is designed to feel more credible in investor, partner, and strategic conversations from the very beginning.</p>
-          </div>
-
-          <div class="premium-card reveal">
-            <div class="icon-box">📐</div>
-            <h3>Brand System Discipline</h3>
-            <p>Spacing, tone, hierarchy, and structure are intentionally consistent to make the brand feel controlled, mature, and expansion-ready.</p>
-          </div>
-
-          <div class="premium-card reveal">
-            <div class="icon-box">🚀</div>
-            <h3>Long-Term Ecosystem Signal</h3>
-            <p>The page signals that PetQ AI is not just a single feature concept, but a brand direction capable of expanding into a broader digital platform.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="story" class="section">
-      <div class="container">
-        <div class="section-head reveal">
-          <h2>Why this version feels more investable</h2>
-          <p>
-            Investor mode is less about adding noise and more about increasing confidence. The page now frames PetQ AI through positioning, scalability, and disciplined presentation.
-          </p>
-        </div>
-
-        <div class="story-wrap">
-          <div class="story-card reveal">
-            <h3>Clear brand thesis</h3>
-            <p>
-              The website now presents PetQ AI as a premium digital brand with a defined direction: organized pet information, refined user experience, and future platform expansion.
-            </p>
-          </div>
-
-          <div class="story-card reveal">
-            <h3>Balanced emotional and commercial appeal</h3>
-            <p>
-              The tone remains warm enough for a pet-centered brand, while the structure feels disciplined enough for business conversations around growth, partnerships, and product roadmap.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="roadmap" class="section">
-      <div class="container">
-        <div class="section-head reveal">
-          <h2>Roadmap With Investor Logic</h2>
-          <p>
-            The sequence below is designed to show how PetQ AI can move from brand launch to product validation and then into a broader platform model.
-          </p>
-        </div>
-
-        <div class="roadmap">
-          <div class="roadmap-card reveal">
-            <span class="phase">Phase 1</span>
-            <h3>Brand Launch Layer</h3>
-            <p>Establish a strong public-facing presence, build trust, collect early interest, and define premium market positioning.</p>
-          </div>
-
-          <div class="roadmap-card reveal">
-            <span class="phase">Phase 2</span>
-            <h3>Validation Layer</h3>
-            <p>Add product pages, legal pages, and structured lead collection to validate demand and sharpen the brand narrative.</p>
-          </div>
-
-          <div class="roadmap-card reveal">
-            <span class="phase">Phase 3</span>
-            <h3>Core Product Layer</h3>
-            <p>Expand into accounts, profiles, and structured user workflows while preserving premium design consistency.</p>
-          </div>
-
-          <div class="roadmap-card reveal">
-            <span class="phase">Phase 4</span>
-            <h3>Platform Expansion Layer</h3>
-            <p>Move toward a broader ecosystem model with stronger retention, product depth, and partnership potential.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="pricing" class="section">
-      <div class="container">
-        <div class="section-head reveal">
-          <h2>Commercial Framing</h2>
-          <p>
-            Even before launch, showing a structured access model helps the brand look more deliberate and commercially mature.
-          </p>
-        </div>
-
-        <div class="pricing">
-          <div class="pricing-card reveal">
-            <h3>Starter</h3>
-            <div class="pricing-name">Core</div>
-            <div class="pricing-sub">Entry-level access and early-stage brand engagement</div>
-            <div class="pricing-list">
-              <div>• Supports top-of-funnel user growth</div>
-              <div>• Creates a low-friction entry point</div>
-              <div>• Useful for early traction and awareness</div>
-            </div>
-            <a href="#contact" class="button-secondary">Follow this tier</a>
-          </div>
-
-          <div class="pricing-card highlight reveal">
-            <span class="pricing-badge">Recommended</span>
-            <h3>Premium</h3>
-            <div class="pricing-name">Signature</div>
-            <div class="pricing-sub">The central tier for long-term user value and recurring monetization</div>
-            <div class="pricing-list">
-              <div>• Strongest positioning for paid conversion</div>
-              <div>• Supports deeper engagement and retention</div>
-              <div>• Serves as the commercial backbone</div>
-            </div>
-            <a href="#contact" class="button-primary">Request updates</a>
-          </div>
-
-          <div class="pricing-card reveal">
-            <h3>Extended</h3>
-            <div class="pricing-name">Elite</div>
-            <div class="pricing-sub">Expansion-oriented structure for broader feature depth over time</div>
-            <div class="pricing-list">
-              <div>• Leaves room for higher-value services</div>
-              <div>• Supports future premium positioning</div>
-              <div>• Helps frame long-term upside</div>
-            </div>
-            <a href="#contact" class="button-secondary">Stay informed</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="section">
-      <div class="container">
-        <div class="contact-shell reveal">
-          <div class="contact-copy">
-            <h2>Investor Mode Contact</h2>
-            <p>
-              This section is framed to support conversations with early followers, strategic partners, and potential investors who want to understand where the brand is heading next.
-            </p>
-
-            <div class="contact-points">
-              <div class="contact-point">Presents the brand with stronger strategic clarity from day one</div>
-              <div class="contact-point">Supports future expansion into product, platform, and revenue layers</div>
-              <div class="contact-point">Useful as a premium front door for partner and investor conversations</div>
-            </div>
-          </div>
-
-          <div class="contact-form">
-            <h3>Request Brand Updates</h3>
-            <form id="lead-form">
-              <div class="field">
-                <input id="name" name="name" class="input" type="text" placeholder="ชื่อของคุณ" required>
+              <div>
+                <label class="block text-sm text-white/70 mb-2">รายละเอียดเพิ่มเติม</label>
+                <textarea name="message" rows="5" placeholder="พิมพ์ข้อความของคุณที่นี่" class="w-full px-4 py-4 rounded-2xl bg-black/30 border border-white/10 focus:border-yellow-200/40 outline-none resize-y"></textarea>
               </div>
-              <div class="field">
-                <input id="email" name="email" class="input" type="email" placeholder="อีเมลติดต่อ" required>
-              </div>
-              <div class="field">
-                <input id="company" name="company" class="input" type="text" placeholder="บริษัท / องค์กร (ถ้ามี)">
-              </div>
-              <div class="field">
-                <input id="role" name="role" class="input" type="text" placeholder="ตำแหน่ง / บทบาท">
-              </div>
-              <div class="field">
-                <select id="type" name="type" class="select" required>
-                  <option value="">เลือกประเภทผู้ติดต่อ</option>
-                  <option value="General interest">General interest</option>
-                  <option value="Partner">Partner</option>
-                  <option value="Investor">Investor</option>
-                  <option value="Media or organization">Media or organization</option>
-                </select>
-              </div>
-              <div class="field">
-                <select id="interest" name="interest" class="select">
-                  <option value="Launch updates">Launch updates</option>
-                  <option value="Partnership">Partnership</option>
-                  <option value="Investment discussion">Investment discussion</option>
-                  <option value="Press / media">Press / media</option>
-                </select>
-              </div>
-              <div class="field">
-                <textarea id="message" name="message" class="textarea" placeholder="ข้อความของคุณ"></textarea>
-              </div>
-              <input type="hidden" id="source" name="source" value="website-investor-mode">
-              <input type="hidden" id="page" name="page" value="Investor Mode Landing Page">
-              <input type="hidden" id="utm_source" name="utm_source" value="">
-              <input type="hidden" id="utm_medium" name="utm_medium" value="">
-              <input type="hidden" id="utm_campaign" name="utm_campaign" value="">
-              <input type="hidden" id="referrer_field" name="referrer" value="">
-              <input type="hidden" id="submitted_at" name="submitted_at" value="">
-              <button class="contact-button" type="submit" id="submit-button">ส่งข้อมูล</button>
+
+              <button type="submit" class="w-full inline-flex items-center justify-center px-6 py-4 rounded-2xl bg-gradient-to-r from-gold to-goldsoft text-black font-semibold shadow-luxury hover:-translate-y-0.5 transition">
+                ส่งข้อมูลเข้าสู่ระบบ
+              </button>
             </form>
-            <div id="form-status" class="form-status">ระบบฟอร์มนี้พร้อมเชื่อมกับ Google Sheets, Email Notification และ Lead Routing ผ่าน Google Apps Script</div>
+
+            <p id="status" class="text-center mt-5 text-sm text-green-300"></p>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="container footer-wrap">
-      <div class="footer-left">© 2026 PetQ AI. Brand presentation prototype.</div>
-      <div class="footer-links">
-        <a href="#top">Home</a>
-        <a href="#features">Features</a>
-        <a href="#story">Vision</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#contact">Contact</a>
+  <footer class="border-t border-white/5 py-8">
+    <div class="max-w-7xl mx-auto px-4 md:px-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-sm text-white/55">
+      <div>© 2026 PetQ AI. เว็บไซต์ต้นแบบสำหรับแบรนด์และระบบติดต่อ</div>
+      <div class="flex flex-wrap gap-4">
+        <a href="#home" class="hover:text-white">หน้าแรก</a>
+        <a href="#features" class="hover:text-white">ฟีเจอร์</a>
+        <a href="#app" class="hover:text-white">แอป</a>
+        <a href="#plans" class="hover:text-white">แพ็กเกจ</a>
+        <a href="#contact" class="hover:text-white">ติดต่อ</a>
       </div>
     </div>
   </footer>
 
   <script>
-    const APPS_SCRIPT_URL = 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+    const APPS_SCRIPT_URL = "PASTE_YOUR_URL_HERE";
 
-    function getParam(name) {
-      const url = new URL(window.location.href);
-      return url.searchParams.get(name) || '';
-    }
+    const form = document.getElementById("leadForm");
+    const status = document.getElementById("status");
 
-    function fillTrackingFields() {
-      const referrer = document.getElementById('referrer_field');
-      const submittedAt = document.getElementById('submitted_at');
-      const utmSource = document.getElementById('utm_source');
-      const utmMedium = document.getElementById('utm_medium');
-      const utmCampaign = document.getElementById('utm_campaign');
-
-      if (referrer) referrer.value = document.referrer || 'direct';
-      if (submittedAt) submittedAt.value = new Date().toISOString();
-      if (utmSource) utmSource.value = getParam('utm_source');
-      if (utmMedium) utmMedium.value = getParam('utm_medium');
-      if (utmCampaign) utmCampaign.value = getParam('utm_campaign');
-    }
-
-    async function submitLead(event) {
-      event.preventDefault();
-
-      const form = document.getElementById('lead-form');
-      const status = document.getElementById('form-status');
-      const button = document.getElementById('submit-button');
-
-      fillTrackingFields();
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
       const formData = new FormData(form);
-      const payload = Object.fromEntries(formData.entries());
+      const data = Object.fromEntries(formData.entries());
 
-      if (!payload.name || !payload.email || !payload.type) {
-        status.textContent = 'กรุณากรอกชื่อ อีเมล และประเภทผู้ติดต่อให้ครบ';
-        return;
-      }
-
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(payload.email)) {
-        status.textContent = 'กรุณากรอกอีเมลให้ถูกต้อง';
-        return;
-      }
-
-      if (APPS_SCRIPT_URL === 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE') {
-        status.innerHTML = 'ยังไม่ได้เชื่อม Web App URL ของ Google Apps Script<br>ให้นำ URL ที่ deploy แล้วมาใส่ในตัวแปร APPS_SCRIPT_URL';
-        return;
-      }
-
-      button.disabled = true;
-      button.textContent = 'กำลังส่งข้อมูล...';
-      status.textContent = 'กำลังบันทึกข้อมูลเข้าสู่ Lead System...';
+      status.innerText = "กำลังส่งข้อมูล...";
+      status.className = "text-center mt-5 text-sm text-yellow-200";
 
       try {
-        const response = await fetch(APPS_SCRIPT_URL, {
-          method: 'POST',
-          mode: 'cors',
+        const res = await fetch(APPS_SCRIPT_URL, {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
           },
-          body: JSON.stringify(payload)
+          body: JSON.stringify(data)
         });
 
-        const result = await response.json();
+        const result = await res.json();
 
         if (result.success) {
-          status.innerHTML = 'ส่งข้อมูลสำเร็จแล้ว ✅<br>Lead ถูกบันทึกเข้าสู่ระบบเรียบร้อย';
+          status.innerText = "✅ ส่งข้อมูลสำเร็จแล้ว ทีมงานจะตรวจสอบและติดต่อกลับตามความเหมาะสม";
+          status.className = "text-center mt-5 text-sm text-green-300";
           form.reset();
-          fillTrackingFields();
         } else {
-          status.textContent = 'ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่อีกครั้ง';
+          status.innerText = "❌ เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่อีกครั้ง";
+          status.className = "text-center mt-5 text-sm text-red-300";
         }
-      } catch (error) {
-        status.textContent = 'เกิดข้อผิดพลาดในการเชื่อมต่อ Lead System';
-      } finally {
-        button.disabled = false;
-        button.textContent = 'ส่งข้อมูล';
+      } catch (err) {
+        status.innerText = "❌ ไม่สามารถเชื่อมต่อระบบได้ กรุณาตรวจสอบ URL ของ Apps Script";
+        status.className = "text-center mt-5 text-sm text-red-300";
       }
-    }
+    });
 
-    document.getElementById('lead-form').addEventListener('submit', submitLead);
-    fillTrackingFields();
-
-    const reveals = document.querySelectorAll('.reveal');
+    const reveals = document.querySelectorAll('.section-reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
