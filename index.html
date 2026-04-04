@@ -3,768 +3,1163 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PetQ AI | เทคโนโลยีเพื่อการดูแลสัตว์เลี้ยงอย่างใส่ใจ</title>
-  <meta name="description" content="PetQ AI คือแพลตฟอร์มดิจิทัลสำหรับการจัดการข้อมูลสัตว์เลี้ยง การติดตามกิจกรรม การบันทึกความทรงจำ และประสบการณ์การใช้งานที่ออกแบบมาอย่างอบอุ่นและเป็นระเบียบ" />
-  <meta name="keywords" content="PetQ AI, pet platform, pet profile, pet care platform, pet memory, pet technology" />
-  <meta name="author" content="PetQ AI" />
-  <meta property="og:title" content="PetQ AI" />
-  <meta property="og:description" content="เทคโนโลยีเพื่อการดูแลสัตว์เลี้ยงอย่างใส่ใจ" />
-  <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#09111f" />
+  <title>PetQ AI</title>
+  <meta name="description" content="PetQ AI แพลตฟอร์มดิจิทัลสำหรับประสบการณ์การดูแลสัตว์เลี้ยงอย่างเป็นระบบ เรียบหรู และอบอุ่น" />
+  <meta name="theme-color" content="#06070a" />
+  <meta name="referrer" content="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #07101c;
-      --bg2: #0c1628;
-      --card: rgba(255,255,255,0.06);
-      --line: rgba(255,255,255,0.12);
-      --text: #f8fafc;
-      --muted: #cbd5e1;
-      --soft: #94a3b8;
-      --gold: #f4c84d;
-      --gold2: #ffe7a3;
-      --blue: #8fd8ff;
-      --shadow: 0 24px 60px rgba(0,0,0,.35);
-      --radius-xl: 28px;
-      --radius-lg: 20px;
-      --radius-md: 16px;
-      --max: 1180px;
+      --bg: #05070b;
+      --bg-2: #0b1020;
+      --panel: rgba(255,255,255,0.06);
+      --panel-2: rgba(255,255,255,0.04);
+      --line: rgba(255,255,255,0.1);
+      --text: #ffffff;
+      --muted: rgba(255,255,255,0.68);
+      --soft: rgba(255,255,255,0.5);
+      --gold: #d7b25f;
+      --gold-soft: #f4e1a4;
+      --blue: #87c8ff;
+      --glow: 0 30px 80px rgba(0,0,0,0.45);
+      --radius-xl: 36px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --max: 1220px;
     }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Prompt', sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top left, rgba(244,200,77,.18), transparent 32%),
-        radial-gradient(circle at top right, rgba(143,216,255,.10), transparent 30%),
-        linear-gradient(180deg, #020617 0%, var(--bg) 45%, var(--bg2) 100%);
-      line-height: 1.65;
+        radial-gradient(circle at 20% 0%, rgba(135,200,255,0.12), transparent 26%),
+        radial-gradient(circle at 80% 10%, rgba(215,178,95,0.14), transparent 28%),
+        linear-gradient(180deg, #020305 0%, #05070b 28%, #09101d 100%);
+      overflow-x: hidden;
     }
-    a { color: inherit; text-decoration: none; }
-    .container { width: min(92%, var(--max)); margin: 0 auto; }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+      pointer-events: none;
+      opacity: 0.35;
+      z-index: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(92%, var(--max));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
 
     .topbar {
       position: sticky;
       top: 0;
-      z-index: 100;
-      backdrop-filter: blur(16px);
-      background: rgba(2,6,23,.72);
-      border-bottom: 1px solid rgba(255,255,255,.08);
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: rgba(5,7,11,0.58);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
+
     .nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 18px;
-      padding: 14px 0;
+      padding: 16px 0;
     }
+
     .brand {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-weight: 700;
-      letter-spacing: .2px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
     }
-    .brand-icon {
+
+    .brand-mark {
       width: 42px;
       height: 42px;
+      border-radius: 14px;
       display: grid;
       place-items: center;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--gold), var(--gold2));
-      color: #111827;
-      box-shadow: var(--shadow);
+      background: linear-gradient(135deg, rgba(255,255,255,0.18), rgba(215,178,95,0.35));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: var(--glow);
       font-size: 1.2rem;
     }
-    .brand-text small {
+
+    .brand small {
       display: block;
       color: var(--soft);
+      font-size: 0.75rem;
       font-weight: 400;
-      font-size: .77rem;
       margin-top: 1px;
     }
+
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 22px;
+      gap: 24px;
       color: var(--muted);
-      font-size: .96rem;
-    }
-    .nav-links a:hover { color: #fff; }
-    .nav-cta, .btn-primary, .btn-secondary, .submit-btn {
-      transition: transform .2s ease, opacity .2s ease, background .2s ease;
-    }
-    .nav-cta:hover, .btn-primary:hover, .btn-secondary:hover, .submit-btn:hover {
-      transform: translateY(-2px);
-    }
-    .nav-cta {
-      padding: 12px 18px;
-      border-radius: 999px;
-      font-weight: 700;
-      color: #111827;
-      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      font-size: 0.95rem;
     }
 
-    .hero { padding: 88px 0 56px; }
-    .hero-grid {
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .nav-cta,
+    .button-primary,
+    .button-secondary,
+    .contact-button {
+      transition: transform .25s ease, box-shadow .25s ease, opacity .25s ease;
+    }
+
+    .nav-cta:hover,
+    .button-primary:hover,
+    .button-secondary:hover,
+    .contact-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(0,0,0,0.25);
+    }
+
+    .nav-cta {
+      padding: 11px 18px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+      color: #161616;
+      font-weight: 600;
+    }
+
+    .hero {
+      padding: 96px 0 70px;
+    }
+
+    .hero-wrap {
       display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 32px;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 34px;
       align-items: center;
     }
+
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
+      gap: 10px;
+      padding: 9px 15px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.05);
-      color: #fde68a;
-      font-size: .92rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #f4deb0;
       margin-bottom: 18px;
+      font-size: 0.92rem;
+      animation: floatSoft 4s ease-in-out infinite;
     }
+
     .hero h1 {
-      font-size: clamp(2.3rem, 4vw, 4.4rem);
-      line-height: 1.08;
-      letter-spacing: -1px;
-      margin: 0 0 18px;
+      font-size: clamp(2.7rem, 5.4vw, 5.8rem);
+      line-height: 0.98;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
     }
-    .hero h1 .gold { color: var(--gold); }
+
+    .hero h1 .gold {
+      color: var(--gold-soft);
+      text-shadow: 0 0 26px rgba(215,178,95,0.16);
+    }
+
     .hero p {
-      margin: 0 0 24px;
+      max-width: 720px;
       color: var(--muted);
       font-size: 1.06rem;
-      max-width: 760px;
+      margin-bottom: 28px;
     }
+
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
-      margin-bottom: 18px;
+      margin-bottom: 22px;
     }
-    .btn-primary, .btn-secondary {
+
+    .button-primary,
+    .button-secondary {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 14px 22px;
+      padding: 14px 24px;
       border-radius: 999px;
-      font-weight: 700;
-    }
-    .btn-primary {
-      color: #111827;
-      background: linear-gradient(135deg, var(--gold), var(--gold2));
-    }
-    .btn-secondary {
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.05);
-    }
-    .hero-footnote {
-      color: var(--soft);
-      font-size: .95rem;
-    }
-    .trust-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 26px;
-    }
-    .trust-pill {
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      color: var(--muted);
-      font-size: .92rem;
+      font-weight: 600;
     }
 
-    .preview-card {
-      border: 1px solid rgba(255,255,255,.14);
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
-      border-radius: 34px;
-      padding: 18px;
-      box-shadow: var(--shadow);
+    .button-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+      color: #151515;
     }
-    .preview-screen {
-      border-radius: 26px;
-      padding: 18px;
-      background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
-      border: 1px solid rgba(255,255,255,.08);
-      min-height: 560px;
+
+    .button-secondary {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
     }
-    .screen-top {
+
+    .hero-note {
+      color: var(--soft);
+      font-size: 0.94rem;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .hero-tag {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .showcase {
+      position: relative;
+      min-height: 660px;
+      display: grid;
+      place-items: center;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(24px);
+      opacity: 0.7;
+      animation: pulseOrb 6s ease-in-out infinite;
+    }
+
+    .orb.one {
+      width: 220px;
+      height: 220px;
+      background: rgba(135,200,255,0.16);
+      top: 40px;
+      right: 30px;
+    }
+
+    .orb.two {
+      width: 260px;
+      height: 260px;
+      background: rgba(215,178,95,0.13);
+      bottom: 40px;
+      left: 20px;
+      animation-delay: 1s;
+    }
+
+    .device {
+      width: min(100%, 470px);
+      padding: 18px;
+      border-radius: 40px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 30px 100px rgba(0,0,0,0.45);
+      position: relative;
+      z-index: 2;
+      transform: perspective(1200px) rotateY(-7deg) rotateX(7deg);
+      animation: deviceFloat 6s ease-in-out infinite;
+    }
+
+    .device-screen {
+      min-height: 610px;
+      border-radius: 30px;
+      padding: 20px;
+      background:
+        radial-gradient(circle at top right, rgba(215,178,95,0.12), transparent 28%),
+        linear-gradient(180deg, #0c1120 0%, #111827 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .device-screen::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,0.08) 50%, transparent 80%);
+      transform: translateX(-120%);
+      animation: shine 5s linear infinite;
+    }
+
+    .screen-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 14px;
-      color: #fde68a;
-      font-weight: 700;
+      margin-bottom: 16px;
+      color: #f3dca6;
+      font-size: 0.9rem;
+      font-weight: 600;
     }
-    .preview-grid {
+
+    .screen-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
       margin-bottom: 14px;
     }
-    .mini-card {
-      padding: 14px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.10);
-    }
-    .mini-card h4 {
-      margin: 0 0 6px;
-      font-size: .96rem;
-    }
-    .mini-card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: .88rem;
-      line-height: 1.45;
-    }
-    .list-box {
-      display: grid;
-      gap: 10px;
-      margin: 14px 0;
-    }
-    .list-item {
-      padding: 12px 14px;
-      border-radius: 16px;
-      font-size: .92rem;
-      line-height: 1.45;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.10);
+
+    .glass-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 22px;
+      padding: 16px;
+      backdrop-filter: blur(12px);
     }
 
-    section { padding: 38px 0; }
+    .glass-card h4 {
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+
+    .glass-card p {
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.45;
+    }
+
+    .feature-stack {
+      display: grid;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .feature-line {
+      padding: 14px 15px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      font-size: 0.9rem;
+      transform: translateY(0);
+      animation: floatTiny 5s ease-in-out infinite;
+    }
+
+    .feature-line:nth-child(2) { animation-delay: .6s; }
+    .feature-line:nth-child(3) { animation-delay: 1.2s; }
+    .feature-line:nth-child(4) { animation-delay: 1.8s; }
+
+    .section {
+      padding: 34px 0 44px;
+      position: relative;
+      z-index: 1;
+    }
+
     .section-head {
       text-align: center;
       margin-bottom: 26px;
     }
+
     .section-head h2 {
-      margin: 0 0 10px;
-      font-size: clamp(1.9rem, 3vw, 2.9rem);
+      font-size: clamp(2rem, 4vw, 3.6rem);
+      letter-spacing: -1px;
+      margin-bottom: 10px;
     }
+
     .section-head p {
-      margin: 0 auto;
       max-width: 760px;
+      margin: 0 auto;
       color: var(--muted);
     }
 
-    .metrics {
+    .stats {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 16px;
-    }
-    .metric {
-      padding: 22px 18px;
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-lg);
-      text-align: center;
-      box-shadow: var(--shadow);
-    }
-    .metric strong {
-      display: block;
-      font-size: 1.2rem;
-      color: var(--gold);
-      margin-bottom: 8px;
-    }
-    .metric span {
-      color: var(--muted);
-      font-size: .94rem;
+      margin-top: 8px;
     }
 
-    .grid-3 {
+    .stat {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 24px 20px;
+      box-shadow: var(--glow);
+      transition: transform .3s ease, border-color .3s ease;
+    }
+
+    .stat:hover,
+    .premium-card:hover,
+    .story-card:hover,
+    .roadmap-card:hover,
+    .pricing-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(215,178,95,0.22);
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--gold-soft);
+      font-size: 1.5rem;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .premium-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 22px;
     }
-    .card {
-      padding: 24px;
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow);
+
+    .premium-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: var(--glow);
+      transition: transform .3s ease, border-color .3s ease;
+      position: relative;
+      overflow: hidden;
     }
-    .icon {
-      width: 56px;
-      height: 56px;
+
+    .premium-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -20% -60% auto;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(215,178,95,0.16), transparent 70%);
+      border-radius: 999px;
+      pointer-events: none;
+    }
+
+    .icon-box {
+      width: 58px;
+      height: 58px;
       display: grid;
       place-items: center;
-      border-radius: 18px;
-      margin-bottom: 16px;
-      background: linear-gradient(135deg, rgba(244,200,77,.18), rgba(255,255,255,.06));
-      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 20px;
       font-size: 1.35rem;
+      margin-bottom: 18px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.16), rgba(215,178,95,0.24));
+      border: 1px solid rgba(255,255,255,0.1);
     }
-    .card h3 { margin: 0 0 10px; font-size: 1.1rem; }
-    .card p { margin: 0; color: var(--muted); font-size: .96rem; }
 
-    .split-2 {
+    .premium-card h3 {
+      font-size: 1.14rem;
+      margin-bottom: 10px;
+    }
+
+    .premium-card p {
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .story-wrap {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 24px;
     }
+
     .story-card {
-      padding: 28px;
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 30px;
+      padding: 30px;
+      box-shadow: var(--glow);
+      transition: transform .3s ease, border-color .3s ease;
     }
+
     .story-card h3 {
-      margin: 0 0 12px;
-      color: #fde68a;
-      font-size: 1.28rem;
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      color: #f2ddb0;
     }
+
     .story-card p {
-      margin: 0;
       color: var(--muted);
     }
 
-    .timeline {
+    .roadmap {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 18px;
     }
-    .timeline-card {
-      padding: 22px;
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      box-shadow: var(--shadow);
+
+    .roadmap-card {
+      padding: 24px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: var(--glow);
+      transition: transform .3s ease, border-color .3s ease;
     }
-    .timeline-step {
+
+    .phase {
       display: inline-block;
-      padding: 6px 10px;
+      padding: 7px 10px;
       border-radius: 999px;
-      background: var(--gold);
-      color: #111827;
-      font-weight: 700;
-      font-size: .82rem;
+      background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+      color: #141414;
+      font-weight: 600;
+      font-size: 0.8rem;
+      margin-bottom: 12px;
+    }
+
+    .roadmap-card h3 {
+      font-size: 1.08rem;
       margin-bottom: 10px;
     }
-    .timeline-card h3 { margin: 0 0 10px; font-size: 1.06rem; }
-    .timeline-card p { margin: 0; color: var(--muted); font-size: .94rem; }
+
+    .roadmap-card p {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
 
     .pricing {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 22px;
     }
-    .price-card {
-      padding: 26px;
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
+
+    .pricing-card {
       position: relative;
-    }
-    .price-card.featured {
-      border-color: rgba(244,200,77,.35);
-      background: linear-gradient(180deg, rgba(244,200,77,.10), rgba(255,255,255,.05));
-    }
-    .badge {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: var(--gold);
-      color: #111827;
-      font-size: .78rem;
-      font-weight: 700;
-    }
-    .price-card h3 { margin: 0 0 8px; font-size: 1.2rem; }
-    .price {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: var(--gold);
-    }
-    .price-sub { color: var(--muted); margin-bottom: 16px; }
-    .price-list {
-      display: grid;
-      gap: 10px;
-      margin: 16px 0 22px;
-      color: var(--muted);
-      font-size: .95rem;
+      padding: 28px;
+      border-radius: 30px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: var(--glow);
+      transition: transform .3s ease, border-color .3s ease;
     }
 
-    .contact-box {
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 24px;
-      padding: 30px;
-      background: linear-gradient(180deg, rgba(244,200,77,.10), rgba(255,255,255,.05));
-      border: 1px solid rgba(244,200,77,.22);
-      border-radius: 28px;
-      box-shadow: var(--shadow);
+    .pricing-card.highlight {
+      border-color: rgba(215,178,95,0.26);
+      background: linear-gradient(180deg, rgba(215,178,95,0.13), rgba(255,255,255,0.04));
     }
-    .contact-copy h2 {
-      margin: 0 0 12px;
-      font-size: clamp(1.8rem, 3vw, 2.7rem);
+
+    .pricing-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+      color: #171717;
+      font-size: 0.78rem;
+      font-weight: 600;
     }
-    .contact-copy p {
-      margin: 0 0 18px;
+
+    .pricing-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    .pricing-name {
+      font-size: 2rem;
+      color: var(--gold-soft);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .pricing-sub {
       color: var(--muted);
+      margin-bottom: 16px;
     }
+
+    .pricing-list {
+      display: grid;
+      gap: 10px;
+      color: var(--muted);
+      margin-bottom: 22px;
+      font-size: 0.95rem;
+    }
+
+    .contact-shell {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 24px;
+      padding: 32px;
+      border-radius: 34px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid rgba(215,178,95,0.18);
+      box-shadow: var(--glow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .contact-shell::before {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(135,200,255,0.12), transparent 70%);
+      top: -80px;
+      right: -60px;
+      pointer-events: none;
+    }
+
+    .contact-copy h2 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .contact-copy p {
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
     .contact-points {
       display: grid;
       gap: 12px;
     }
+
     .contact-point {
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.10);
+      padding: 15px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
       color: var(--muted);
     }
+
     .contact-form {
-      padding: 22px;
-      border-radius: 22px;
-      background: rgba(2,6,23,.38);
-      border: 1px solid rgba(255,255,255,.10);
+      padding: 24px;
+      border-radius: 26px;
+      background: rgba(5,7,11,0.45);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(16px);
     }
-    .contact-form h3 { margin-top: 0; margin-bottom: 14px; }
-    .field { margin-bottom: 14px; }
-    .input, .textarea, .select {
+
+    .contact-form h3 {
+      margin-bottom: 14px;
+      font-size: 1.16rem;
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .input,
+    .textarea,
+    .select {
       width: 100%;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
       color: #fff;
-      border-radius: 14px;
+      border-radius: 16px;
       padding: 14px 15px;
+      font-family: inherit;
+      font-size: 0.96rem;
       outline: none;
-      font-size: .96rem;
+      transition: border-color .25s ease, background .25s ease;
     }
-    .textarea { min-height: 120px; resize: vertical; font-family: Arial, Helvetica, sans-serif; }
-    .input::placeholder, .textarea::placeholder { color: var(--soft); }
-    .submit-btn {
+
+    .input:focus,
+    .textarea:focus,
+    .select:focus {
+      border-color: rgba(215,178,95,0.4);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .input::placeholder,
+    .textarea::placeholder {
+      color: rgba(255,255,255,0.42);
+    }
+
+    .contact-button {
       width: 100%;
       border: 0;
       cursor: pointer;
       padding: 14px 18px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--gold), var(--gold2));
-      color: #111827;
-      font-weight: 700;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+      color: #171717;
+      font-family: inherit;
+      font-size: 0.97rem;
+      font-weight: 600;
     }
+
     .form-status {
       margin-top: 12px;
       color: var(--soft);
-      font-size: .9rem;
+      font-size: 0.9rem;
     }
 
     footer {
-      padding: 28px 0 38px;
-      border-top: 1px solid rgba(255,255,255,.08);
-      margin-top: 18px;
+      padding: 30px 0 40px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: 20px;
+      position: relative;
+      z-index: 1;
     }
-    .footer-grid {
+
+    .footer-wrap {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 16px;
       flex-wrap: wrap;
     }
-    .footer-left { color: var(--muted); font-size: .94rem; }
+
+    .footer-left {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
     .footer-links {
       display: flex;
-      gap: 18px;
       flex-wrap: wrap;
+      gap: 18px;
       color: var(--muted);
-      font-size: .94rem;
+      font-size: 0.94rem;
     }
 
     .reveal {
       opacity: 0;
-      transform: translateY(16px);
-      transition: opacity .7s ease, transform .7s ease;
+      transform: translateY(24px);
+      transition: opacity .8s ease, transform .8s ease;
     }
+
     .reveal.show {
       opacity: 1;
       transform: translateY(0);
     }
 
-    @media (max-width: 1080px) {
-      .hero-grid, .split-2, .contact-box { grid-template-columns: 1fr; }
-      .metrics, .timeline, .pricing { grid-template-columns: repeat(2, 1fr); }
-      .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    @keyframes floatSoft {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
     }
 
-    @media (max-width: 720px) {
-      .nav { flex-wrap: wrap; }
-      .nav-links { width: 100%; justify-content: center; flex-wrap: wrap; gap: 14px; }
-      .hero { padding-top: 72px; }
-      .metrics, .grid-3, .timeline, .pricing, .preview-grid { grid-template-columns: 1fr; }
-      .hero-actions { flex-direction: column; }
-      .btn-primary, .btn-secondary { width: 100%; }
-      .contact-box, .story-card, .card, .price-card, .timeline-card, .preview-card { padding: 20px; }
-      .footer-grid { flex-direction: column; align-items: flex-start; }
+    @keyframes deviceFloat {
+      0%,100% { transform: perspective(1200px) rotateY(-7deg) rotateX(7deg) translateY(0); }
+      50% { transform: perspective(1200px) rotateY(-7deg) rotateX(7deg) translateY(-10px); }
+    }
+
+    @keyframes pulseOrb {
+      0%,100% { transform: scale(1); opacity: .55; }
+      50% { transform: scale(1.08); opacity: .8; }
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-120%); }
+      100% { transform: translateX(120%); }
+    }
+
+    @keyframes floatTiny {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
+    @media (max-width: 1080px) {
+      .hero-wrap,
+      .story-wrap,
+      .contact-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .stats,
+      .roadmap {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .premium-grid,
+      .pricing {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .showcase {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 740px) {
+      .nav {
+        flex-wrap: wrap;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+
+      .hero {
+        padding-top: 74px;
+      }
+
+      .stats,
+      .premium-grid,
+      .roadmap,
+      .pricing,
+      .screen-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .button-primary,
+      .button-secondary {
+        width: 100%;
+      }
+
+      .device {
+        transform: none;
+      }
+
+      .footer-wrap {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
     <div class="container nav">
-      <a class="brand" href="#top">
-        <span class="brand-icon">🐾</span>
-        <span class="brand-text">PetQ AI<small>Official Website</small></span>
+      <a href="#top" class="brand">
+        <span class="brand-mark">🐾</span>
+        <span>PetQ AI<small>Luxury Digital Experience</small></span>
       </a>
+
       <nav class="nav-links">
-        <a href="#about">About</a>
         <a href="#features">Features</a>
+        <a href="#story">Vision</a>
         <a href="#roadmap">Roadmap</a>
-        <a href="#pricing">Pricing</a>
+        <a href="#pricing">Plans</a>
         <a href="#contact">Contact</a>
       </nav>
-      <a class="nav-cta" href="#contact">Join Waitlist</a>
+
+      <a href="#contact" class="nav-cta">Join Waitlist</a>
     </div>
   </header>
 
   <main id="top">
     <section class="hero">
-      <div class="container hero-grid">
+      <div class="container hero-wrap">
         <div class="reveal">
-          <div class="eyebrow">✨ Pet Technology Platform</div>
-          <h1>เทคโนโลยีเพื่อการดูแลสัตว์เลี้ยง <span class="gold">อย่างใส่ใจและเป็นระบบ</span> 🐶🐱</h1>
+          <div class="eyebrow">✨ Premium Pet Platform Experience</div>
+          <h1>
+            PetQ AI<br>
+            <span class="gold">เว็บเปิดตัวระดับพรีเมียม</span><br>
+            สำหรับแบรนด์ที่คิดไกล
+          </h1>
           <p>
-            PetQ AI คือแพลตฟอร์มดิจิทัลสำหรับการจัดการข้อมูลสัตว์เลี้ยง การติดตามกิจกรรม
-            การบันทึกความทรงจำ และประสบการณ์การใช้งานที่ออกแบบมาอย่างอบอุ่น เรียบง่าย และพร้อมต่อยอดในอนาคต
+            หน้าเว็บไซต์นี้ออกแบบให้มีภาพลักษณ์ระดับบริษัทเทคโนโลยีสมัยใหม่ เรียบหรู น่าเชื่อถือ และพร้อมต่อยอดเป็นผลิตภัณฑ์จริงในอนาคต ทั้งในมุมแบรนด์ ประสบการณ์ผู้ใช้ และการนำเสนอเชิงธุรกิจ
           </p>
+
           <div class="hero-actions">
-            <a href="#contact" class="btn-primary">ร่วมติดตามการเปิดตัว</a>
-            <a href="#features" class="btn-secondary">ดูภาพรวมระบบ</a>
+            <a href="#contact" class="button-primary">เข้าร่วมการเปิดตัว</a>
+            <a href="#features" class="button-secondary">ดูโครงระบบ</a>
           </div>
-          <div class="hero-footnote">แพลตฟอร์มสำหรับเจ้าของสัตว์เลี้ยงที่ต้องการจัดการข้อมูลอย่างเป็นระเบียบและใส่ใจในทุกช่วงเวลา</div>
-          <div class="trust-row">
-            <div class="trust-pill">Pet Profile</div>
-            <div class="trust-pill">Activity Tracking</div>
-            <div class="trust-pill">Gentle Reminders</div>
-            <div class="trust-pill">Memories & Timeline</div>
+
+          <div class="hero-note">
+            เทคโนโลยีเพื่อประสบการณ์การดูแลสัตว์เลี้ยงอย่างใส่ใจ เป็นระเบียบ และดูดีในทุกสัมผัส
+          </div>
+
+          <div class="hero-tags">
+            <span class="hero-tag">Premium UI</span>
+            <span class="hero-tag">Animated Experience</span>
+            <span class="hero-tag">Scalable Structure</span>
+            <span class="hero-tag">Brand-first Design</span>
           </div>
         </div>
 
-        <div class="preview-card reveal">
-          <div class="preview-screen">
-            <div class="screen-top">
-              <span>PetQ AI Preview</span>
-              <span>● Prototype</span>
-            </div>
-            <div class="preview-grid">
-              <div class="mini-card">
-                <h4>Pet Profile</h4>
-                <p>จัดเก็บข้อมูลพื้นฐานของสัตว์เลี้ยงแต่ละตัวในรูปแบบที่ค้นหาและดูย้อนหลังได้ง่าย</p>
+        <div class="showcase reveal">
+          <div class="orb one"></div>
+          <div class="orb two"></div>
+
+          <div class="device">
+            <div class="device-screen">
+              <div class="screen-bar">
+                <span>PetQ AI Interface</span>
+                <span>● Live Concept</span>
               </div>
-              <div class="mini-card">
-                <h4>Reminder</h4>
-                <p>ระบบแจ้งเตือนแบบอ่อนโยนสำหรับกิจกรรมหรือข้อมูลที่ผู้ใช้ต้องการติดตาม</p>
+
+              <div class="screen-grid">
+                <div class="glass-card">
+                  <h4>Pet Profile</h4>
+                  <p>จัดการข้อมูลสัตว์เลี้ยงในรูปแบบที่ดูสวย สะอาดตา และพร้อมใช้งานจริง</p>
+                </div>
+                <div class="glass-card">
+                  <h4>Warm Reminders</h4>
+                  <p>ประสบการณ์แจ้งเตือนที่นุ่มนวลและเข้ากับภาพลักษณ์ของแบรนด์</p>
+                </div>
               </div>
-            </div>
-            <div class="list-box">
-              <div class="list-item">ดูสรุปข้อมูลสัตว์เลี้ยงในหน้าหลักได้อย่างเป็นระเบียบ</div>
-              <div class="list-item">บันทึกกิจกรรม ภาพ ความทรงจำ และข้อมูลสำคัญต่างๆ</div>
-              <div class="list-item">ออกแบบให้ต่อยอดสู่ประสบการณ์ผู้ใช้ที่ลื่นไหลและใช้งานง่าย</div>
+
+              <div class="feature-stack">
+                <div class="feature-line">ไทม์ไลน์ความทรงจำที่ออกแบบให้ดูพรีเมียมและเป็นส่วนตัว</div>
+                <div class="feature-line">โครงสร้างพร้อมต่อยอดสู่ระบบสมาชิกและแดชบอร์ดใช้งานจริง</div>
+                <div class="feature-line">รองรับภาพลักษณ์แบบบริษัทเทคโนโลยีที่พร้อมเติบโต</div>
+                <div class="feature-line">ใช้เป็นหน้าเปิดตัว เว็บแบรนด์ หรือจุดเริ่มต้นของ MVP ได้ทันที</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section>
+    <section class="section">
       <div class="container">
-        <div class="metrics reveal">
-          <div class="metric"><strong>Structured</strong><span>ออกแบบเพื่อให้ข้อมูลสัตว์เลี้ยงเป็นระเบียบและเข้าถึงง่าย</span></div>
-          <div class="metric"><strong>Warm UX</strong><span>ภาพลักษณ์อบอุ่น สุภาพ และเหมาะกับแบรนด์ระยะยาว</span></div>
-          <div class="metric"><strong>Scalable</strong><span>พร้อมต่อยอดเป็นเว็บแอปและระบบหลายหน้าในอนาคต</span></div>
-          <div class="metric"><strong>Brand-first</strong><span>เน้นความน่าเชื่อถือของแบรนด์ก่อนเปิดตัวเต็มรูปแบบ</span></div>
+        <div class="stats reveal">
+          <div class="stat">
+            <strong>Luxury</strong>
+            <span>โทนภาพลักษณ์เรียบหรู ดูแพง และมีมิติแบบแบรนด์ระดับบน</span>
+          </div>
+          <div class="stat">
+            <strong>Motion</strong>
+            <span>มีแอนิเมชันที่นุ่มนวล ช่วยให้เว็บไซต์ดูมีชีวิตและทันสมัย</span>
+          </div>
+          <div class="stat">
+            <strong>Structure</strong>
+            <span>วาง section ชัดเจน พร้อมแตกต่อเป็นหลายหน้าในอนาคต</span>
+          </div>
+          <div class="stat">
+            <strong>Scale</strong>
+            <span>พร้อมใช้เป็นฐานของแบรนด์ เว็บไซต์ และเว็บแอปในระยะถัดไป</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="about">
+    <section id="features" class="section">
       <div class="container">
         <div class="section-head reveal">
-          <h2>About PetQ AI</h2>
+          <h2>Apple-Level Visual Direction</h2>
           <p>
-            PetQ AI ถูกออกแบบให้เป็นพื้นที่ดิจิทัลสำหรับเจ้าของสัตว์เลี้ยงที่ต้องการรวมข้อมูล ความทรงจำ
-            และประสบการณ์การใช้งานไว้ในที่เดียว โดยเน้นความชัดเจนของแบรนด์และการใช้งานที่เป็นมิตร
+            เน้นพื้นที่ว่างที่หรูพอ สีมืดที่ลึกพอ แสงที่นุ่มพอ และองค์ประกอบที่สะอาดพอ เพื่อทำให้แบรนด์ดูพรีเมียมแบบไม่ตะโกน
           </p>
         </div>
-        <div class="split-2">
-          <div class="story-card reveal">
-            <h3>แนวคิดของแบรนด์</h3>
-            <p>
-              เราให้ความสำคัญกับความใส่ใจ ความเป็นระเบียบ และการออกแบบประสบการณ์ที่ทำให้ผู้ใช้รู้สึกเชื่อมโยงกับสัตว์เลี้ยงของตนได้มากขึ้น
-              โดยหลีกเลี่ยงการสื่อสารที่เกินจริงหรือก่อให้เกิดความเข้าใจผิด
-            </p>
+
+        <div class="premium-grid">
+          <div class="premium-card reveal">
+            <div class="icon-box">🧊</div>
+            <h3>Glassmorphism Premium</h3>
+            <p>ใช้พื้นผิวแบบกระจกโปร่งเบา ทำให้หน้าจอดูแพง สมัยใหม่ และมีความลึกทางสายตา</p>
           </div>
-          <div class="story-card reveal">
-            <h3>เป้าหมายของเว็บไซต์นี้</h3>
-            <p>
-              เว็บไซต์นี้ทำหน้าที่เป็นหน้าเปิดตัวอย่างเป็นทางการของแบรนด์ เพื่อสื่อสารภาพรวมระบบ ฟีเจอร์ แนวทางการพัฒนา
-              และเปิดรับผู้สนใจติดตามก่อนการเปิดใช้งานในเฟสถัดไป
-            </p>
+
+          <div class="premium-card reveal">
+            <div class="icon-box">✨</div>
+            <h3>Luxury Motion</h3>
+            <p>เพิ่มแอนิเมชันอย่างนุ่มนวล ไม่เยอะเกินไป ช่วยยกระดับความรู้สึกให้ดูแพงและมีชั้นเชิง</p>
+          </div>
+
+          <div class="premium-card reveal">
+            <div class="icon-box">🎯</div>
+            <h3>Focused Messaging</h3>
+            <p>ข้อความถูกจัดวางให้ดูเป็นแบรนด์ระดับสูง ชัดเจน และไม่รกสายตา</p>
+          </div>
+
+          <div class="premium-card reveal">
+            <div class="icon-box">🪞</div>
+            <h3>High-End Layout</h3>
+            <p>ใช้สัดส่วนแบบเว็บไซต์บริษัทเทคโนโลยีสมัยใหม่ เพื่อให้มองแล้วรู้สึกถึงมาตรฐานที่สูงขึ้นทันที</p>
+          </div>
+
+          <div class="premium-card reveal">
+            <div class="icon-box">📐</div>
+            <h3>Scalable Design System</h3>
+            <p>สี ระยะห่าง มุมโค้ง และองค์ประกอบต่างๆ ถูกจัดให้ต่อยอดได้ง่ายเมื่อระบบโตขึ้น</p>
+          </div>
+
+          <div class="premium-card reveal">
+            <div class="icon-box">🚀</div>
+            <h3>Unicorn-Ready Presence</h3>
+            <p>ช่วยให้หน้าเปิดตัวแบรนด์ดูพร้อมสำหรับนักลงทุน พาร์ตเนอร์ และการขยายธุรกิจในภาพรวม</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="features">
+    <section id="story" class="section">
       <div class="container">
         <div class="section-head reveal">
-          <h2>ภาพรวมฟีเจอร์</h2>
+          <h2>Brand Presence ที่ดูแพงโดยไม่แข็ง</h2>
           <p>
-            ชุดข้อความด้านล่างใช้ถ้อยคำกลาง ปลอดภัยขึ้นสำหรับหน้าเปิดตัว และเหมาะกับการสื่อสารเชิงแบรนด์และผลิตภัณฑ์ระยะแรก
+            ความยากของแบรนด์แนวนี้คือ ต้องดู premium แต่ยังมี warmth อยู่ เว็บไซต์เวอร์ชันนี้จึงใช้ภาษาภาพที่นิ่ง สะอาด และอบอุ่นในเวลาเดียวกัน
           </p>
         </div>
-        <div class="grid-3">
-          <div class="card reveal">
-            <div class="icon">📋</div>
-            <h3>Pet Profile</h3>
-            <p>จัดเก็บข้อมูลสัตว์เลี้ยงแต่ละตัวอย่างเป็นระเบียบ เพื่อให้เจ้าของดูข้อมูลสำคัญได้สะดวกขึ้น</p>
+
+        <div class="story-wrap">
+          <div class="story-card reveal">
+            <h3>Luxury Without Noise</h3>
+            <p>
+              ทุก section ถูกออกแบบให้มีพื้นที่หายใจพอ ขอบมนพอ และแสงพอ เพื่อสร้างความรู้สึกแบบแบรนด์ระดับบนที่ไม่ต้องใช้คำมากก็ยังดูมีมูลค่า
+            </p>
           </div>
-          <div class="card reveal">
-            <div class="icon">🗂️</div>
-            <h3>Information Management</h3>
-            <p>รวมข้อมูล กิจกรรม และบันทึกต่างๆ ไว้ในระบบเดียว เพื่อการติดตามที่ต่อเนื่องมากขึ้น</p>
-          </div>
-          <div class="card reveal">
-            <div class="icon">💛</div>
-            <h3>Gentle Reminders</h3>
-            <p>รองรับการแจ้งเตือนในรูปแบบที่สุภาพและเป็นมิตร เพื่อช่วยให้ผู้ใช้ไม่พลาดรายการที่ต้องการติดตาม</p>
-          </div>
-          <div class="card reveal">
-            <div class="icon">🕰️</div>
-            <h3>Memory Timeline</h3>
-            <p>จัดเก็บภาพ เรื่องราว และช่วงเวลาต่างๆ ของสัตว์เลี้ยงในรูปแบบไทม์ไลน์ที่ดูย้อนหลังได้ง่าย</p>
-          </div>
-          <div class="card reveal">
-            <div class="icon">🌈</div>
-            <h3>Memorial Space</h3>
-            <p>พื้นที่สำหรับจัดเก็บความทรงจำและเรื่องราวที่มีความหมายในรูปแบบที่เคารพและเรียบง่าย</p>
-          </div>
-          <div class="card reveal">
-            <div class="icon">🎥</div>
-            <h3>Content Experience</h3>
-            <p>รองรับแนวคิดการนำเสนอรูปภาพ คลิป และคอนเทนต์ของผู้ใช้ในทิศทางที่เหมาะกับแบรนด์</p>
+
+          <div class="story-card reveal">
+            <h3>Warmth With Precision</h3>
+            <p>
+              ภาพรวมยังคงความละมุนและเป็นมิตรต่อผู้ใช้ ทำให้เหมาะกับแบรนด์ที่เกี่ยวกับสัตว์เลี้ยง แต่ก็ยังดูเป็นบริษัทเทคโนโลยีที่จริงจังได้พร้อมกัน
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="roadmap">
+    <section id="roadmap" class="section">
       <div class="container">
         <div class="section-head reveal">
-          <h2>Roadmap</h2>
-          <p>วางโครงให้ชัดเจนตั้งแต่หน้าเปิดตัว ไปจนถึงระบบใช้งานจริงในเฟสถัดไป</p>
+          <h2>Roadmap For A Premium Launch</h2>
+          <p>
+            จากหน้าเปิดตัวสู่เว็บแอปจริง ทุกเฟสควรค่อยๆ เพิ่มความสามารถ โดยรักษาภาพลักษณ์พรีเมียมเอาไว้ตลอดเส้นทาง
+          </p>
         </div>
-        <div class="timeline">
-          <div class="timeline-card reveal">
-            <span class="timeline-step">Phase 1</span>
-            <h3>Official Website</h3>
-            <p>เว็บไซต์เปิดตัวแบรนด์ พร้อมสื่อสารภาพรวม แนวคิด และช่องทางติดตาม</p>
+
+        <div class="roadmap">
+          <div class="roadmap-card reveal">
+            <span class="phase">Phase 1</span>
+            <h3>Launch Website</h3>
+            <p>ใช้สำหรับประกาศตัวแบรนด์ เก็บ waitlist และสร้างภาพจำแรกให้ดูพรีเมียมทันที</p>
           </div>
-          <div class="timeline-card reveal">
-            <span class="timeline-step">Phase 2</span>
-            <h3>Product Prototype</h3>
-            <p>พัฒนาหน้าตัวอย่างและโครงประสบการณ์ใช้งาน เพื่อทดสอบทิศทางของผลิตภัณฑ์</p>
+
+          <div class="roadmap-card reveal">
+            <span class="phase">Phase 2</span>
+            <h3>Interactive Pages</h3>
+            <p>เพิ่มหน้า About, Features, Legal และ Waitlist จริง พร้อมระบบรับข้อมูลเบื้องต้น</p>
           </div>
-          <div class="timeline-card reveal">
-            <span class="timeline-step">Phase 3</span>
-            <h3>Core Platform</h3>
-            <p>ขยายสู่ระบบจัดการข้อมูล การแจ้งเตือน และส่วนใช้งานหลักของแพลตฟอร์ม</p>
+
+          <div class="roadmap-card reveal">
+            <span class="phase">Phase 3</span>
+            <h3>Web App Experience</h3>
+            <p>ขยายเป็นระบบล็อกอิน โปรไฟล์ และแดชบอร์ด ที่ยังคง design language เดิมไว้ครบ</p>
           </div>
-          <div class="timeline-card reveal">
-            <span class="timeline-step">Phase 4</span>
-            <h3>Extended Ecosystem</h3>
-            <p>ต่อยอดฟีเจอร์และบริการเสริมตามความเหมาะสมของแบรนด์และผลิตภัณฑ์</p>
+
+          <div class="roadmap-card reveal">
+            <span class="phase">Phase 4</span>
+            <h3>Scalable Platform</h3>
+            <p>ต่อยอดสู่ ecosystem ที่พร้อมรองรับการใช้งานจริง ผู้ใช้จริง และความเชื่อมั่นในระดับธุรกิจ</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="pricing">
+    <section id="pricing" class="section">
       <div class="container">
         <div class="section-head reveal">
-          <h2>Access Plans</h2>
-          <p>ตัวอย่างโครงระดับการใช้งาน เพื่ออธิบายทิศทางของผลิตภัณฑ์ในอนาคต</p>
+          <h2>Elegant Access Structure</h2>
+          <p>
+            แม้ยังเป็นหน้าเปิดตัว แต่การวางโครงระดับการใช้งานล่วงหน้าจะช่วยให้ภาพธุรกิจดูครบขึ้นและพร้อมคุยต่อในระดับมืออาชีพ
+          </p>
         </div>
+
         <div class="pricing">
-          <div class="price-card reveal">
+          <div class="pricing-card reveal">
             <h3>Starter</h3>
-            <div class="price">Basic</div>
-            <div class="price-sub">สำหรับผู้เริ่มต้นติดตามแพลตฟอร์ม</div>
-            <div class="price-list">
-              <div>• ดูข้อมูลพื้นฐานของระบบ</div>
-              <div>• เข้าถึงฟีเจอร์เริ่มต้นบางส่วน</div>
-              <div>• เหมาะสำหรับการทดลองใช้งาน</div>
+            <div class="pricing-name">Core</div>
+            <div class="pricing-sub">เริ่มต้นด้วยประสบการณ์พื้นฐานของแพลตฟอร์ม</div>
+            <div class="pricing-list">
+              <div>• เข้าถึงข้อมูลภาพรวมของแบรนด์</div>
+              <div>• เหมาะกับผู้สนใจติดตามระยะแรก</div>
+              <div>• เป็นจุดเริ่มต้นของการสร้างฐานผู้ใช้</div>
             </div>
-            <a href="#contact" class="btn-secondary">ติดตามแพลนนี้</a>
+            <a href="#contact" class="button-secondary">ติดตามแพลนนี้</a>
           </div>
-          <div class="price-card featured reveal">
-            <span class="badge">Popular</span>
+
+          <div class="pricing-card highlight reveal">
+            <span class="pricing-badge">Recommended</span>
             <h3>Premium</h3>
-            <div class="price">Plus</div>
-            <div class="price-sub">สำหรับผู้ต้องการประสบการณ์ที่ครบขึ้น</div>
-            <div class="price-list">
-              <div>• ฟีเจอร์มากขึ้น</div>
-              <div>• จัดการข้อมูลได้ละเอียดขึ้น</div>
-              <div>• เหมาะกับผู้ใช้ระยะยาว</div>
+            <div class="pricing-name">Signature</div>
+            <div class="pricing-sub">สำหรับประสบการณ์ที่ลึกขึ้นและภาพลักษณ์ที่ครบขึ้น</div>
+            <div class="pricing-list">
+              <div>• รองรับการใช้งานหลายส่วนในระบบ</div>
+              <div>• เหมาะกับผู้ใช้ที่ต้องการความต่อเนื่อง</div>
+              <div>• เป็นแกนหลักของโมเดลระยะยาว</div>
             </div>
-            <a href="#contact" class="btn-primary">ขออัปเดตภายหลัง</a>
+            <a href="#contact" class="button-primary">ขออัปเดตเพิ่ม</a>
           </div>
-          <div class="price-card reveal">
+
+          <div class="pricing-card reveal">
             <h3>Extended</h3>
-            <div class="price">Max</div>
-            <div class="price-sub">สำหรับการใช้งานหลายส่วนในระบบ</div>
-            <div class="price-list">
-              <div>• รองรับการใช้งานที่หลากหลาย</div>
-              <div>• เหมาะกับฟีเจอร์ขยายในอนาคต</div>
-              <div>• ใช้สื่อสารภาพรวมเชิงธุรกิจได้ดี</div>
+            <div class="pricing-name">Elite</div>
+            <div class="pricing-sub">สำหรับฟีเจอร์ขยายและการใช้งานเชิงลึกในอนาคต</div>
+            <div class="pricing-list">
+              <div>• เผื่อโครงสำหรับบริการพิเศษ</div>
+              <div>• เหมาะกับภาพรวมธุรกิจที่ขยายขึ้น</div>
+              <div>• ช่วยให้แบรนด์ดูพร้อมในมุมกลยุทธ์</div>
             </div>
-            <a href="#contact" class="btn-secondary">ร่วมติดตาม</a>
+            <a href="#contact" class="button-secondary">ร่วมติดตาม</a>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="contact">
+    <section id="contact" class="section">
       <div class="container">
-        <div class="contact-box reveal">
+        <div class="contact-shell reveal">
           <div class="contact-copy">
-            <h2>Contact & Waitlist</h2>
+            <h2>Make The First Impression Count</h2>
             <p>
-              ใช้ส่วนนี้สำหรับเปิดรับผู้ติดตาม ผู้สนใจ หรือผู้ที่ต้องการติดต่อเบื้องต้นกับแบรนด์
-              โดยถ้อยคำและรูปแบบถูกปรับให้เหมาะกับเว็บไซต์เปิดตัวจริงมากขึ้น
+              หน้าเปิดตัวที่ดีไม่ใช่แค่สวย แต่ต้องทำให้คนรู้สึกว่าแบรนด์นี้จริงจัง น่าเชื่อถือ และไปได้ไกล เว็บไซต์เวอร์ชันนี้ถูกออกแบบมาเพื่อจุดนั้นโดยเฉพาะ
             </p>
+
             <div class="contact-points">
-              <div class="contact-point">เหมาะสำหรับหน้าเปิดตัวก่อนเชื่อมระบบจริง</div>
-              <div class="contact-point">สามารถต่อยอดเป็นฟอร์มส่งเข้าอีเมลหรือฐานข้อมูลภายหลัง</div>
-              <div class="contact-point">ควรเพิ่มหน้า Terms, Privacy และ Disclaimer ก่อนใช้งานจริงเชิงธุรกิจ</div>
+              <div class="contact-point">เหมาะสำหรับใช้เป็น official launch website ของแบรนด์</div>
+              <div class="contact-point">รองรับการแตกต่อเป็นหลายหน้าและระบบจริงในภายหลัง</div>
+              <div class="contact-point">ดีไซน์และโทนพร้อมต่อยอดเป็นเว็บแอประดับพรีเมียม</div>
             </div>
           </div>
+
           <div class="contact-form">
-            <h3>ฟอร์มติดต่อเบื้องต้น</h3>
+            <h3>Join The Waitlist</h3>
             <form onsubmit="handleSubmit(event)">
-              <div class="field"><input class="input" id="name" type="text" placeholder="ชื่อของคุณ" required></div>
-              <div class="field"><input class="input" id="email" type="email" placeholder="อีเมลติดต่อ" required></div>
               <div class="field">
-                <select class="select" id="type">
+                <input id="name" class="input" type="text" placeholder="ชื่อของคุณ" required>
+              </div>
+              <div class="field">
+                <input id="email" class="input" type="email" placeholder="อีเมลติดต่อ" required>
+              </div>
+              <div class="field">
+                <select id="type" class="select">
                   <option value="ผู้สนใจทั่วไป">ผู้สนใจทั่วไป</option>
                   <option value="พาร์ตเนอร์">พาร์ตเนอร์</option>
                   <option value="นักลงทุน">นักลงทุน</option>
-                  <option value="สื่อหรือองค์กร">สื่อหรือองค์กร</option>
+                  <option value="องค์กรหรือสื่อ">องค์กรหรือสื่อ</option>
                 </select>
               </div>
-              <div class="field"><textarea class="textarea" id="message" placeholder="ข้อความของคุณ"></textarea></div>
-              <button class="submit-btn" type="submit">ส่งข้อมูล</button>
+              <div class="field">
+                <textarea id="message" class="textarea" placeholder="ข้อความของคุณ"></textarea>
+              </div>
+              <button class="contact-button" type="submit">ส่งข้อมูล</button>
             </form>
-            <div class="form-status" id="form-status">แบบฟอร์มนี้เป็นตัวอย่างบนหน้าเปิดตัว หากต้องการใช้งานจริง ควรเชื่อมระบบรับข้อมูลและจัดทำนโยบายที่เกี่ยวข้องเพิ่มเติม</div>
+            <div id="form-status" class="form-status">ฟอร์มนี้เป็นตัวอย่างสำหรับหน้าเปิดตัว หากต้องการใช้งานจริงสามารถเชื่อมระบบรับข้อมูลภายหลังได้</div>
           </div>
         </div>
       </div>
@@ -772,12 +1167,12 @@
   </main>
 
   <footer>
-    <div class="container footer-grid">
+    <div class="container footer-wrap">
       <div class="footer-left">© 2026 PetQ AI. All rights reserved.</div>
       <div class="footer-links">
         <a href="#top">Home</a>
-        <a href="#about">About</a>
         <a href="#features">Features</a>
+        <a href="#story">Vision</a>
         <a href="#roadmap">Roadmap</a>
         <a href="#contact">Contact</a>
       </div>
@@ -799,10 +1194,15 @@
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add('show');
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
       });
     }, { threshold: 0.12 });
     reveals.forEach((el) => observer.observe(el));
   </script>
 </body>
 </html>
+<p style="margin-top:20px;color:#aaa;">
+หรือติดต่อเราโดยตรงที่ contact@petqai.com
+</p>
