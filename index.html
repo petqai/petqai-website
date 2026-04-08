@@ -4,1076 +4,246 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PetQ AI | AI ดูแลสัตว์เลี้ยง เพื่อชีวิตที่ดีที่สุดของพวกเขา</title>
-  <meta name="description" content="PetQ AI คือแพลตฟอร์ม AI ดูแลสัตว์เลี้ยงแบบครบวงจร รวม AI ถามตอบสุขภาพ โปรไฟล์สัตว์เลี้ยง ระบบแจ้งเตือนอ่อนโยน บันทึกสุขภาพ ไทม์ไลน์ความทรงจำ ระบบโพสต์และคลิป และโครงสร้างพร้อมเชื่อม Google Sheets, Email และ CRM" />
+  <meta name="description" content="PetQ AI ระบบดูแลสัตว์เลี้ยงด้วย AI ที่ออกแบบจากความรัก ความผูกพัน และหัวใจของคนรักหมาแมว เพื่อชีวิตที่ดีที่สุดของพวกเขา" />
   <meta name="theme-color" content="#0f172a" />
-  <meta property="og:title" content="PetQ AI" />
-  <meta property="og:description" content="AI ดูแลสัตว์เลี้ยง เพื่อชีวิตที่ดีที่สุดของพวกเขา 🐶🐱" />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="th_TH" />
-  <style>
-    :root {
-      --bg: #061018;
-      --bg-2: #0b1220;
-      --surface: rgba(255,255,255,0.06);
-      --surface-strong: rgba(255,255,255,0.1);
-      --line: rgba(255,255,255,0.11);
-      --text: #f8fafc;
-      --muted: #cbd5e1;
-      --soft: #94a3b8;
-      --primary: #8b5cf6;
-      --primary-2: #6366f1;
-      --green: #22c55e;
-      --gold: #f59e0b;
-      --danger: #fb7185;
-      --shadow: 0 24px 70px rgba(0,0,0,.35);
-      --radius-xl: 32px;
-      --radius-lg: 24px;
-      --radius-md: 18px;
-      --container: 1200px;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 0% 0%, rgba(139,92,246,.18), transparent 26%),
-        radial-gradient(circle at 100% 0%, rgba(34,197,94,.12), transparent 24%),
-        linear-gradient(180deg, #061018 0%, #08111d 36%, #061018 100%);
-      line-height: 1.6;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-    button, input, select, textarea { font: inherit; }
-
-    .container {
-      width: min(var(--container), calc(100% - 32px));
-      margin: 0 auto;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 60;
-      backdrop-filter: blur(16px);
-      background: rgba(6,16,24,.72);
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-
-    .nav {
-      min-height: 78px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-weight: 800;
-      letter-spacing: -.02em;
-    }
-
-    .brand-mark {
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      font-size: 23px;
-      background: linear-gradient(135deg, rgba(139,92,246,.92), rgba(34,197,94,.82));
-      box-shadow: 0 12px 30px rgba(99,102,241,.34);
-    }
-
-    .brand-text small {
-      display: block;
-      font-size: 11px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: #ddd6fe;
-    }
-
-    .brand-text strong { font-size: 18px; }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 22px;
-      color: #dbeafe;
-      font-size: 15px;
-    }
-
-    .nav-links a { opacity: .88; }
-    .nav-links a:hover { opacity: 1; }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      min-height: 50px;
-      padding: 0 20px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      font-weight: 800;
-      cursor: pointer;
-      transition: .25s ease;
-    }
-
-    .btn:hover { transform: translateY(-1px); }
-
-    .btn-primary {
-      color: white;
-      background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      box-shadow: 0 18px 40px rgba(99,102,241,.28);
-    }
-
-    .btn-secondary {
-      color: white;
-      background: linear-gradient(135deg, #16a34a, #22c55e);
-      box-shadow: 0 18px 40px rgba(34,197,94,.22);
-    }
-
-    .btn-ghost {
-      background: rgba(255,255,255,.05);
-      border-color: rgba(255,255,255,.1);
-      color: white;
-    }
-
-    .section { padding: 96px 0; }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.1);
-      color: #e9d5ff;
-      font-size: 13px;
-      backdrop-filter: blur(10px);
-    }
-
-    .section-title {
-      font-size: clamp(30px, 5vw, 54px);
-      line-height: 1.05;
-      margin: 16px 0 14px;
-      letter-spacing: -.04em;
-    }
-
-    .section-desc {
-      margin: 0;
-      max-width: 760px;
-      color: var(--muted);
-      font-size: 17px;
-    }
-
-    .hero {
-      position: relative;
-      overflow: hidden;
-      padding: 70px 0 36px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.04fr .96fr;
-      gap: 30px;
-      align-items: center;
-    }
-
-    .hero h1 {
-      font-size: clamp(42px, 6.5vw, 82px);
-      line-height: .95;
-      letter-spacing: -.06em;
-      margin: 18px 0 18px;
-    }
-
-    .gradient-text {
-      background: linear-gradient(135deg, #fff 0%, #ddd6fe 45%, #86efac 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .hero p {
-      color: #d7e3ef;
-      font-size: 18px;
-      margin: 0 0 24px;
-      max-width: 760px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-bottom: 24px;
-    }
-
-    .mini-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.09);
-      color: #e2e8f0;
-      font-size: 14px;
-    }
-
-    .hero-shell {
-      position: relative;
-      min-height: 670px;
-      padding: 22px;
-      border-radius: 34px;
-      background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.04));
-      border: 1px solid rgba(255,255,255,.1);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .hero-shell::before {
-      content: "";
-      position: absolute;
-      width: 250px;
-      height: 250px;
-      border-radius: 50%;
-      background: rgba(139,92,246,.18);
-      filter: blur(42px);
-      left: -60px;
-      top: -40px;
-    }
-
-    .dashboard {
-      display: grid;
-      gap: 16px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .glass {
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-    }
-
-    .hero-top {
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 16px;
-    }
-
-    .card {
-      padding: 24px;
-      border-radius: var(--radius-lg);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      border: 1px solid rgba(255,255,255,.09);
-      height: 100%;
-      box-shadow: var(--shadow);
-    }
-
-    .kpi-card {
-      padding: 22px;
-    }
-
-    .kpi-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .kpi {
-      padding: 14px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.08);
-    }
-
-    .kpi strong { display: block; font-size: 22px; }
-    .meta { color: var(--soft); font-size: 13px; }
-
-    .chat-card {
-      padding: 22px;
-    }
-
-    .chat-bubble {
-      padding: 14px 16px;
-      border-radius: 18px;
-      margin-top: 12px;
-      font-size: 14px;
-    }
-
-    .chat-user {
-      background: rgba(99,102,241,.16);
-      border: 1px solid rgba(99,102,241,.22);
-    }
-
-    .chat-ai {
-      background: rgba(34,197,94,.10);
-      border: 1px solid rgba(34,197,94,.16);
-    }
-
-    .stack-2, .stack-3, .stack-4 {
-      display: grid;
-      gap: 18px;
-    }
-
-    .stack-2 { grid-template-columns: repeat(2, 1fr); }
-    .stack-3 { grid-template-columns: repeat(3, 1fr); }
-    .stack-4 { grid-template-columns: repeat(4, 1fr); }
-
-    .icon-box {
-      width: 52px;
-      height: 52px;
-      border-radius: 16px;
-      display: grid;
-      place-items: center;
-      font-size: 24px;
-      margin-bottom: 16px;
-      background: linear-gradient(135deg, rgba(139,92,246,.25), rgba(34,197,94,.14));
-      border: 1px solid rgba(255,255,255,.08);
-    }
-
-    .card h3 {
-      margin: 0 0 10px;
-      font-size: 22px;
-      letter-spacing: -.02em;
-    }
-
-    .card p, .card li { color: var(--muted); margin: 0; }
-
-    .feature-list {
-      margin: 14px 0 0;
-      padding-left: 18px;
-      display: grid;
-      gap: 10px;
-    }
-
-    .band {
-      padding: 22px;
-      border-radius: 24px;
-      background: linear-gradient(135deg, rgba(139,92,246,.12), rgba(34,197,94,.08));
-      border: 1px solid rgba(255,255,255,.08);
-    }
-
-    .timeline {
-      display: grid;
-      gap: 16px;
-    }
-
-    .timeline-item {
-      position: relative;
-      padding: 20px 20px 20px 24px;
-      border-radius: 20px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.09);
-      overflow: hidden;
-    }
-
-    .timeline-item::before {
-      content: "";
-      position: absolute;
-      inset: 0 auto 0 0;
-      width: 4px;
-      background: linear-gradient(180deg, var(--primary), var(--green));
-    }
-
-    .timeline-item span {
-      display: inline-block;
-      margin-bottom: 8px;
-      color: #ddd6fe;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-    }
-
-    .pricing-card {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .price {
-      display: flex;
-      gap: 8px;
-      align-items: baseline;
-      margin: 16px 0 18px;
-    }
-
-    .price strong { font-size: 42px; line-height: 1; }
-
-    .badge {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--gold), #f97316);
-      color: white;
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .check-list {
-      display: grid;
-      gap: 12px;
-      margin: 18px 0 22px;
-      color: #e2e8f0;
-      font-size: 15px;
-    }
-
-    .check-list div {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-    }
-
-    .quote {
-      padding: 38px;
-      border-radius: 32px;
-      background: linear-gradient(135deg, rgba(139,92,246,.15), rgba(34,197,94,.10));
-      border: 1px solid rgba(255,255,255,.1);
-      box-shadow: var(--shadow);
-      text-align: center;
-    }
-
-    .quote blockquote {
-      margin: 0;
-      font-size: clamp(24px, 3vw, 38px);
-      line-height: 1.24;
-      letter-spacing: -.03em;
-      font-weight: 800;
-    }
-
-    .cta {
-      padding: 34px;
-      border-radius: 32px;
-      background:
-        radial-gradient(circle at top right, rgba(34,197,94,.16), transparent 26%),
-        linear-gradient(135deg, rgba(139,92,246,.18), rgba(15,23,42,.96));
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: var(--shadow);
-    }
-
-    .cta-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      align-items: start;
-    }
-
-    .form-grid {
-      display: grid;
-      gap: 12px;
-    }
-
-    .field {
-      width: 100%;
-      min-height: 54px;
-      padding: 0 16px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.1);
-      color: white;
-      outline: none;
-    }
-
-    textarea.field {
-      padding: 14px 16px;
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .split {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .notice {
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.08);
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .footer {
-      padding: 24px 0 52px;
-      color: var(--muted);
-    }
-
-    .footer-grid {
-      border-top: 1px solid rgba(255,255,255,.08);
-      padding-top: 22px;
-      display: grid;
-      grid-template-columns: 1.1fr 1fr 1fr;
-      gap: 18px;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: .65s ease;
-    }
-
-    .reveal.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (max-width: 1080px) {
-      .hero-grid,
-      .cta-grid,
-      .hero-top,
-      .stack-4 { grid-template-columns: 1fr; }
-      .stack-3 { grid-template-columns: repeat(2, 1fr); }
-      .nav-links { display: none; }
-    }
-
-    @media (max-width: 760px) {
-      .section { padding: 72px 0; }
-      .hero { padding-top: 46px; }
-      .stack-2,
-      .stack-3,
-      .split,
-      .footer-grid,
-      .kpi-row { grid-template-columns: 1fr; }
-      .nav-actions .btn-ghost { display: none; }
-      .hero-shell { min-height: auto; }
-      .section-desc,
-      .hero p { font-size: 16px; }
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="topbar">
-    <div class="container nav">
-      <a href="#home" class="brand" aria-label="PetQ AI Home">
-        <div class="brand-mark">🐾</div>
-        <div class="brand-text">
-          <small>Pet Health AI Platform</small>
-          <strong>PetQ AI</strong>
-        </div>
-      </a>
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a href="#top" class="brand">
+          <span class="brand-mark">P</span>
+          <span class="brand-text">
+            <strong>PetQ AI</strong>
+            <small>AI Pet Care Platform</small>
+          </span>
+        </a>
 
-      <nav class="nav-links">
+        <nav class="desktop-nav">
+          <a href="#story">เรื่องราว</a>
+          <a href="#features">ฟีเจอร์</a>
+          <a href="#vision">วิสัยทัศน์</a>
+          <a href="#contact">ติดต่อ</a>
+        </nav>
+
+        <button class="menu-btn" id="menuBtn" aria-label="เปิดเมนู">☰</button>
+      </div>
+
+      <div class="mobile-nav" id="mobileNav">
+        <a href="#story">เรื่องราว</a>
         <a href="#features">ฟีเจอร์</a>
-        <a href="#ecosystem">Ecosystem</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#lead-system">Lead System</a>
-      </nav>
-
-      <div class="nav-actions">
-        <a class="btn btn-ghost" href="#contact">ติดต่อทีมงาน</a>
-        <a class="btn btn-primary" href="#waitlist">ขอเดโม</a>
+        <a href="#vision">วิสัยทัศน์</a>
+        <a href="#contact">ติดต่อ</a>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <main id="home">
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="reveal">
-          <div class="eyebrow">🚀 Unicorn-Level Website System</div>
-          <h1><span class="gradient-text">AI ดูแลสัตว์เลี้ยง</span><br />เพื่อชีวิตที่ดีที่สุดของพวกเขา</h1>
-          <p>
-            PetQ AI คือแพลตฟอร์มที่รวมเทคโนโลยี สุขภาพ ความรัก ความทรงจำ และโครงสร้างธุรกิจไว้ในระบบเดียว
-            ออกแบบใหม่ทั้งเว็บไซต์ให้ดูพรีเมียม น่าเชื่อถือ พร้อมใช้งานจริง และพร้อมเชื่อม Google Sheets, Email Notification และ CRM ได้ทันที
-          </p>
+    <main id="top">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy reveal">
+            <span class="eyebrow">PETQ AI OFFICIAL WEBSITE</span>
+            <h1>AI ดูแลสัตว์เลี้ยง <br>เพื่อชีวิตที่ดีที่สุดของพวกเขา 🐶🐱</h1>
+            <p class="hero-lead">
+              PetQ AI คือแนวคิดแพลตฟอร์มดูแลสัตว์เลี้ยงที่เริ่มจากความรักจริง ความผูกพันจริง
+              และความตั้งใจที่จะตอบแทนความรักของหมาและแมวให้ดีที่สุด
+            </p>
 
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#waitlist">เริ่มเก็บ Lead</a>
-            <a class="btn btn-secondary" href="#lead-system">ดูระบบหลังบ้าน</a>
-          </div>
-
-          <div class="mini-pills">
-            <div class="pill">🐶 AI ถามตอบสุขภาพ</div>
-            <div class="pill">💛 Gentle Notifications</div>
-            <div class="pill">🎥 Pet Social + คลิป</div>
-            <div class="pill">🏥 Clinic Integration</div>
-          </div>
-        </div>
-
-        <div class="hero-shell reveal">
-          <div class="dashboard">
-            <div class="hero-top">
-              <div class="glass kpi-card">
-                <div style="display:flex; justify-content:space-between; gap:12px; align-items:start;">
-                  <div>
-                    <strong style="font-size:24px;">Growth Dashboard</strong>
-                    <div class="meta">ภาพรวมระบบหน้าเว็บ + lead + product positioning</div>
-                  </div>
-                  <div class="pill">Live Ready</div>
-                </div>
-                <div class="kpi-row">
-                  <div class="kpi"><strong>AI</strong><span class="meta">ดูแลทุกวัน</span></div>
-                  <div class="kpi"><strong>CRM</strong><span class="meta">พร้อมเชื่อม</span></div>
-                  <div class="kpi"><strong>MVP</strong><span class="meta">พร้อมนำเสนอ</span></div>
-                </div>
-              </div>
-
-              <div class="glass kpi-card">
-                <strong style="font-size:22px;">Lead Score Engine</strong>
-                <div class="meta" style="margin-top:8px;">นักลงทุน / พาร์ตเนอร์ / คลินิก / ลูกค้าทั่วไป ถูกจัดลำดับความสำคัญอัตโนมัติ</div>
-              </div>
+            <div class="quote-card">
+              <p>“รัก ขอบคุณหมาและแมว เราจะตอบแทนให้ดีที่สุด”</p>
+              <span>Brand Soul ของ PetQ AI</span>
             </div>
 
-            <div class="glass chat-card">
-              <strong style="font-size:22px;">ตัวอย่างประสบการณ์ในแอป</strong>
-              <div class="chat-bubble chat-user">วันนี้น้องกินอาหารน้อยลงและซึม ควรเริ่มเช็กอะไรบ้าง?</div>
-              <div class="chat-bubble chat-ai">เริ่มจากตรวจการกินน้ำ อาเจียน ท้องเสีย อุณหภูมิร่างกาย และพฤติกรรมร่วมด้วย หากซึมมากกว่า 12–24 ชั่วโมง ควรพบสัตวแพทย์ครับ</div>
-              <div class="chat-bubble chat-ai">วันนี้น้องยังไม่ได้ชั่งน้ำหนักนะ ลองเช็กเบา ๆ เพื่อดูแลสุขภาพระยะยาวกัน 💛</div>
+            <div class="hero-actions">
+              <a href="#features" class="btn btn-primary">ดูฟีเจอร์หลัก</a>
+              <a href="#story" class="btn btn-secondary">อ่านเรื่องราวของฟูจิ</a>
             </div>
 
-            <div class="stack-2">
-              <div class="glass kpi-card">
-                <strong style="font-size:20px;">Pet Memorial</strong>
-                <div class="meta" style="margin-top:8px;">เก็บภาพ ข้อความ วิดีโอ และวันสำคัญของสัตว์เลี้ยงไว้อย่างงดงาม</div>
+            <div class="hero-stats">
+              <div>
+                <strong>AI Care</strong>
+                <span>ถามตอบ ดูแล และติดตาม</span>
               </div>
-              <div class="glass kpi-card">
-                <strong style="font-size:20px;">Pet Social</strong>
-                <div class="meta" style="margin-top:8px;">ระบบโพสต์และคลิปในแอป เพื่อสร้าง engagement และความผูกพัน</div>
+              <div>
+                <strong>Emotional Bonding</strong>
+                <span>เชื่อมโยงความรักของคนกับสัตว์เลี้ยง</span>
+              </div>
+              <div>
+                <strong>Future Platform</strong>
+                <span>พร้อมต่อยอดสู่ระบบระดับโลก</span>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <section class="section" id="features">
-      <div class="container">
-        <div class="reveal">
-          <div class="eyebrow">✨ Core Platform</div>
-          <h2 class="section-title">เว็บใหม่ทั้งหมด ให้ภาพลักษณ์ใหญ่ขึ้น ชัดขึ้น และพร้อมใช้งานจริง</h2>
-          <p class="section-desc">
-            เวอร์ชันนี้ถูกออกแบบใหม่ทั้งโครง โดยเน้น 3 เรื่องพร้อมกัน คือ ความน่าเชื่อถือของแบรนด์ การเล่าเรื่องวิสัยทัศน์ และระบบเก็บข้อมูลลูกค้าเพื่อใช้ต่อยอดธุรกิจจริง
-          </p>
-        </div>
-
-        <div class="stack-3" style="margin-top:28px;">
-          <article class="card reveal">
-            <div class="icon-box">🩺</div>
-            <h3>AI Pet Health</h3>
-            <p>ตอบคำถามสุขภาพสัตว์เลี้ยงเบื้องต้น เข้าใจง่าย อบอุ่น และช่วยคัดกรองก่อนพบสัตวแพทย์</p>
-          </article>
-          <article class="card reveal">
-            <div class="icon-box">💛</div>
-            <h3>Gentle Notifications</h3>
-            <p>เตือนวัคซีน ชั่งน้ำหนัก ยา นัดหมาย และเหตุการณ์สำคัญ ด้วยภาษาที่ดูแลใจเจ้าของไปพร้อมกัน</p>
-          </article>
-          <article class="card reveal">
-            <div class="icon-box">📒</div>
-            <h3>Pet Profile</h3>
-            <p>เก็บข้อมูลสัตว์เลี้ยงแต่ละตัวไว้ในระบบเดียว ทั้งประวัติการรักษา พฤติกรรม น้ำหนัก และบันทึกสุขภาพ</p>
-          </article>
-          <article class="card reveal">
-            <div class="icon-box">🎥</div>
-            <h3>คลิปและโพสต์</h3>
-            <p>รองรับแนวคิด Pet Social + Emotional Platform ให้ผู้ใช้แชร์เรื่องราว ความทรงจำ และพัฒนาการได้</p>
-          </article>
-          <article class="card reveal">
-            <div class="icon-box">🕊️</div>
-            <h3>Pet Memorial</h3>
-            <p>หน้าระลึกถึงสัตว์เลี้ยงที่จากไป พร้อมภาพ ข้อความ และการเก็บความทรงจำที่อ่อนโยนและทรงคุณค่า</p>
-          </article>
-          <article class="card reveal">
-            <div class="icon-box">🏥</div>
-            <h3>Clinic Integration</h3>
-            <p>วางโครงเพื่อเชื่อมคลินิกในอนาคต รองรับวัคซีน น้ำหนัก ประวัติการรักษา และระบบนัดหมาย</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="ecosystem">
-      <div class="container stack-2">
-        <div class="reveal">
-          <div class="eyebrow">🌐 Brand + Business + System</div>
-          <h2 class="section-title">ไม่ได้เป็นแค่เว็บสวย แต่เป็นโครงสร้างเพื่อการเติบโต</h2>
-          <p class="section-desc">
-            หน้าเว็บนี้ทำหน้าที่ได้พร้อมกันหลายแบบ ทั้งหน้าเปิดตัวแบรนด์ หน้าอธิบายแพลตฟอร์ม หน้าเก็บ lead หน้าเสนอพาร์ตเนอร์ และหน้าเตรียมคุยนักลงทุน
-          </p>
-        </div>
-
-        <div class="card reveal">
-          <h3>สิ่งที่เว็บนี้รองรับแล้ว</h3>
-          <ul class="feature-list">
-            <li>เล่าแบรนด์ PetQ AI แบบพรีเมียมและเป็นมืออาชีพ</li>
-            <li>อธิบาย Product Vision ได้ชัดทั้งฝั่งผู้ใช้และนักลงทุน</li>
-            <li>มีฟอร์มเก็บ lead พร้อม logic สำหรับคะแนนความสำคัญ</li>
-            <li>รองรับการเชื่อม Google Sheets / Email / CRM / Webhook</li>
-            <li>ใช้เป็น index.html ได้ทันทีและนำขึ้นโฮสต์ได้เลย</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="roadmap">
-      <div class="container">
-        <div class="reveal">
-          <div class="eyebrow">🗺️ Roadmap</div>
-          <h2 class="section-title">Roadmap ที่ต่อยอดจาก MVP ไปสู่ Full Platform</h2>
-          <p class="section-desc">
-            วางแผนให้เริ่มใช้งานจริงได้เร็ว แต่ยังคงเปิดทางให้ระบบขยายใหญ่ในอนาคต ทั้งด้านเทคโนโลยี Engagement และรายได้
-          </p>
-        </div>
-
-        <div class="stack-2" style="margin-top:28px; align-items:start;">
-          <div class="timeline reveal">
-            <div class="timeline-item">
-              <span>Phase 1 • เดือน 1–4</span>
-              <h3>MVP Launch</h3>
-              <p>AI ถามตอบสุขภาพ, โปรไฟล์สัตว์เลี้ยง, Gentle Notifications, บันทึกยา/อาการ, โหมดสัตว์สูงวัย และระบบอนุสรณ์สัตว์เลี้ยง</p>
-            </div>
-            <div class="timeline-item">
-              <span>Phase 2 • เดือน 5–8</span>
-              <h3>Engagement Layer</h3>
-              <p>ระบบโพสต์และคลิป อัลบั้มภาพ Community ตามสายพันธุ์ ระบบสมาชิก และคอนเทนต์หมุนเวียนไม่สิ้นสุด</p>
-            </div>
-            <div class="timeline-item">
-              <span>Phase 3 • เดือน 9–12</span>
-              <h3>Expansion Platform</h3>
-              <p>Clinic Integration, Marketplace, Partner Layer, Pet Digital ID, Dashboard และข้อมูลสุขภาพระยะยาว</p>
-            </div>
-          </div>
-
-          <div class="card reveal">
-            <h3>Business Expansion</h3>
-            <div class="band" style="margin-top:14px;">
-              <strong>Tier 1</strong>
-              <p style="margin-top:8px;">เปิดตัวระบบหลัก + สมาชิก Premium + เริ่มเชื่อมข้อมูลสุขภาพพื้นฐาน</p>
-            </div>
-            <div class="band" style="margin-top:14px;">
-              <strong>Tier 2</strong>
-              <p style="margin-top:8px;">ขยายสู่ Marketplace, Community, Health Package และพันธมิตรประกัน</p>
-            </div>
-            <div class="band" style="margin-top:14px;">
-              <strong>Tier 3</strong>
-              <p style="margin-top:8px;">สร้างโครงแพลตฟอร์มเต็มรูปแบบในระดับประเทศและต่อยอดสู่ระดับภูมิภาค</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="pricing">
-      <div class="container">
-        <div class="reveal">
-          <div class="eyebrow">💎 Monetization</div>
-          <h2 class="section-title">Subscription ที่ออกแบบเพื่อเติบโตได้จริง</h2>
-          <p class="section-desc">
-            วางโครงให้ผู้ใช้เริ่มต้นได้ง่าย แล้วค่อยขยับไปยังแผนที่มีมูลค่าสูงขึ้นตามความสัมพันธ์กับสัตว์เลี้ยงและการใช้งานจริง
-          </p>
-        </div>
-
-        <div class="stack-3" style="margin-top:28px;">
-          <article class="card pricing-card reveal">
-            <h3>Free</h3>
-            <div class="price"><strong>฿0</strong><span>/ เริ่มต้น</span></div>
-            <div class="check-list">
-              <div>✅ ถาม AI แบบจำกัด</div>
-              <div>✅ เพิ่มสัตว์ได้ 1 ตัว</div>
-              <div>✅ บันทึกพื้นฐาน</div>
-              <div>✅ เข้าถึงชุมชนเบื้องต้น</div>
-            </div>
-            <a class="btn btn-ghost" href="#waitlist">เริ่มต้น</a>
-          </article>
-
-          <article class="card pricing-card reveal">
-            <div class="badge">แนะนำ</div>
-            <h3>Premium</h3>
-            <div class="price"><strong>฿299</strong><span>/ เดือน</span></div>
-            <div class="check-list">
-              <div>✅ ถาม AI ไม่จำกัด</div>
-              <div>✅ Health Log เต็มระบบ</div>
-              <div>✅ Gentle Notifications</div>
-              <div>✅ ปฏิทิน ความทรงจำ และกิจกรรมรายวัน</div>
-            </div>
-            <a class="btn btn-primary" href="#waitlist">ขอทดลองใช้</a>
-          </article>
-
-          <article class="card pricing-card reveal">
-            <h3>Loving+</h3>
-            <div class="price"><strong>฿699</strong><span>/ เดือน</span></div>
-            <div class="check-list">
-              <div>✅ ปลดล็อกทุกฟีเจอร์</div>
-              <div>✅ รองรับหลายสัตว์เลี้ยง</div>
-              <div>✅ Pet Memorial ขั้นสูง</div>
-              <div>✅ ฟีเจอร์ครอบครัวและสิทธิพิเศษพาร์ตเนอร์</div>
-            </div>
-            <a class="btn btn-ghost" href="#contact">คุยกับทีมงาน</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="lead-system">
-      <div class="container">
-        <div class="reveal">
-          <div class="eyebrow">🔌 Lead System + CRM</div>
-          <h2 class="section-title">พร้อมเชื่อม Google Sheet / Email / CRM</h2>
-          <p class="section-desc">
-            เว็บนี้ไม่ได้มีแค่ฟอร์มติดต่อ แต่เตรียมโครงสำหรับบันทึก lead, ให้คะแนนอัตโนมัติ, ส่งอีเมลแจ้งเตือน และส่งต่อเข้าระบบหลังบ้านได้ทันที
-          </p>
-        </div>
-
-        <div class="stack-3" style="margin-top:28px;">
-          <article class="card reveal">
-            <div class="icon-box">📊</div>
-            <h3>Google Sheets</h3>
-            <p>เก็บชื่อ อีเมล โทร บริษัท ประเภทความสนใจ UTM referrer เวลา และคะแนน lead ลงชีตอัตโนมัติ</p>
-          </article>
-          <article class="card reveal">
-            <div class="icon-box">✉️</div>
-            <h3>Email Alert</h3>
-            <p>ทุก lead ใหม่สามารถส่งแจ้งเตือนไปที่อีเมลทีมงาน เช่น contact@petqai.com ได้ทันที</p>
-          </article>
-          <article class="card reveal">
-            <div class="icon-box">🧠</div>
-            <h3>CRM / Webhook</h3>
-            <p>พร้อมเชื่อม HubSpot, Zoho, Notion, Airtable หรือระบบ CRM อื่นผ่าน Webhook ได้</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="quote reveal">
-          <blockquote>“รัก ขอบคุณหมาและแมว เราจะตอบแทนให้ดีที่สุด”</blockquote>
-          <p class="section-desc" style="margin:16px auto 0; max-width:780px;">
-            PetQ AI เกิดจากความตั้งใจที่จะตอบแทนความรักของสัตว์เลี้ยง ด้วยระบบที่ช่วยให้พวกเขาได้รับการดูแลดีที่สุด ทั้งด้านสุขภาพ ความผูกพัน และคุณภาพชีวิต
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="waitlist">
-      <div class="container">
-        <div class="cta reveal">
-          <div class="cta-grid">
-            <div>
-              <div class="eyebrow">📩 Get Early Access</div>
-              <h2 class="section-title" style="margin-top:14px;">ขอเดโม หรือเข้ารอเปิดตัวระบบ</h2>
-              <p class="section-desc">
-                ฟอร์มนี้รองรับลูกค้าทั่วไป คลินิกสัตวแพทย์ พาร์ตเนอร์ นักลงทุน และสื่อ พร้อมเก็บข้อมูลเพื่อนำไปต่อยอดในระบบจริง
+          <div class="hero-visual reveal delay-1">
+            <div class="visual-card big-card glow-card">
+              <div class="visual-label">หัวใจของแบรนด์</div>
+              <div class="pet-duo">
+                <div class="pet-avatar cat">🐱<span>ฟูจิ</span></div>
+                <div class="pet-avatar dog">🐶<span>แบรนด์ด็อก</span></div>
+              </div>
+              <p>
+                พื้นที่นี้สามารถแทนด้วยรูปจริงของฟูจิและน้องหมาแบรนด์ในภายหลังได้ทันที
               </p>
-
-              <div class="card" style="margin-top:22px; padding:20px; background:rgba(255,255,255,.04);">
-                <h3 style="margin-bottom:10px;">สิ่งที่ระบบเก็บได้</h3>
-                <ul class="feature-list" style="margin-top:0;">
-                  <li>ข้อมูลติดต่อหลัก</li>
-                  <li>ประเภทผู้สนใจและจุดประสงค์</li>
-                  <li>UTM Campaign / Referrer</li>
-                  <li>Lead Score อัตโนมัติ</li>
-                  <li>เวลา submit และหน้าเว็บไซต์ที่มาของ lead</li>
-                </ul>
-              </div>
             </div>
 
-            <form class="form-grid" id="contactForm">
-              <div class="split">
-                <input class="field" type="text" name="name" placeholder="ชื่อของคุณ" required />
-                <input class="field" type="email" name="email" placeholder="อีเมล" required />
-              </div>
-              <div class="split">
-                <input class="field" type="tel" name="phone" placeholder="เบอร์โทร / LINE" />
-                <input class="field" type="text" name="company" placeholder="ชื่อบริษัท / คลินิก / เพจ" />
-              </div>
-              <div class="split">
-                <select class="field" name="type" required>
-                  <option value="">คุณสนใจในฐานะ</option>
-                  <option value="ผู้ใช้งานทั่วไป">ผู้ใช้งานทั่วไป</option>
-                  <option value="คลินิกสัตวแพทย์">คลินิกสัตวแพทย์</option>
-                  <option value="พาร์ตเนอร์ธุรกิจ">พาร์ตเนอร์ธุรกิจ</option>
-                  <option value="นักลงทุน">นักลงทุน</option>
-                  <option value="สื่อ / คอนเทนต์">สื่อ / คอนเทนต์</option>
-                </select>
-                <select class="field" name="interest" required>
-                  <option value="">สิ่งที่คุณสนใจ</option>
-                  <option value="ขอทดลองใช้ระบบ">ขอทดลองใช้ระบบ</option>
-                  <option value="ร่วมเป็นพาร์ตเนอร์">ร่วมเป็นพาร์ตเนอร์</option>
-                  <option value="ขอดูข้อมูลธุรกิจ">ขอดูข้อมูลธุรกิจ</option>
-                  <option value="สนใจลงทุน">สนใจลงทุน</option>
-                  <option value="สนใจเชื่อมคลินิก">สนใจเชื่อมคลินิก</option>
-                </select>
-              </div>
-              <textarea class="field" name="message" placeholder="บอกความสนใจหรือสิ่งที่คุณอยากเห็นใน PetQ AI"></textarea>
+            <div class="floating-note note-one">
+              <strong>Gentle Notifications</strong>
+              <span>ระบบเตือนแบบอ่อนโยนและอบอุ่น</span>
+            </div>
 
-              <input type="hidden" name="source" value="Website - PetQ AI" />
-              <input type="hidden" name="page" value="Home" />
-              <input type="hidden" name="utm_source" id="utm_source" />
-              <input type="hidden" name="utm_medium" id="utm_medium" />
-              <input type="hidden" name="utm_campaign" id="utm_campaign" />
-              <input type="hidden" name="utm_content" id="utm_content" />
-              <input type="hidden" name="utm_term" id="utm_term" />
-              <input type="hidden" name="referrer" id="referrer" />
-              <input type="hidden" name="lead_score" id="lead_score" />
-              <input type="hidden" name="submitted_at" id="submitted_at" />
-
-              <button class="btn btn-primary" type="submit" id="submitBtn">ส่งข้อมูล</button>
-              <div class="notice" id="formStatus">ข้อมูลของคุณจะถูกใช้เพื่อติดต่อกลับเกี่ยวกับ PetQ AI เท่านั้น</div>
-            </form>
+            <div class="floating-note note-two">
+              <strong>Pet Memorial</strong>
+              <span>เก็บความทรงจำของสัตว์เลี้ยงอย่างมีความหมาย</span>
+            </div>
           </div>
         </div>
+      </section>
+
+      <section class="trust-bar">
+        <div class="container trust-items reveal">
+          <span>Pet-first Design</span>
+          <span>AI + Emotion</span>
+          <span>Future Global Brand</span>
+          <span>Built from Real Love</span>
+        </div>
+      </section>
+
+      <section class="story section" id="story">
+        <div class="container two-col">
+          <div class="section-copy reveal">
+            <span class="eyebrow">STORY OF FUJI</span>
+            <h2>ฟูจิคือแรงบันดาลใจที่ทำให้ PetQ AI มีหัวใจ</h2>
+            <p>
+              PetQ AI ไม่ได้เริ่มจากแค่ไอเดียทางเทคโนโลยี แต่เริ่มจากความรักที่มีต่อสัตว์เลี้ยงจริงๆ
+              โดยเฉพาะ “ฟูจิ” ผู้เป็นแรงบันดาลใจสำคัญของแบรนด์ และเป็นตัวแทนของความผูกพันที่เจ้าของมีต่อหมาและแมวทุกตัว
+            </p>
+            <p>
+              แนวคิดของระบบนี้จึงไม่ใช่เพียงการตอบคำถาม แต่คือการช่วยให้คนดูแลสัตว์เลี้ยงได้ดีขึ้น อ่อนโยนขึ้น
+              และรู้สึกว่าทุกช่วงชีวิตของพวกเขามีคุณค่าเสมอ
+            </p>
+          </div>
+
+          <div class="story-card reveal delay-1">
+            <div class="story-icon">💛</div>
+            <h3>สร้างจากความรู้สึกจริง</h3>
+            <p>
+              เพราะสัตว์เลี้ยงไม่ได้เป็นแค่สัตว์ แต่เป็นครอบครัว เป็นความสุข เป็นความทรงจำ
+              และเป็นแรงผลักดันให้ PetQ AI ต้องถูกสร้างขึ้นอย่างดีที่สุด
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="features section" id="features">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="eyebrow">CORE FEATURES</span>
+            <h2>ฟีเจอร์หลักที่สะท้อนตัวตนของ PetQ AI</h2>
+            <p>ออกแบบให้ทั้งมีประโยชน์จริง และเชื่อมโยงกับความรักของเจ้าของสัตว์เลี้ยง</p>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature-card reveal">
+              <div class="icon-wrap">🩺</div>
+              <h3>AI ถามตอบเรื่องสุขภาพสัตว์เลี้ยง</h3>
+              <p>ช่วยตอบคำถามเบื้องต้นเกี่ยวกับอาการ พฤติกรรม และการดูแลด้วยภาษาที่เข้าใจง่าย</p>
+            </article>
+
+            <article class="feature-card reveal delay-1">
+              <div class="icon-wrap">🔔</div>
+              <h3>Gentle Notifications</h3>
+              <p>ระบบเตือนแบบอ่อนโยน เช่น เรื่องวัคซีน อาหาร ยา หรือการดูแลประจำวัน</p>
+            </article>
+
+            <article class="feature-card reveal delay-2">
+              <div class="icon-wrap">📘</div>
+              <h3>บันทึกสุขภาพอย่างง่าย</h3>
+              <p>จดอาการ น้ำหนัก ยา และพฤติกรรมสำคัญ เพื่อช่วยให้ดูแลได้ต่อเนื่อง</p>
+            </article>
+
+            <article class="feature-card reveal">
+              <div class="icon-wrap">🕊️</div>
+              <h3>Pet Memorial</h3>
+              <p>พื้นที่แห่งความทรงจำสำหรับสัตว์เลี้ยงที่จากไป ให้ความรักยังคงอยู่เสมอ</p>
+            </article>
+
+            <article class="feature-card reveal delay-1">
+              <div class="icon-wrap">🧠</div>
+              <h3>ระบบวิเคราะห์พฤติกรรม</h3>
+              <p>รองรับทิศทางการใช้รูปภาพและข้อมูลพฤติกรรม เพื่อช่วยทำความเข้าใจสัตว์เลี้ยงมากขึ้น</p>
+            </article>
+
+            <article class="feature-card reveal delay-2">
+              <div class="icon-wrap">🌍</div>
+              <h3>พร้อมขยายสู่แพลตฟอร์มระดับโลก</h3>
+              <p>วางโครงสร้างให้รองรับทั้งด้านแอป เว็บไซต์ การเชื่อมคลินิก และบริการในอนาคต</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="vision section" id="vision">
+        <div class="container vision-grid">
+          <div class="vision-panel reveal">
+            <span class="eyebrow">VISION</span>
+            <h2>เราต้องการให้สัตว์ทุกตัวได้รับการดูแลที่ดีที่สุด</h2>
+            <p>
+              เป้าหมายของ PetQ AI คือการสร้างระบบที่ช่วยยกระดับการดูแลสัตว์เลี้ยงให้ดีขึ้นทั้งในระดับครอบครัว
+              สังคม และในอนาคตระดับประเทศสู่ระดับโลก
+            </p>
+          </div>
+
+          <div class="vision-list reveal delay-1">
+            <div class="vision-item">
+              <strong>ความรัก</strong>
+              <span>ทุกฟีเจอร์ต้องเริ่มจากความเข้าใจในหัวใจของคนรักสัตว์</span>
+            </div>
+            <div class="vision-item">
+              <strong>ความน่าเชื่อถือ</strong>
+              <span>ระบบต้องใช้งานจริงได้ และเติบโตอย่างเป็นมืออาชีพ</span>
+            </div>
+            <div class="vision-item">
+              <strong>การต่อยอด</strong>
+              <span>พร้อมขยายสู่ app, store, clinic integration และบริการในอนาคต</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta section" id="contact">
+        <div class="container cta-box reveal">
+          <span class="eyebrow">NEXT STEP</span>
+          <h2>PetQ AI กำลังถูกสร้างให้เป็นมากกว่าเว็บ แต่เป็นระบบที่มีหัวใจ</h2>
+          <p>
+            เว็บไซต์นี้คือจุดเริ่มต้นของแบรนด์ที่ต้องการรวมเทคโนโลยี ความรัก และการดูแลสัตว์เลี้ยงไว้ด้วยกันอย่างจริงจัง
+          </p>
+          <div class="cta-actions">
+            <a class="btn btn-primary" href="mailto:ai@petqai.com">ติดต่อทีมงาน</a>
+            <a class="btn btn-secondary" href="#top">กลับด้านบน</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-wrap">
+        <div>
+          <strong>PetQ AI</strong>
+          <p>AI ดูแลสัตว์เลี้ยง เพื่อชีวิตที่ดีที่สุดของพวกเขา</p>
+        </div>
+        <div class="footer-links">
+          <a href="#story">Story</a>
+          <a href="#features">Features</a>
+          <a href="#vision">Vision</a>
+        </div>
       </div>
-    </section>
-  </main>
+    </footer>
+  </div>
 
-  <section class="section" id="contact" style="padding-top:0;">
-    <div class="container stack-3">
-      <article class="card reveal">
-        <div class="icon-box">🌐</div>
-        <h3>แบรนด์</h3>
-        <p>PetQ AI</p>
-        <p style="margin-top:10px;" class="meta">AI ดูแลสัตว์เลี้ยง เพื่อชีวิตที่ดีที่สุดของพวกเขา 🐶🐱</p>
-      </article>
-      <article class="card reveal">
-        <div class="icon-box">📬</div>
-        <h3>ติดต่อ</h3>
-        <p>contact@petqai.com</p>
-        <p style="margin-top:10px;" class="meta">สำหรับสอบถามเดโม พาร์ตเนอร์ และการนำเสนอระบบ</p>
-      </article>
-      <article class="card reveal">
-        <div class="icon-box">🚀</div>
-        <h3>พร้อม Deploy</h3>
-        <p>ใช้เป็นไฟล์ <strong>index.html</strong> ได้ทันที</p>
-        <p style="margin-top:10px;" class="meta">พร้อมนำขึ้น Vercel, Netlify, GitHub Pages หรือโฮสต์ทั่วไป</p>
-      </article>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div>
-        <strong>PetQ AI</strong>
-        <div class="meta" style="margin-top:10px;">Pet Health • Emotional Bonding • Pet Social • Future Platform</div>
-      </div>
-      <div class="meta">© 2026 PetQ AI. All rights reserved.</div>
-      <div class="meta" style="text-align:right;">Built for launch, growth, partner outreach, and investor positioning.</div>
-    </div>
-  </footer>
-
-  <script>
-    const CONFIG = {
-      GOOGLE_SCRIPT_URL: 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE',
-      CRM_WEBHOOK_URL: 'PASTE_YOUR_CRM_WEBHOOK_URL_HERE',
-      ENABLE_GOOGLE_SHEETS: true,
-      ENABLE_CRM_WEBHOOK: false
-    };
-
-    const revealEls = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add('show');
-      });
-    }, { threshold: 0.12 });
-    revealEls.forEach(el => observer.observe(el));
-
-    function qp(name) {
-      const params = new URLSearchParams(window.location.search);
-      return params.get(name) || '';
-    }
-
-    function calculateLeadScore(type, interest) {
-      let score = 10;
-      if (type === 'นักลงทุน') score += 45;
-      if (type === 'คลินิกสัตวแพทย์') score += 35;
-      if (type === 'พาร์ตเนอร์ธุรกิจ') score += 30;
-      if (type === 'สื่อ / คอนเทนต์') score += 20;
-      if (type === 'ผู้ใช้งานทั่วไป') score += 10;
-
-      if (interest === 'สนใจลงทุน') score += 35;
-      if (interest === 'สนใจเชื่อมคลินิก') score += 25;
-      if (interest === 'ร่วมเป็นพาร์ตเนอร์') score += 20;
-      if (interest === 'ขอดูข้อมูลธุรกิจ') score += 15;
-      if (interest === 'ขอทดลองใช้ระบบ') score += 10;
-
-      return score;
-    }
-
-    function fillTrackingFields() {
-      document.getElementById('utm_source').value = qp('utm_source');
-      document.getElementById('utm_medium').value = qp('utm_medium');
-      document.getElementById('utm_campaign').value = qp('utm_campaign');
-      document.getElementById('utm_content').value = qp('utm_content');
-      document.getElementById('utm_term').value = qp('utm_term');
-      document.getElementById('referrer').value = document.referrer || 'Direct';
-      document.getElementById('submitted_at').value = new Date().toISOString();
-    }
-
-    fillTrackingFields();
-
-    async function postJSON(url, payload) {
-      return fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-    }
-
-    const form = document.getElementById('contactForm');
-    const status = document.getElementById('formStatus');
-    const submitBtn = document.getElementById('submitBtn');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      fillTrackingFields();
-
-      const formData = new FormData(form);
-      const payload = Object.fromEntries(formData.entries());
-      payload.lead_score = calculateLeadScore(payload.type, payload.interest);
-      document.getElementById('lead_score').value = payload.lead_score;
-      payload.page_url = window.location.href;
-      payload.user_agent = navigator.userAgent;
-
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'กำลังส่งข้อมูล...';
-      status.textContent = 'ระบบกำลังบันทึกข้อมูลของคุณ';
-
-      try {
-        if (CONFIG.ENABLE_GOOGLE_SHEETS && CONFIG.GOOGLE_SCRIPT_URL && !CONFIG.GOOGLE_SCRIPT_URL.includes('PASTE_')) {
-          await postJSON(CONFIG.GOOGLE_SCRIPT_URL, payload);
-        }
-
-        if (CONFIG.ENABLE_CRM_WEBHOOK && CONFIG.CRM_WEBHOOK_URL && !CONFIG.CRM_WEBHOOK_URL.includes('PASTE_')) {
-          await postJSON(CONFIG.CRM_WEBHOOK_URL, payload);
-        }
-
-        status.textContent = `ขอบคุณคุณ ${payload.name} ทีม PetQ AI ได้รับข้อมูลเรียบร้อยแล้ว`;
-        form.reset();
-        fillTrackingFields();
-      } catch (err) {
-        console.error(err);
-        status.textContent = 'ส่งข้อมูลยังไม่สำเร็จ กรุณาลองอีกครั้ง หรือติดต่อทีมงานที่ contact@petqai.com';
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'ส่งข้อมูล';
-      }
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
