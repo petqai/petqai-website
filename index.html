@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PetQ AI – AI ดูแลสัตว์เลี้ยง เพื่อชีวิตที่ดีที่สุดของพวกเขา</title>
+  <meta name="description" content="PetQ AI คือระบบ AI ดูแลสัตว์เลี้ยง ที่ช่วยให้เจ้าของเข้าใจสุขภาพ พฤติกรรม และการดูแลน้องหมาแมวได้ง่ายขึ้น พร้อมระบบลงทะเบียนรับสิทธิ์ก่อนใคร" />
+  <style>
+    :root{
+      --bg:#070707;--bg2:#121212;--card:#121212;--line:rgba(255,255,255,.08);
+      --gold:#f5c451;--gold2:#ffdf8e;--text:#ffffff;--muted:#d8d8d8;--soft:#b7b7b7;
+      --shadow:0 20px 60px rgba(0,0,0,.35);--radius:24px;--max:1180px;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);
+      background:radial-gradient(circle at top left, rgba(245,196,81,.14), transparent 28%),
+      radial-gradient(circle at 85% 8%, rgba(245,196,81,.10), transparent 18%),
+      linear-gradient(135deg, #050505 0%, #0c0c0c 45%, #13110c 100%); line-height:1.6;}
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(calc(100% - 32px), var(--max)); margin:0 auto}
+    .nav{position:sticky; top:0; z-index:40; backdrop-filter: blur(12px); background:rgba(8,8,8,.72); border-bottom:1px solid rgba(255,255,255,.06);}
+    .nav-inner{width:min(calc(100% - 32px), var(--max)); margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:14px;}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:.2px;}
+    .brand-badge{width:40px;height:40px;border-radius:50%;background:linear-gradient(180deg, #fff, #d9ffd9);color:#1ea94c;display:grid;place-items:center;font-weight:900;box-shadow:0 8px 24px rgba(0,0,0,.25);border:2px solid rgba(255,255,255,.5);flex:0 0 auto;}
+    .brand small{display:block; color:#d5c48d; font-weight:400}
+    .nav-links{display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+    .nav-links a{color:#e7e7e7; font-size:14px}
+    .btn{border:none; cursor:pointer;border-radius:14px; padding:14px 18px;font-weight:700; font-size:16px;transition:.2s ease;}
+    .btn:hover{transform:translateY(-1px)}
+    .btn-gold{background:linear-gradient(180deg, var(--gold2), var(--gold));color:#111;box-shadow:0 10px 28px rgba(245,196,81,.22);}
+    .btn-dark{background:#171717; color:#fff; border:1px solid rgba(255,255,255,.12);}
+    .hero{padding:64px 0 32px}
+    .hero-grid{display:grid; grid-template-columns:1.12fr .88fr; gap:26px; align-items:stretch;}
+    .hero-card,.panel,.card{background:linear-gradient(180deg, rgba(18,18,18,.92), rgba(12,12,12,.95));border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);}
+    .hero-card{padding:34px} .panel{padding:24px}
+    .eyebrow{display:inline-flex; gap:10px; align-items:center;background:rgba(245,196,81,.10);border:1px solid rgba(245,196,81,.22);color:#ffdfa0;font-size:14px;padding:8px 14px;border-radius:999px;margin-bottom:18px;}
+    h1{font-size: clamp(34px, 5vw, 62px);line-height:1.08;margin:0 0 16px;letter-spacing:-.6px;}
+    .gold{color:var(--gold2)} .lead{font-size:18px; color:var(--muted); margin:0 0 24px; max-width:760px;}
+    .hero-points{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:24px 0 30px;}
+    .point{background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06); border-radius:18px; padding:14px; color:#f1f1f1; font-size:15px;}
+    .point strong{display:block; color:#fff; margin-bottom:4px}
+    .cta-row{display:flex; gap:12px; flex-wrap:wrap}
+    .hero-quote{margin-top:24px; color:#d3c088; font-size:15px; border-left:3px solid rgba(245,196,81,.5); padding-left:14px;}
+    .form-title{font-size:26px; margin:0 0 8px}
+    .form-sub{color:var(--muted); font-size:15px; margin:0 0 18px}
+    .grid{display:grid; gap:12px}
+    .input, select, textarea{width:100%;background:#0d0d0d;border:1px solid rgba(255,255,255,.10);color:#fff;border-radius:14px;padding:14px 15px;font-size:16px;outline:none;}
+    textarea{min-height:120px; resize:vertical}
+    .input::placeholder, textarea::placeholder{color:#9a9a9a}
+    .help{font-size:13px; color:#bbbbbb; margin-top:12px}
+    .msg{display:none; margin-top:14px; border-radius:14px; padding:14px 15px; font-size:15px;}
+    .msg.success{display:block; color:#d2ffe4;background:rgba(34,197,94,.12); border:1px solid rgba(34,197,94,.25);}
+    .msg.error{display:block; color:#ffe0e0;background:rgba(239,68,68,.12); border:1px solid rgba(239,68,68,.25);}
+    .section{padding:22px 0}
+    .section-head{display:flex; justify-content:space-between; gap:16px; align-items:end; margin-bottom:18px; flex-wrap:wrap;}
+    .section-head h2{margin:0; font-size:34px}
+    .section-head p{margin:0; color:var(--muted); max-width:760px}
+    .cards{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px}
+    .card{padding:22px}
+    .card h3{margin:0 0 10px; font-size:22px}
+    .card p{margin:0; color:var(--muted)} .card p + p{margin-top:10px}
+    .icon{width:46px;height:46px;border-radius:14px;background:rgba(245,196,81,.10);border:1px solid rgba(245,196,81,.20);display:grid;place-items:center;margin-bottom:14px; font-size:22px;}
+    .heart{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+    .trust{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px}
+    .trust .card{text-align:center} .trust strong{display:block; font-size:28px; color:var(--gold2); margin-bottom:6px}
+    .faq{display:grid; gap:14px}
+    details{background:linear-gradient(180deg, rgba(17,17,17,.96), rgba(12,12,12,.98));border:1px solid var(--line);border-radius:18px; padding:16px 18px;}
+    summary{cursor:pointer; font-weight:700} details p{margin:12px 0 0; color:var(--muted)}
+    .footer{padding:34px 0 52px; color:#c8c8c8; font-size:14px;}
+    .footer-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:22px; padding:22px;}
+    .footer strong{color:#fff}
+    @media (max-width: 980px){
+      .hero-grid,.cards,.heart,.trust{grid-template-columns:1fr}
+      .hero{padding-top:36px}.hero-card{padding:24px}.panel{padding:20px}
+      .hero-points{grid-template-columns:1fr}.nav-inner{padding:12px 0}.nav-links{display:none}
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top">
+        <div class="brand-badge">U</div>
+        <div>PetQ AI<small>AI ดูแลสัตว์เลี้ยง เพื่อชีวิตที่ดีที่สุดของพวกเขา 🐶🐱</small></div>
+      </a>
+      <div class="nav-links">
+        <a href="#vision">หัวใจของเรา</a>
+        <a href="#features">สิ่งที่ระบบทำได้</a>
+        <a href="#early-access">ลงทะเบียน</a>
+      </div>
+    </div>
+  </nav>
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-card">
+          <div class="eyebrow">🐾 PetQ AI • Early Access • iOS / Android / Web</div>
+          <h1>ระบบ AI ที่ไม่ได้ถูกสร้างมาแค่เพื่อเป็นแอป <span class="gold">แต่ถูกสร้างมาเพื่อช่วยให้สัตว์เลี้ยงมีชีวิตที่ดีขึ้นจริง</span></h1>
+          <p class="lead">PetQ AI เกิดจากความรัก ความเข้าใจ และความตั้งใจที่จะตอบแทนความรักของหมาและแมวให้ดีที่สุด ด้วยระบบที่ช่วยเจ้าของเข้าใจสุขภาพ พฤติกรรม การดูแลรายวัน และเรื่องสำคัญของน้องๆ ได้ง่ายขึ้น</p>
+          <div class="hero-points">
+            <div class="point"><strong>AI ตอบคำถามเรื่องสัตว์เลี้ยง</strong>ถามเรื่องสุขภาพ พฤติกรรม การกิน การดูแล และปัญหาเบื้องต้นได้อย่างรวดเร็ว</div>
+            <div class="point"><strong>ระบบแจ้งเตือนอย่างอ่อนโยน</strong>เตือนเรื่องสำคัญด้วยภาษาที่อบอุ่น เหมือนคนที่เข้าใจความผูกพันระหว่างคุณกับน้องจริงๆ</div>
+            <div class="point"><strong>โปรไฟล์และการติดตามข้อมูล</strong>เก็บข้อมูลน้องหมาแมว ช่วยให้การดูแลต่อเนื่องและเป็นระบบมากขึ้น</div>
+            <div class="point"><strong>วิสัยทัศน์ระดับโลก</strong>วางรากฐานสู่ระบบดูแลสัตว์เลี้ยงที่เชื่อมทั้งอารมณ์ สุขภาพ และอนาคตของการดูแล</div>
+          </div>
+          <div class="cta-row">
+            <a href="#early-access"><button class="btn btn-gold">ลงทะเบียนรับสิทธิ์ก่อนใคร</button></a>
+            <a href="#vision"><button class="btn btn-dark">ดูหัวใจและวิสัยทัศน์</button></a>
+          </div>
+          <div class="hero-quote">“รัก ขอบคุณหมาและแมว เราจะตอบแทนให้ดีที่สุด”</div>
+        </div>
+        <aside class="panel" id="early-access">
+          <h2 class="form-title">ลงทะเบียนรับสิทธิ์ก่อนใคร</h2>
+          <p class="form-sub">กรอกข้อมูลเพื่อติดตามการเปิดตัว PetQ AI และอัปเดตฟีเจอร์ใหม่ที่กำลังพัฒนา</p>
+          <form id="leadForm" class="grid">
+            <input class="input" type="text" name="name" placeholder="ชื่อของคุณ" required />
+            <input class="input" type="tel" name="phone" placeholder="เบอร์โทรศัพท์" required />
+            <input class="input" type="text" name="lineId" placeholder="LINE ID (ถ้ามี)" />
+            <select name="petType" required>
+              <option value="">เลือกประเภทสัตว์เลี้ยง</option>
+              <option value="สุนัข">สุนัข</option>
+              <option value="แมว">แมว</option>
+              <option value="ทั้งสุนัขและแมว">ทั้งสุนัขและแมว</option>
+              <option value="อื่นๆ">อื่นๆ</option>
+            </select>
+            <textarea name="note" placeholder="เล่าให้เราฟังได้เลย เช่น ปัญหาที่อยากให้ระบบช่วย เรื่องสุขภาพ พฤติกรรม หรือการดูแลประจำวัน"></textarea>
+            <button class="btn btn-gold" type="submit" id="submitBtn">ส่งข้อมูลรับสิทธิ์</button>
+          </form>
+          <div id="formMsg" class="msg"></div>
+          <div class="help">ข้อมูลของคุณจะถูกส่งเข้า Google Sheet ของระบบ PetQ AI โดยตรง</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="vision">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>หัวใจของ PetQ AI</h2>
+          <p>นี่ไม่ใช่แค่ระบบเทคโนโลยี แต่คือจุดเริ่มต้นของการดูแลสัตว์เลี้ยงด้วยความเข้าใจ ความผูกพัน และความตั้งใจที่จะทำให้ทุกชีวิตมีคุณค่าและได้รับการดูแลที่ดีขึ้น</p>
+        </div>
+        <div class="heart">
+          <div class="card">
+            <div class="icon">💛</div>
+            <h3>ความรักคือจุดเริ่มต้น</h3>
+            <p>PetQ AI ถูกสร้างขึ้นจากความเชื่อว่า สัตว์เลี้ยงไม่ได้เป็นแค่สัตว์เลี้ยง แต่เป็นครอบครัว เป็นเพื่อน เป็นความรัก และเป็นส่วนหนึ่งของชีวิตเรา</p>
+            <p>ระบบจึงต้องไม่ใช่แค่ “ตอบได้” แต่ต้อง “เข้าใจความรู้สึกของคนเลี้ยง” ด้วย</p>
+          </div>
+          <div class="card">
+            <div class="icon">🌍</div>
+            <h3>เป้าหมายที่ใหญ่กว่าแอป</h3>
+            <p>เราต้องการวางรากฐานให้ PetQ AI เติบโตเป็นระบบดูแลสัตว์เลี้ยงที่มีคุณค่าในระดับประเทศและระดับโลก เพื่อช่วยให้เจ้าของดูแลน้องได้ดีขึ้น และผลักดันมาตรฐานการดูแลสัตว์ให้สูงขึ้นอย่างแท้จริง</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>สิ่งที่ระบบกำลังสร้าง</h2>
+          <p>วางโครงเพื่อเติบโตจากระบบช่วยตอบคำถาม ไปสู่แพลตฟอร์มดูแลสัตว์เลี้ยงที่เชื่อมสุขภาพ อารมณ์ ความทรงจำ และการติดตามข้อมูลระยะยาว</p>
+        </div>
+        <div class="cards">
+          <div class="card"><div class="icon">🧠</div><h3>AI ตอบคำถามสัตว์เลี้ยง</h3><p>ช่วยตอบคำถามเรื่องสุขภาพ พฤติกรรม อาหาร การดูแลประจำวัน และแนวทางเบื้องต้นที่เข้าใจง่าย</p></div>
+          <div class="card"><div class="icon">🔔</div><h3>Gentle Notifications</h3><p>ระบบแจ้งเตือนอย่างอ่อนโยน ที่ทำให้การดูแลรู้สึกอบอุ่น ไม่ใช่แค่การเตือนแบบแข็งๆ</p></div>
+          <div class="card"><div class="icon">📋</div><h3>Pet Profile & Tracking</h3><p>โปรไฟล์สัตว์เลี้ยงและการติดตามข้อมูลพื้นฐาน เพื่อช่วยให้ดูแลได้ต่อเนื่อง เป็นระบบ และตรวจสอบย้อนหลังได้</p></div>
+          <div class="card"><div class="icon">🕊️</div><h3>Pet Memorial</h3><p>พื้นที่แห่งความทรงจำสำหรับเจ้าของที่อยากเก็บภาพ เรื่องราว และความรักที่มีต่อน้องไว้ในระบบ</p></div>
+          <div class="card"><div class="icon">🏥</div><h3>เชื่อมต่อคลินิกในอนาคต</h3><p>เตรียมพื้นฐานสู่การเชื่อมข้อมูลสุขภาพจากคลินิก เพื่อให้เจ้าของเข้าถึงข้อมูลนัดหมาย น้ำหนัก และประวัติได้ง่ายขึ้น</p></div>
+          <div class="card"><div class="icon">∞</div><h3>Infinite Content System</h3><p>ระบบที่ต่อยอดได้ไม่สิ้นสุด ทั้งคลังความรู้ คำแนะนำเฉพาะตัว และประสบการณ์ใช้งานที่เติบโตตามชีวิตของน้อง</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>เหตุผลที่คนรักสัตว์จะสนใจระบบนี้</h2>
+          <p>เพราะเจ้าของไม่ได้ต้องการแค่แอป แต่ต้องการระบบที่ช่วยให้ดูแลน้องได้ดีขึ้นและรู้สึกมั่นใจมากขึ้นในทุกวัน</p>
+        </div>
+        <div class="trust">
+          <div class="card"><strong>อบอุ่น</strong>ภาษาที่เป็นมิตรและมีหัวใจในการสื่อสาร</div>
+          <div class="card"><strong>เข้าใจง่าย</strong>ออกแบบให้ใช้งานได้จริง ไม่ซับซ้อนเกินไป</div>
+          <div class="card"><strong>ต่อยอดได้</strong>รองรับอนาคตทั้งระบบสุขภาพและ emotional platform</div>
+          <div class="card"><strong>มีวิสัยทัศน์</strong>พัฒนาไปสู่ระบบดูแลสัตว์เลี้ยงระดับโลก</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>คำถามที่พบบ่อย</h2>
+          <p>สรุปสั้นๆ สำหรับคนที่กำลังติดตาม PetQ AI</p>
+        </div>
+        <div class="faq">
+          <details><summary>PetQ AI เปิดให้ใช้งานแล้วหรือยัง?</summary><p>ตอนนี้อยู่ในช่วงเปิดรับความสนใจล่วงหน้าและอัปเดตระบบอย่างต่อเนื่อง เพื่อเตรียมพัฒนาให้พร้อมใช้งานจริงอย่างเป็นระบบ</p></details>
+          <details><summary>ระบบนี้เหมาะกับใครบ้าง?</summary><p>เหมาะกับเจ้าของสุนัขและแมวที่ต้องการดูแลน้องให้ดีขึ้น เข้าใจปัญหาเร็วขึ้น และอยากใช้เทคโนโลยีที่มีหัวใจช่วยดูแลชีวิตประจำวันของสัตว์เลี้ยง</p></details>
+          <details><summary>กรอกฟอร์มแล้วข้อมูลไปไหน?</summary><p>ข้อมูลจะถูกส่งเข้า Google Sheet ของระบบ PetQ AI โดยตรง เพื่อใช้ติดตามผู้สนใจและอัปเดตข่าวสารในลำดับถัดไป</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap footer">
+        <div class="footer-card">
+          <strong>PetQ AI</strong><br>
+          AI ดูแลสัตว์เลี้ยง เพื่อชีวิตที่ดีที่สุดของพวกเขา 🐶🐱<br><br>
+          หัวใจของระบบนี้คือการตอบแทนความรักของหมาและแมวด้วยสิ่งที่ดีที่สุดเท่าที่เราจะสร้างได้
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzram0f7hw88E3103ZrMS4El9D7JHqMxlyUUr8HWd0CFs0SUypmv8UdYVT8uNJ1t1GR/exec";
+    const form = document.getElementById("leadForm");
+    const formMsg = document.getElementById("formMsg");
+    const submitBtn = document.getElementById("submitBtn");
+
+    form.addEventListener("submit", async function(e){
+      e.preventDefault();
+      formMsg.className = "msg";
+      formMsg.style.display = "none";
+      submitBtn.disabled = true;
+      submitBtn.textContent = "กำลังส่งข้อมูล...";
+
+      const payload = {
+        name: form.name.value.trim(),
+        phone: form.phone.value.trim(),
+        lineId: form.lineId.value.trim(),
+        petType: form.petType.value,
+        note: form.note.value.trim()
+      };
+
+      try{
+        const response = await fetch(SCRIPT_URL, {
+          method: "POST",
+          body: JSON.stringify(payload),
+          headers: {"Content-Type": "text/plain;charset=utf-8"}
+        });
+        const data = await response.json();
+        if(data.ok){
+          form.reset();
+          formMsg.textContent = "✅ ส่งข้อมูลเรียบร้อยแล้ว ขอบคุณที่สนใจ PetQ AI ทีมงานจะอัปเดตให้คุณก่อนใคร";
+          formMsg.className = "msg success";
+        }else{
+          throw new Error(data.error || "ส่งข้อมูลไม่สำเร็จ");
+        }
+      }catch(err){
+        console.error(err);
+        formMsg.textContent = "❌ ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่อีกครั้ง หรือตรวจสอบ Apps Script / Google Sheet";
+        formMsg.className = "msg error";
+      }finally{
+        formMsg.style.display = "block";
+        submitBtn.disabled = false;
+        submitBtn.textContent = "ส่งข้อมูลรับสิทธิ์";
+      }
+    });
+  </script>
+</body>
+</html>
