@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PetQ AI | AI ดูแลสัตว์เลี้ยง เพื่อชีวิตที่ดีที่สุดของพวกเขา</title>
+  <meta name="description" content="PetQ AI คือแพลตฟอร์ม AI ดูแลสัตว์เลี้ยง ที่ออกแบบมาเพื่อช่วยให้เจ้าของเข้าใจ ดูแล และมอบชีวิตที่ดีที่สุดให้กับน้องหมาและน้องแมว" />
+  <style>
+    :root{
+      --bg:#060606;
+      --bg-soft:#0d0d0f;
+      --card:#111114;
+      --gold:#e6c15a;
+      --gold-2:#f7df8a;
+      --text:#f5f5f7;
+      --muted:#b8b8be;
+      --line:rgba(230,193,90,.18);
+      --green:#00c300;
+      --shadow:0 25px 80px rgba(0,0,0,.45);
+      --radius:24px;
+      --max:1200px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, "Segoe UI", Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(230,193,90,.10), transparent 28%),
+        radial-gradient(circle at top right, rgba(230,193,90,.08), transparent 24%),
+        linear-gradient(180deg, #040404 0%, #090909 40%, #060606 100%);
+      color:var(--text);
+      line-height:1.65;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:var(--max);margin:0 auto;padding:0 24px}
+    .section{padding:84px 0}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:10px 16px;border:1px solid var(--line);
+      border-radius:999px;color:var(--gold-2);font-size:13px;
+      background:rgba(255,255,255,.02);backdrop-filter: blur(8px);
+    }
+    .glow{
+      box-shadow:0 0 0 1px rgba(230,193,90,.14), 0 12px 40px rgba(230,193,90,.10);
+    }
+
+    .nav{
+      position:sticky;top:0;z-index:20;
+      backdrop-filter: blur(14px);
+      background:rgba(6,6,6,.72);
+      border-bottom:1px solid rgba(255,255,255,.05);
+    }
+    .nav-inner{
+      display:flex;justify-content:space-between;align-items:center;
+      min-height:76px;gap:18px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:14px;font-weight:700;letter-spacing:.2px
+    }
+    .brand-mark{
+      width:42px;height:42px;border-radius:14px;
+      background:linear-gradient(135deg,#1e1e20,#0c0c0d);
+      border:1px solid rgba(230,193,90,.32);
+      display:grid;place-items:center;color:var(--gold);font-size:22px;
+      box-shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    .nav-links{
+      display:flex;gap:24px;align-items:center;flex-wrap:wrap
+    }
+    .nav-links a{
+      color:#ddd;font-size:14px
+    }
+    .nav-links a:hover{color:var(--gold-2)}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      min-height:50px;padding:0 22px;border-radius:14px;
+      border:1px solid transparent;font-weight:700;letter-spacing:.1px;
+      transition:.2s ease;cursor:pointer
+    }
+    .btn-primary{
+      background:linear-gradient(135deg,#ffe59c,#d8af43);
+      color:#141414;
+      box-shadow:0 12px 30px rgba(230,193,90,.22);
+    }
+    .btn-primary:hover{transform:translateY(-1px)}
+    .btn-secondary{
+      background:rgba(255,255,255,.02);color:var(--text);
+      border-color:var(--line)
+    }
+    .btn-line{
+      background:var(--green);color:#fff;box-shadow:0 12px 30px rgba(0,195,0,.16)
+    }
+
+    .hero{padding:88px 0 54px}
+    .hero-grid{
+      display:grid;grid-template-columns:1.14fr .86fr;gap:34px;align-items:center;
+    }
+    .headline{
+      font-size: clamp(40px, 6vw, 78px);
+      line-height: 1.02;
+      letter-spacing: -1.8px;
+      margin:18px 0 20px;
+      max-width: 900px;
+    }
+    .headline .accent{
+      background:linear-gradient(135deg,var(--gold-2),var(--gold));
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    .lead{
+      max-width:760px;font-size:18px;color:var(--muted);margin:0 0 28px;
+    }
+    .hero-actions{
+      display:flex;gap:14px;flex-wrap:wrap;margin-bottom:26px
+    }
+    .hero-card{
+      position:relative;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:26px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      min-height:560px;
+    }
+    .hero-card:before{
+      content:"";
+      position:absolute;inset:auto -30% -28% auto;
+      width:320px;height:320px;border-radius:50%;
+      background:radial-gradient(circle, rgba(230,193,90,.22), transparent 60%);
+      pointer-events:none;
+    }
+    .phone{
+      position:relative;margin:0 auto;
+      width:min(100%, 340px);
+      border-radius:32px;padding:14px;
+      background:linear-gradient(180deg,#161618,#090909);
+      border:1px solid rgba(230,193,90,.28);
+      box-shadow:0 24px 50px rgba(0,0,0,.55);
+    }
+    .phone-screen{
+      border-radius:24px;overflow:hidden;
+      background:
+        radial-gradient(circle at top, rgba(230,193,90,.16), transparent 25%),
+        linear-gradient(180deg,#111217 0%, #0c0d11 100%);
+      border:1px solid rgba(255,255,255,.06);
+      padding:20px;
+    }
+    .ui-pill{
+      display:inline-flex;padding:8px 12px;border-radius:999px;
+      border:1px solid rgba(230,193,90,.26);color:var(--gold-2);font-size:12px;
+      background:rgba(255,255,255,.03)
+    }
+    .ui-card{
+      margin-top:14px;padding:16px;border-radius:18px;
+      background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05)
+    }
+    .ui-card h4{margin:0 0 8px;font-size:15px}
+    .ui-card p{margin:0;color:#c9c9cf;font-size:13px;line-height:1.6}
+    .trust-row{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px
+    }
+    .trust-box{
+      padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.05);font-size:13px;color:#e9e9ed
+    }
+    .trust-box strong{display:block;color:var(--gold-2);margin-bottom:4px;font-size:13px}
+
+    .grid-3{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:20px
+    }
+    .grid-2{
+      display:grid;grid-template-columns:repeat(2,1fr);gap:20px
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.015));
+      border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:var(--shadow)
+    }
+    .card h3{margin:0 0 10px;font-size:22px}
+    .card p{margin:0;color:var(--muted)}
+    .icon{
+      width:52px;height:52px;border-radius:18px;
+      display:grid;place-items:center;margin-bottom:16px;
+      font-size:24px;color:var(--gold-2);
+      background:linear-gradient(135deg, rgba(230,193,90,.16), rgba(255,255,255,.04));
+      border:1px solid rgba(230,193,90,.22);
+    }
+
+    .section-title{
+      font-size: clamp(30px, 4vw, 52px);
+      letter-spacing: -1px;
+      line-height:1.08;
+      margin:16px 0 14px;
+    }
+    .section-sub{
+      max-width:760px;color:var(--muted);font-size:17px;margin:0 0 28px;
+    }
+
+    .statement{
+      font-size: clamp(24px, 3.4vw, 40px);
+      line-height:1.22;max-width:980px;
+      color:#f7f7fa;
+      letter-spacing:-.8px;
+    }
+    .statement .accent{color:var(--gold-2)}
+
+    .feature-list{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .feature-item{
+      padding:18px 20px;border-radius:20px;background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06)
+    }
+    .feature-item h4{margin:0 0 8px;font-size:18px}
+    .feature-item p{margin:0;color:var(--muted);font-size:15px}
+
+    .stats{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:16px
+    }
+    .stat{
+      padding:24px;border-radius:22px;border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      text-align:left
+    }
+    .stat .num{font-size:32px;font-weight:800;color:var(--gold-2);line-height:1}
+    .stat .label{margin-top:10px;color:#e7e7eb;font-size:15px}
+    .stat .desc{margin-top:6px;color:var(--muted);font-size:13px}
+
+    .timeline{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:18px
+    }
+    .step{
+      position:relative;padding:28px;border-radius:24px;
+      border:1px solid var(--line);background:rgba(255,255,255,.03)
+    }
+    .step .tag{
+      display:inline-flex;padding:8px 12px;border-radius:999px;
+      background:rgba(230,193,90,.12);border:1px solid rgba(230,193,90,.18);
+      color:var(--gold-2);font-size:12px;margin-bottom:14px
+    }
+    .step h4{font-size:22px;margin:0 0 10px}
+    .step p{margin:0;color:var(--muted)}
+
+    .legal{
+      display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:stretch
+    }
+    .legal .badge-stack{
+      display:grid;gap:14px
+    }
+    .badge-card{
+      padding:18px 20px;border-radius:20px;background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06)
+    }
+    .badge-card strong{display:block;color:var(--gold-2);margin-bottom:6px}
+
+    .cta-wrap{
+      text-align:center;padding:42px;border-radius:28px;
+      border:1px solid var(--line);
+      background:
+        radial-gradient(circle at top, rgba(230,193,90,.12), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.015));
+      box-shadow:var(--shadow);
+    }
+    .cta-wrap p{max-width:720px;margin:14px auto 24px;color:var(--muted);font-size:17px}
+
+    footer{
+      border-top:1px solid rgba(255,255,255,.06);
+      padding:28px 0 40px;color:#aaa
+    }
+    .foot{
+      display:flex;justify-content:space-between;gap:18px;align-items:center;flex-wrap:wrap
+    }
+    .foot-links{
+      display:flex;gap:16px;flex-wrap:wrap;font-size:14px
+    }
+
+    @media (max-width: 1080px){
+      .hero-grid,.legal{grid-template-columns:1fr}
+      .trust-row,.stats,.timeline,.grid-3,.grid-2{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width: 760px){
+      .nav-inner{padding:10px 0}
+      .nav-links{display:none}
+      .hero{padding-top:54px}
+      .trust-row,.stats,.timeline,.grid-3,.grid-2,.feature-list{grid-template-columns:1fr}
+      .headline{letter-spacing:-1.2px}
+      .section{padding:68px 0}
+      .hero-card{min-height:auto}
+      .foot{align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark">🐾</span>
+        <span>PetQ AI</span>
+      </a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#trust">Trust</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#contact">Contact</a>
+        <a class="btn btn-primary" href="https://lin.ee/7SpE3iW" target="_blank" rel="noopener">ติดต่อผ่าน LINE</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow glow">PetQ AI Technology Co., Ltd. • AI Pet Care Platform</span>
+          <h1 class="headline">
+            AI ดูแลสัตว์เลี้ยง<br>
+            เพื่อ<span class="accent">ชีวิตที่ดีที่สุด</span><br>
+            ของพวกเขา
+          </h1>
+          <p class="lead">
+            PetQ AI คือแพลตฟอร์มที่ถูกสร้างขึ้นจากความรัก ความเข้าใจ และความตั้งใจที่จะยกระดับการดูแลสัตว์เลี้ยง
+            ให้เจ้าของสามารถเข้าใจอาการ พฤติกรรม และความต้องการของน้องหมาและน้องแมวได้ดีขึ้น ผ่านระบบ AI
+            ที่ออกแบบมาเพื่อการดูแลอย่างต่อเนื่อง น่าเชื่อถือ และเต็มไปด้วยความใส่ใจ
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-line" href="https://lin.ee/7SpE3iW" target="_blank" rel="noopener">แอด LINE ปรึกษา</a>
+            <a class="btn btn-secondary" href="#trust">ดูความน่าเชื่อถือ</a>
+          </div>
+
+          <div class="trust-row">
+            <div class="trust-box"><strong>Registered Company</strong> บริษัทจดทะเบียนถูกต้องตามกฎหมายในประเทศไทย</div>
+            <div class="trust-box"><strong>DIP Copyright</strong> มีผลงานที่ยื่นและได้รับการอนุมัติลิขสิทธิ์จาก DIP</div>
+            <div class="trust-box"><strong>AI Platform</strong> วางระบบเพื่อพัฒนาเป็นแพลตฟอร์มดูแลสัตว์เลี้ยงเต็มรูปแบบ</div>
+            <div class="trust-box"><strong>Premium Brand</strong> ออกแบบแบรนด์เพื่อเติบโตสู่มาตรฐานระดับโลก</div>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="phone">
+            <div class="phone-screen">
+              <span class="ui-pill">PetQ AI • Intelligent Care</span>
+              <div class="ui-card">
+                <h4>AI Health Guidance</h4>
+                <p>ช่วยให้เจ้าของเข้าใจอาการเบื้องต้น จัดลำดับความสำคัญ และดูแลน้องได้ดีขึ้นทุกวัน</p>
+              </div>
+              <div class="ui-card">
+                <h4>Gentle Notifications</h4>
+                <p>ระบบแจ้งเตือนที่อบอุ่น อ่อนโยน และช่วยเสริมความผูกพันระหว่างเจ้าของกับสัตว์เลี้ยง</p>
+              </div>
+              <div class="ui-card">
+                <h4>Pet Profile & Timeline</h4>
+                <p>บันทึกตัวตน สุขภาพ และความทรงจำของสัตว์เลี้ยงไว้อย่างเป็นระบบ</p>
+              </div>
+              <div class="ui-card">
+                <h4>Future Clinic Integration</h4>
+                <p>วางโครงสร้างเพื่อเชื่อมข้อมูลสุขภาพและการดูแลร่วมกับคลินิกสัตวแพทย์ในอนาคต</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <span class="eyebrow">Brand Soul</span>
+        <h2 class="section-title">PetQ AI ไม่ได้เกิดจากความต้องการสร้างแค่แอป<br>แต่เกิดจาก <span style="color:var(--gold-2)">ความรักและความตั้งใจที่จะตอบแทนสัตว์เลี้ยง</span></h2>
+        <p class="section-sub">
+          เราเชื่อว่าสัตว์เลี้ยงไม่ใช่แค่สัตว์ แต่คือครอบครัว คือความรักที่อยู่ข้างมนุษย์อย่างไม่มีเงื่อนไข
+          และเทคโนโลยีควรถูกใช้เพื่อยกระดับคุณภาพชีวิตของพวกเขาอย่างแท้จริง
+        </p>
+        <div class="card">
+          <p class="statement">
+            “รัก ขอบคุณหมาและแมว <span class="accent">เราจะตอบแทนให้ดีที่สุด</span>”
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="container">
+        <span class="eyebrow">Core Platform</span>
+        <h2 class="section-title">ออกแบบเพื่อการดูแลที่ลึกกว่าเดิม<br>และการเติบโตที่ไกลกว่าเดิม</h2>
+        <p class="section-sub">
+          จากการตอบคำถามเบื้องต้น ไปสู่ระบบสุขภาพ ความทรงจำ ความผูกพัน และการเชื่อมต่อระบบคลินิกในอนาคต
+        </p>
+
+        <div class="feature-list">
+          <div class="feature-item">
+            <h4>AI Pet Care Guidance</h4>
+            <p>ช่วยให้เจ้าของเข้าใจอาการ พฤติกรรม และการดูแลเบื้องต้นได้อย่างรวดเร็วมากขึ้น</p>
+          </div>
+          <div class="feature-item">
+            <h4>Pet Profile & Identity</h4>
+            <p>เก็บข้อมูลสำคัญของสัตว์เลี้ยงอย่างเป็นระบบ รองรับการเติบโตของแพลตฟอร์มในอนาคต</p>
+          </div>
+          <div class="feature-item">
+            <h4>Gentle Notifications</h4>
+            <p>เตือนอย่างอ่อนโยนด้วยภาษาที่อบอุ่น เพื่อให้การดูแลน้องเป็นเรื่องใกล้ชิดและต่อเนื่อง</p>
+          </div>
+          <div class="feature-item">
+            <h4>Health Tracking Timeline</h4>
+            <p>บันทึกสุขภาพ อาการ ยา วัคซีน และเหตุการณ์สำคัญ เพื่อการดูแลระยะยาว</p>
+          </div>
+          <div class="feature-item">
+            <h4>Pet Memorial & Emotional Timeline</h4>
+            <p>พื้นที่แห่งความทรงจำที่ช่วยเก็บรักษาความผูกพันระหว่างเจ้าของกับสัตว์เลี้ยงอย่างมีคุณค่า</p>
+          </div>
+          <div class="feature-item">
+            <h4>Clinic Integration Ready</h4>
+            <p>วางโครงสร้างเพื่อเชื่อมข้อมูลร่วมกับคลินิกสัตวแพทย์และระบบสุขภาพในอนาคต</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <span class="eyebrow">Why This Matters</span>
+        <h2 class="section-title">เราไม่ได้มอง PetQ AI เป็นแค่ธุรกิจเดียว<br>แต่เป็น <span style="color:var(--gold-2)">รากฐานของระบบดูแลสัตว์เลี้ยงยุคใหม่</span></h2>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="icon">💛</div>
+            <h3>Emotional Value</h3>
+            <p>สร้างความรู้สึกผูกพันและความหมายให้กับการดูแลสัตว์เลี้ยงในทุกวัน</p>
+          </div>
+          <div class="card">
+            <div class="icon">🧠</div>
+            <h3>Technology Value</h3>
+            <p>นำ AI มาใช้เพื่อช่วยให้เจ้าของตัดสินใจและดูแลน้องได้ดีขึ้นอย่างต่อเนื่อง</p>
+          </div>
+          <div class="card">
+            <div class="icon">🌍</div>
+            <h3>Platform Value</h3>
+            <p>วางโครงสร้างให้ขยายต่อได้ทั้งด้านบริการ สุขภาพ พาร์ตเนอร์ และการเติบโตระดับโลก</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="trust">
+      <div class="container">
+        <span class="eyebrow">Trust & Legal</span>
+        <h2 class="section-title">ความน่าเชื่อถือที่สื่อสารได้ทันที<br>โดยไม่ต้องพูดเกินจริง</h2>
+        <p class="section-sub">
+          เราเชื่อว่าความไว้วางใจคือหัวใจของแบรนด์ที่ยั่งยืน จึงให้ความสำคัญกับการจดทะเบียน การคุ้มครองทรัพย์สินทางปัญญา
+          และการวางระบบเพื่อมาตรฐานการเติบโตระยะยาว
+        </p>
+
+        <div class="legal">
+          <div class="card">
+            <h3 style="margin-bottom:12px">Legal & Intellectual Property</h3>
+            <p style="margin-bottom:14px;color:var(--muted)">
+              PetQ AI Technology Co., Ltd. เป็นบริษัทที่จดทะเบียนถูกต้องตามกฎหมายในประเทศไทย
+              และกำลังพัฒนาแพลตฟอร์ม AI ด้านสัตว์เลี้ยงภายใต้มาตรฐานแบรนด์และระบบที่พร้อมเติบโต
+            </p>
+            <p style="margin-bottom:14px;color:var(--muted)">
+              องค์ประกอบสำคัญของระบบ PetQ AI รวมถึงโครงสร้างงานสร้างสรรค์ เนื้อหา และผลงานที่เกี่ยวข้อง
+              ได้มีการยื่นจดและได้รับการอนุมัติลิขสิทธิ์จากกรมทรัพย์สินทางปัญญา (DIP) ประเทศไทย
+              เพื่อเสริมความน่าเชื่อถือและการคุ้มครองทรัพย์สินทางปัญญาของแบรนด์
+            </p>
+            <p style="margin:0;color:#e9e9ed">
+              แนวทางของเราคือการสร้างแพลตฟอร์มที่ทั้ง <strong style="color:var(--gold-2)">มีหัวใจ</strong>,
+              <strong style="color:var(--gold-2)">มีโครงสร้าง</strong> และ
+              <strong style="color:var(--gold-2)">มีความน่าเชื่อถือ</strong> พร้อมสำหรับผู้ใช้งาน พาร์ตเนอร์ และนักลงทุน
+            </p>
+          </div>
+
+          <div class="badge-stack">
+            <div class="badge-card">
+              <strong>✔ Registered Company</strong>
+              บริษัทจดทะเบียนถูกต้องตามกฎหมายในประเทศไทย
+            </div>
+            <div class="badge-card">
+              <strong>✔ Copyright Approved (DIP Thailand)</strong>
+              มีผลงานที่ได้รับการอนุมัติลิขสิทธิ์จากกรมทรัพย์สินทางปัญญา
+            </div>
+            <div class="badge-card">
+              <strong>✔ AI Technology Platform</strong>
+              พัฒนาแพลตฟอร์มเพื่อยกระดับการดูแลสัตว์เลี้ยงด้วยเทคโนโลยี
+            </div>
+            <div class="badge-card">
+              <strong>✔ Brand & System Foundation</strong>
+              วางฐานเพื่อรองรับการเติบโตสู่มาตรฐานสากลในอนาคต
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <span class="eyebrow">Company Highlights</span>
+        <h2 class="section-title">โครงสร้างที่ทำให้แบรนด์นี้มีน้ำหนัก</h2>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="num">AI</div>
+            <div class="label">Care Platform</div>
+            <div class="desc">พัฒนาเพื่อให้การดูแลสัตว์เลี้ยงฉลาดขึ้น อบอุ่นขึ้น และต่อเนื่องขึ้น</div>
+          </div>
+          <div class="stat">
+            <div class="num">DIP</div>
+            <div class="label">Copyright Approved</div>
+            <div class="desc">มีผลงานที่ได้รับการอนุมัติลิขสิทธิ์จากหน่วยงานทรัพย์สินทางปัญญาไทย</div>
+          </div>
+          <div class="stat">
+            <div class="num">24/7</div>
+            <div class="label">Brand Vision</div>
+            <div class="desc">วางแบรนด์ให้เป็นผู้ช่วยดูแลสัตว์เลี้ยงที่อยู่กับผู้ใช้ทุกวัน</div>
+          </div>
+          <div class="stat">
+            <div class="num">Global</div>
+            <div class="label">Scalable Direction</div>
+            <div class="desc">ออกแบบระบบและภาพลักษณ์เพื่อพร้อมขยายต่อในระดับภูมิภาคและระดับโลก</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="roadmap">
+      <div class="container">
+        <span class="eyebrow">Roadmap</span>
+        <h2 class="section-title">เส้นทางการเติบโตที่ชัดเจน<br>จากจุดเริ่มต้นสู่แพลตฟอร์มระดับโลก</h2>
+
+        <div class="timeline">
+          <div class="step">
+            <span class="tag">Phase 1</span>
+            <h4>MVP Foundation</h4>
+            <p>สร้างระบบ AI ถามตอบ โปรไฟล์สัตว์เลี้ยง การแจ้งเตือนอ่อนโยน และโครงสร้างแบรนด์ให้พร้อมใช้งานจริง</p>
+          </div>
+          <div class="step">
+            <span class="tag">Phase 2</span>
+            <h4>Ecosystem Expansion</h4>
+            <p>ขยายสู่ Community, Marketplace, Health Timeline และการร่วมมือกับคลินิกสัตวแพทย์</p>
+          </div>
+          <div class="step">
+            <span class="tag">Phase 3</span>
+            <h4>Global Pet Platform</h4>
+            <p>ต่อยอดเป็นระบบดูแลสัตว์เลี้ยงครบวงจรที่ผสานเทคโนโลยี ข้อมูล และความผูกพันทางอารมณ์</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="cta-wrap">
+          <span class="eyebrow">Contact PetQ AI</span>
+          <h2 class="section-title" style="margin-top:18px">หากคุณสนใจ PetQ AI</h2>
+          <p>
+            ไม่ว่าคุณจะเป็นผู้ใช้งาน พาร์ตเนอร์ ธุรกิจ คลินิกสัตวแพทย์ หรือผู้ที่ต้องการติดตามการเติบโตของแพลตฟอร์ม
+            สามารถติดต่อเราเพื่อพูดคุยและรับข้อมูลเพิ่มเติมได้โดยตรง
+          </p>
+          <div class="hero-actions" style="justify-content:center;margin-bottom:0">
+            <a class="btn btn-line" href="https://lin.ee/7SpE3iW" target="_blank" rel="noopener">ติดต่อผ่าน LINE Official</a>
+            <a class="btn btn-secondary" href="https://www.petqai.com" target="_blank" rel="noopener">เยี่ยมชมเว็บไซต์</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container foot">
+      <div>
+        <strong style="display:block;color:#f1f1f4;margin-bottom:6px">PetQ AI Technology Co., Ltd.</strong>
+        <span>AI ดูแลสัตว์เลี้ยง เพื่อชีวิตที่ดีที่สุดของพวกเขา 🐶🐱</span>
+      </div>
+      <div class="foot-links">
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#trust">Trust</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="https://lin.ee/7SpE3iW" target="_blank" rel="noopener">LINE</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
