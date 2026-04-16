@@ -1,0 +1,2702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PetQ AI | AI pet care, designed for the life they deserve.</title>
+  <meta
+    name="description"
+    content="PetQ AI is a premium AI-powered pet care platform for dogs and cats, designed to help people care with more clarity, confidence, and heart."
+  />
+  <meta name="theme-color" content="#f6f2eb" />
+  <style>
+    :root {
+      --bg: #f7f3ec;
+      --bg-soft: #fcfaf7;
+      --surface: rgba(255, 255, 255, 0.78);
+      --surface-strong: rgba(255, 255, 255, 0.92);
+      --ink: #171614;
+      --muted: #666055;
+      --muted-soft: #8b8379;
+      --line: rgba(23, 22, 20, 0.08);
+      --charcoal: #111215;
+      --charcoal-soft: #181a1e;
+      --gold: #c2a16f;
+      --green: #06c755;
+      --green-dark: #04a746;
+      --shadow-lg: 0 28px 80px rgba(18, 18, 20, 0.12);
+      --shadow-md: 0 18px 40px rgba(20, 18, 14, 0.08);
+      --radius-xl: 36px;
+      --radius-lg: 26px;
+      --radius-md: 20px;
+      --radius-sm: 14px;
+      --max: 1240px;
+      --nav-h: 78px;
+      --ease: cubic-bezier(.22, 1, .36, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 0 0, rgba(194, 161, 111, 0.08), transparent 26%),
+        radial-gradient(circle at 100% 10%, rgba(255, 255, 255, 0.95), transparent 24%),
+        linear-gradient(180deg, #fbf8f2 0%, #f6f2eb 52%, #faf7f2 100%);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 50% -10%, rgba(194, 161, 111, 0.06), transparent 34%),
+        radial-gradient(circle at 50% 110%, rgba(13, 14, 17, 0.12), transparent 38%);
+      opacity: 0.55;
+      animation: pageBreath 8.8s ease-in-out infinite;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(12, 13, 16, 0.08) 0%, rgba(12, 13, 16, 0.03) 32%, rgba(255, 255, 255, 0) 100%);
+    }
+
+    @keyframes pageBreath {
+      0%, 100% {
+        opacity: 0.5;
+      }
+      50% {
+        opacity: 0.62;
+      }
+    }
+
+    body.attentive .section-header h2,
+    body.attentive .story-copy h3,
+    body.attentive .vision-card h2,
+    body.attentive .cta-copy h2 {
+      filter: brightness(1.02);
+    }
+
+    body.attentive .section-header p,
+    body.attentive .story-copy p,
+    body.attentive .core-card p,
+    body.attentive .future-card p,
+    body.attentive .bubble.ai,
+    body.attentive .mini-card p {
+      color: #4f493f;
+    }
+
+    body.attentive .reveal {
+      transition-duration: 1.2s;
+    }
+
+    body.fast-scroll .reveal {
+      transition-duration: .45s;
+    }
+
+    body.fast-scroll .float-card,
+    body.fast-scroll .product-overlay,
+    body.fast-scroll .cta-note,
+    body.fast-scroll .signature-note {
+      transition-duration: .2s;
+    }
+
+    body.return-flow .reveal {
+      transition-duration: .6s;
+    }
+
+    body.fast-scroll::before {
+      animation-duration: 12s;
+      opacity: 0.42;
+    }
+
+    body.attentive::before {
+      opacity: 0.64;
+    }
+
+    body.fast-scroll .cursor-glow {
+      opacity: 0.03;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: clamp(82px, 9vw, 112px) 0;
+      scroll-margin-top: calc(var(--nav-h) + 18px);
+      position: relative;
+      transition: background-color .9s var(--ease), filter .9s var(--ease);
+    }
+
+    .section.compact {
+      padding: clamp(64px, 7vw, 82px) 0;
+    }
+
+    .section.dark {
+      color: #f4f0e9;
+      background:
+        radial-gradient(circle at 10% 16%, rgba(194, 161, 111, 0.12), transparent 22%),
+        linear-gradient(180deg, #14161a 0%, #0f1012 100%);
+    }
+
+    .section.section-aware {
+      filter: brightness(1.01);
+    }
+
+    .section:not(.dark).section-aware {
+      background-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .section.dark.section-aware {
+      background:
+        radial-gradient(circle at 10% 16%, rgba(194, 161, 111, 0.15), transparent 24%),
+        linear-gradient(180deg, #17191d 0%, #101114 100%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(23, 22, 20, 0.08);
+      background: rgba(255, 255, 255, 0.58);
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      backdrop-filter: blur(14px);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #e0c694, #ae8447);
+      box-shadow: 0 0 0 6px rgba(194, 161, 111, 0.12);
+    }
+
+    .section-header {
+      margin-bottom: 38px;
+      max-width: 780px;
+    }
+
+    .section-header h2 {
+      margin: 18px 0 0;
+      font-size: clamp(2rem, 4vw, 4rem);
+      line-height: 1.03;
+      letter-spacing: -0.05em;
+      font-weight: 740;
+    }
+
+    .section-header p {
+      margin: 18px 0 0;
+      max-width: 700px;
+      color: var(--muted);
+      line-height: 1.82;
+      font-size: 1.04rem;
+    }
+
+    .dark .section-header p {
+      color: rgba(244, 240, 233, 0.76);
+    }
+
+    .section.section-aware .section-header h2,
+    .section.section-aware .story-copy h3,
+    .section.section-aware .vision-card h2,
+    .section.section-aware .cta-copy h2 {
+      filter: brightness(1.03);
+    }
+
+    .section.section-aware .section-header p,
+    .section.section-aware .story-copy p,
+    .section.section-aware .vision-card p,
+    .section.section-aware .cta-copy p {
+      color: #554e45;
+    }
+
+    .section.dark.section-aware .section-header p,
+    .section.dark.section-aware .story-copy p,
+    .section.dark.section-aware .vision-card p,
+    .section.dark.section-aware .cta-copy p {
+      color: rgba(244, 240, 233, 0.84);
+    }
+
+    .section-header h2,
+    .story-copy h3,
+    .vision-card h2,
+    .cta-copy h2,
+    .section-header p,
+    .story-copy p,
+    .vision-card p,
+    .cta-copy p,
+    .core-card p,
+    .future-card p,
+    .bubble,
+    .mini-card p {
+      transition: color .55s var(--ease), opacity .55s var(--ease), text-shadow .55s var(--ease), filter .55s var(--ease), text-decoration-color .55s var(--ease);
+      text-decoration-line: underline;
+      text-decoration-thickness: 1px;
+      text-decoration-color: transparent;
+      text-underline-offset: 0.22em;
+    }
+
+    .text-reactive.is-noticed,
+    .section-header h2:hover,
+    .story-copy h3:hover,
+    .vision-card h2:hover,
+    .cta-copy h2:hover,
+    .section-header p:hover,
+    .story-copy p:hover,
+    .vision-card p:hover,
+    .cta-copy p:hover {
+      color: #2b2722;
+      text-decoration-color: rgba(194, 161, 111, 0.45);
+      text-shadow: 0 0 24px rgba(194, 161, 111, 0.08);
+    }
+
+    .section.dark .text-reactive.is-noticed,
+    .section.dark .story-copy h3:hover,
+    .section.dark .story-copy p:hover {
+      color: #faf6ef;
+      text-decoration-color: rgba(194, 161, 111, 0.4);
+      text-shadow: 0 0 28px rgba(194, 161, 111, 0.10);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .9s var(--ease), transform .9s var(--ease);
+      will-change: opacity, transform;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .scroll-whisper {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      transform: translateX(-50%);
+      z-index: 90;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.64);
+      border: 1px solid rgba(23, 22, 20, 0.06);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 18px 40px rgba(18, 18, 20, 0.08);
+      color: #5d564d;
+      font-size: 0.94rem;
+      letter-spacing: -0.01em;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .9s var(--ease), transform .9s var(--ease);
+    }
+
+    .scroll-whisper.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .cursor-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 320px;
+      height: 320px;
+      border-radius: 999px;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0;
+      background: radial-gradient(circle, rgba(210, 180, 122, 0.10) 0%, rgba(210, 180, 122, 0.05) 26%, rgba(210, 180, 122, 0.02) 42%, transparent 72%);
+      filter: blur(48px);
+      transform: translate3d(-50%, -50%, 0);
+      transition: opacity .6s var(--ease);
+      mix-blend-mode: soft-light;
+    }
+
+    body.cursor-active .cursor-glow {
+      opacity: 0.08;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 80;
+      height: var(--nav-h);
+      border-bottom: 1px solid transparent;
+      transition: background .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease), backdrop-filter .35s var(--ease);
+    }
+
+    .navbar.scrolled {
+      background: rgba(250, 246, 239, 0.8);
+      backdrop-filter: blur(18px);
+      border-color: rgba(23, 22, 20, 0.06);
+      box-shadow: 0 10px 34px rgba(22, 18, 14, 0.05);
+    }
+
+    .nav-inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      flex-shrink: 0;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at 30% 26%, rgba(255, 255, 255, 0.96), transparent 24%),
+        linear-gradient(135deg, #2f3136 0%, #111214 66%, #c2a16f 100%);
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.16), 0 14px 30px rgba(18, 18, 20, 0.16);
+      position: relative;
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .nav-links a {
+      position: relative;
+      transition: color .3s ease;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -8px;
+      height: 1px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .3s var(--ease);
+      opacity: 0.55;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.64);
+      border: 1px solid rgba(23, 22, 20, 0.08);
+      backdrop-filter: blur(12px);
+    }
+
+    .lang-toggle button {
+      border: 0;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: background .3s ease, color .3s ease;
+    }
+
+    .lang-toggle button.active {
+      background: var(--ink);
+      color: #faf7f1;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-radius: 999px;
+      padding: 14px 22px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      line-height: 1;
+      font-size: 0.96rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: transform .35s var(--ease), box-shadow .35s var(--ease), background .35s var(--ease), border-color .35s var(--ease), color .35s var(--ease);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn::after {
+      content: "";
+      position: absolute;
+      inset: -18%;
+      border-radius: inherit;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.22) 0%, transparent 62%);
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity .55s var(--ease), transform .55s var(--ease);
+      pointer-events: none;
+    }
+
+    .btn:hover::after,
+    .btn:focus-visible::after {
+      opacity: 1;
+      transform: scale(1.02);
+    }
+
+    @keyframes supportivePulse {
+      0%, 100% {
+        box-shadow: 0 18px 36px rgba(6, 199, 85, 0.18);
+      }
+      50% {
+        box-shadow: 0 20px 44px rgba(6, 199, 85, 0.28), 0 0 0 8px rgba(6, 199, 85, 0.06);
+      }
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, #212329, #111215);
+      color: #faf7f1;
+      box-shadow: 0 16px 34px rgba(17, 18, 21, 0.16);
+    }
+
+    .btn.secondary {
+      background: rgba(255,255,255,0.72);
+      border-color: rgba(23, 22, 20, 0.08);
+      color: var(--ink);
+    }
+
+    .btn.line {
+      background: var(--green);
+      color: #fff;
+      box-shadow: 0 18px 36px rgba(6, 199, 85, 0.18);
+    }
+
+    .btn.line:hover {
+      background: var(--green-dark);
+    }
+
+    .btn.primary:hover,
+    .btn.line:hover,
+    .btn.primary:focus-visible,
+    .btn.line:focus-visible {
+      transform: translateY(-2px) scale(1.03);
+      filter: brightness(1.02);
+    }
+
+    .btn.primary.idle-pulse,
+    .btn.line.idle-pulse {
+      animation: idleInvite 6.4s ease-in-out infinite;
+    }
+
+    @keyframes idleInvite {
+      0%, 88%, 100% {
+        transform: translateY(0) scale(1);
+      }
+      92% {
+        transform: translateY(-1px) scale(1.018);
+      }
+      96% {
+        transform: translateY(0) scale(1.01);
+      }
+    }
+
+    .hero {
+      min-height: calc(100vh - var(--nav-h));
+      display: flex;
+      align-items: center;
+      padding: 42px 0 54px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.03fr) minmax(320px, .97fr);
+      gap: 42px;
+      align-items: center;
+    }
+
+    .hero-copy h1 {
+      margin: 20px 0 0;
+      font-size: clamp(3rem, 6.3vw, 6.1rem);
+      line-height: 0.95;
+      letter-spacing: -0.07em;
+      font-weight: 760;
+      max-width: 760px;
+    }
+
+    .hero-copy p {
+      margin: 22px 0 0;
+      max-width: 660px;
+      color: var(--muted);
+      line-height: 1.84;
+      font-size: clamp(1rem, 1.24vw, 1.14rem);
+    }
+
+    .hero-actions {
+      margin-top: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .hero-proof {
+      margin-top: 26px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 22px;
+      color: var(--muted-soft);
+      font-size: 0.94rem;
+    }
+
+    .hero-proof span {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-proof span::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #dfc48f, #ae8445);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 740px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 540px;
+      height: 540px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(194, 161, 111, 0.16) 0%, rgba(194, 161, 111, 0.04) 36%, transparent 72%);
+      filter: blur(10px);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-photo {
+      position: absolute;
+      top: 16px;
+      right: -8px;
+      width: 292px;
+      height: 376px;
+      border-radius: 34px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.42);
+      box-shadow: 0 30px 80px rgba(17, 18, 20, 0.16);
+      z-index: 1;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.4s var(--ease), filter 1.4s var(--ease);
+    }
+
+    .phone {
+      position: relative;
+      width: 326px;
+      padding: 14px;
+      border-radius: 42px;
+      background: linear-gradient(180deg, #23252a, #0f1114 72%);
+      box-shadow: 0 40px 100px rgba(8, 10, 14, 0.26);
+      z-index: 2;
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 34%;
+      height: 24px;
+      border-radius: 0 0 18px 18px;
+      background: #08090b;
+      z-index: 2;
+    }
+
+    .screen {
+      min-height: 628px;
+      border-radius: 30px;
+      overflow: hidden;
+      padding: 22px 18px 20px;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(194, 161, 111, 0.16), transparent 34%),
+        linear-gradient(180deg, #f6f1ea 0%, #f2ede5 100%);
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #6f675d;
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+
+    .glass {
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(23, 22, 20, 0.06);
+      box-shadow: 0 16px 40px rgba(18, 18, 20, 0.08);
+      border-radius: 24px;
+      backdrop-filter: blur(16px);
+    }
+
+    .screen-card {
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+
+    .screen-card small {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 11px;
+      color: #877f75;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .screen-card h3 {
+      margin: 0;
+      font-size: 1.18rem;
+      letter-spacing: -0.04em;
+    }
+
+    .pet-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 14px;
+      padding: 12px;
+      background: rgba(249, 245, 239, 0.92);
+      border-radius: 20px;
+    }
+
+    .pet-row img {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      object-fit: cover;
+    }
+
+    .pet-row strong {
+      display: block;
+      font-size: 0.98rem;
+    }
+
+    .pet-row span {
+      display: block;
+      margin-top: 3px;
+      color: #7c746b;
+      font-size: 0.88rem;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .metric {
+      padding: 14px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.74);
+      border: 1px solid rgba(23, 22, 20, 0.05);
+    }
+
+    .metric label {
+      display: block;
+      margin-bottom: 10px;
+      color: #877f75;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 0.98rem;
+      letter-spacing: -0.03em;
+    }
+
+    .snippet {
+      padding: 14px;
+      border-radius: 20px;
+      background: rgba(252, 249, 245, 0.95);
+      border: 1px solid rgba(23, 22, 20, 0.05);
+      color: #413b34;
+      line-height: 1.62;
+      font-size: 0.92rem;
+    }
+
+    .float-card {
+      position: absolute;
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(23, 22, 20, 0.06);
+      box-shadow: 0 22px 60px rgba(16, 17, 20, 0.10);
+      backdrop-filter: blur(18px);
+      z-index: 3;
+    }
+
+    .float-card.one {
+      left: -16px;
+      top: 102px;
+      width: 238px;
+    }
+
+    .float-card.two {
+      right: -26px;
+      bottom: 78px;
+      width: 254px;
+    }
+
+    .float-card h4 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+      letter-spacing: -0.03em;
+    }
+
+    .float-card p {
+      margin: 0;
+      color: #696257;
+      font-size: 0.91rem;
+      line-height: 1.72;
+    }
+
+    .trust-strip {
+      padding: 20px 0;
+      border-top: 1px solid rgba(23, 22, 20, 0.06);
+      border-bottom: 1px solid rgba(23, 22, 20, 0.06);
+      background: rgba(255,255,255,0.32);
+      backdrop-filter: blur(12px);
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      text-align: center;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.54);
+      border: 1px solid rgba(23, 22, 20, 0.06);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .trust-item::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #dcc28d, #ae8548);
+      flex: 0 0 auto;
+    }
+
+    .trust-foundation {
+      padding-top: 18px;
+    }
+
+    .trust-foundation-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .trust-company,
+    .trust-principles {
+      padding: 28px;
+      border-radius: 30px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(23, 22, 20, 0.06);
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(16px);
+    }
+
+    .trust-label {
+      display: block;
+      color: var(--muted-soft);
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .trust-company h3,
+    .trust-principles h3 {
+      margin: 0;
+      font-size: clamp(1.6rem, 2.6vw, 2.4rem);
+      line-height: 1.08;
+      letter-spacing: -0.045em;
+    }
+
+    .trust-subline {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(23, 22, 20, 0.06);
+      color: #5c554c;
+      font-size: 0.96rem;
+      line-height: 1.8;
+    }
+
+    .trust-dip {
+      margin-top: 18px;
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 20px;
+      background: rgba(17, 18, 21, 0.92);
+      color: #f5f1ea;
+      border: 1px solid rgba(194, 161, 111, 0.18);
+      box-shadow: 0 18px 44px rgba(17, 18, 21, 0.14);
+    }
+
+    .trust-dip::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      margin-top: 6px;
+      border-radius: 999px;
+      flex: 0 0 auto;
+      background: linear-gradient(135deg, #e2c892, #b68b4d);
+      box-shadow: 0 0 0 6px rgba(194, 161, 111, 0.08);
+    }
+
+    .trust-dip strong {
+      display: block;
+      font-size: 0.95rem;
+      letter-spacing: -0.02em;
+    }
+
+    .trust-dip span {
+      display: block;
+      margin-top: 4px;
+      color: rgba(245, 241, 234, 0.72);
+      font-size: 0.82rem;
+      line-height: 1.7;
+    }
+
+    .trust-principles {
+      display: grid;
+      gap: 16px;
+    }
+
+    .trust-note {
+      padding: 18px 20px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.56);
+      border: 1px solid rgba(23, 22, 20, 0.06);
+    }
+
+    .trust-note strong {
+      display: block;
+      font-size: 1rem;
+      letter-spacing: -0.03em;
+    }
+
+    .trust-note p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 0.94rem;
+    }
+
+    .quick-start {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .quick-left,
+    .quick-right {
+      padding: 28px;
+      border-radius: 30px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(23, 22, 20, 0.06);
+      box-shadow: var(--shadow-md);
+    }
+
+    .quick-left h3,
+    .quick-right h3 {
+      margin: 0 0 14px;
+      font-size: 1.6rem;
+      letter-spacing: -0.04em;
+    }
+
+    .quick-left p,
+    .quick-right p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .prompt-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .prompt-chip {
+      width: 100%;
+      text-align: left;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(23, 22, 20, 0.08);
+      background: rgba(255,255,255,0.82);
+      color: var(--ink);
+      cursor: pointer;
+      transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease);
+    }
+
+    .prompt-chip:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(18, 18, 20, 0.08);
+      border-color: rgba(23, 22, 20, 0.14);
+    }
+
+    .demo-chat {
+      margin-top: 22px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .bubble {
+      padding: 16px;
+      border-radius: 20px;
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    .bubble.user {
+      background: rgba(244, 237, 226, 0.95);
+      color: #3b352d;
+      justify-self: end;
+      max-width: 88%;
+    }
+
+    .bubble.ai {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(23, 22, 20, 0.06);
+      color: #3f3932;
+      max-width: 90%;
+    }
+
+    .demo-meta {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .demo-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(23, 22, 20, 0.06);
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .demo-tag::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #dfc48f, #ae8445);
+    }
+
+    .core-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .core-card,
+    .future-card,
+    .mini-card,
+    .ui-card {
+      min-width: 0;
+    }
+
+    .core-card {
+      padding: 24px;
+      border-radius: 26px;
+      background: rgba(255,255,255,0.68);
+      border: 1px solid rgba(23, 22, 20, 0.06);
+      box-shadow: var(--shadow-md);
+    }
+
+    .core-card h3 {
+      margin: 0 0 12px;
+      font-size: 1.18rem;
+      letter-spacing: -0.03em;
+    }
+
+    .core-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 0.96rem;
+    }
+
+    .story-block {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 34px;
+      align-items: center;
+    }
+
+    .story-block + .story-block {
+      margin-top: 88px;
+    }
+
+    .story-block.reverse .story-copy {
+      order: 2;
+    }
+
+    .story-block.reverse .story-visual {
+      order: 1;
+    }
+
+    .story-copy h3 {
+      margin: 0;
+      font-size: clamp(2rem, 3.2vw, 3.1rem);
+      line-height: 1.04;
+      letter-spacing: -0.05em;
+      max-width: 560px;
+    }
+
+    .story-copy p {
+      margin: 18px 0 0;
+      max-width: 560px;
+      color: inherit;
+      opacity: 0.8;
+      line-height: 1.84;
+      font-size: 1.03rem;
+    }
+
+    .story-points {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .story-points span {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: inherit;
+      opacity: 0.88;
+      font-size: 0.97rem;
+    }
+
+    .story-points span::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #e0c797, #b18a50);
+      flex: 0 0 auto;
+    }
+
+    .product-frame {
+      position: relative;
+      overflow: hidden;
+      min-height: 500px;
+      border-radius: 34px;
+      box-shadow: 0 30px 80px rgba(6, 8, 10, 0.20);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .product-frame img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.5s var(--ease), filter 1.5s var(--ease);
+    }
+
+    .product-overlay {
+      position: absolute;
+      right: 24px;
+      bottom: 24px;
+      width: min(88%, 320px);
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(23, 22, 20, 0.06);
+      box-shadow: 0 16px 50px rgba(17, 18, 20, 0.12);
+      backdrop-filter: blur(18px);
+    }
+
+    .product-overlay strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1rem;
+      letter-spacing: -0.03em;
+    }
+
+    .product-overlay p {
+      margin: 0;
+      color: #655d54;
+      line-height: 1.74;
+      font-size: 0.92rem;
+    }
+
+    .ui-card {
+      padding: 28px;
+      border-radius: 34px;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(23, 22, 20, 0.06);
+      box-shadow: var(--shadow-md);
+    }
+
+    .ui-card h4 {
+      margin: 0 0 14px;
+      font-size: 1.08rem;
+      letter-spacing: -0.03em;
+    }
+
+    .mini-card {
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(23, 22, 20, 0.06);
+      box-shadow: 0 10px 24px rgba(17, 18, 20, 0.06);
+    }
+
+    .mini-card p {
+      margin: 0;
+      color: #675f56;
+      line-height: 1.65;
+      font-size: 0.88rem;
+    }
+
+    .mini-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .chart {
+      height: 78px;
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      align-items: end;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .chart span {
+      display: block;
+      border-radius: 999px 999px 8px 8px;
+      background: linear-gradient(180deg, rgba(194, 161, 111, 0.92), rgba(156, 121, 68, 0.84));
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+      align-items: end;
+      margin-top: 34px;
+    }
+
+    .mini-phone {
+      padding: 10px;
+      border-radius: 30px;
+      background: linear-gradient(180deg, #23252a, #111215 72%);
+      box-shadow: 0 32px 72px rgba(8, 10, 14, 0.22);
+    }
+
+    .mini-screen {
+      min-height: 500px;
+      border-radius: 22px;
+      overflow: hidden;
+      padding: 18px 14px;
+      background: linear-gradient(180deg, #f8f3ec 0%, #f2ece3 100%);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .mini-top {
+      display: flex;
+      justify-content: space-between;
+      color: #6f665d;
+      font-size: 0.82rem;
+    }
+
+    .mini-title {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .mini-avatar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mini-avatar img {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      object-fit: cover;
+      transition: transform 1.2s var(--ease), filter 1.2s var(--ease);
+    }
+
+    .vision-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, .9fr);
+      gap: 34px;
+      align-items: center;
+    }
+
+    .vision-card {
+      padding: 36px;
+      border-radius: 34px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 28px 72px rgba(0,0,0,0.16);
+      backdrop-filter: blur(16px);
+    }
+
+    .vision-card h2 {
+      margin: 18px 0 0;
+      font-size: clamp(2.2rem, 4vw, 4rem);
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .vision-card p {
+      margin: 20px 0 0;
+      color: rgba(244, 240, 233, 0.76);
+      line-height: 1.88;
+      font-size: 1.06rem;
+    }
+
+    .vision-photo {
+      overflow: hidden;
+      border-radius: 34px;
+      min-height: 560px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.28);
+    }
+
+    .vision-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      min-height: 560px;
+      transition: transform 1.5s var(--ease), filter 1.5s var(--ease);
+    }
+
+    .future-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .future-card {
+      min-height: 236px;
+      padding: 24px;
+      border-radius: 26px;
+      background: rgba(255,255,255,0.68);
+      border: 1px solid rgba(23, 22, 20, 0.06);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .future-card strong {
+      display: block;
+      margin-bottom: 14px;
+      font-size: 1rem;
+      letter-spacing: -0.03em;
+    }
+
+    .future-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+
+    .cta-band {
+      position: relative;
+      overflow: hidden;
+      border-radius: 40px;
+      min-height: 520px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(135deg, rgba(20, 22, 25, 0.98), rgba(11, 12, 14, 0.98));
+      box-shadow: 0 36px 100px rgba(12, 14, 18, 0.22);
+    }
+
+    .cta-band.awake .btn.line {
+      animation: supportivePulse 6.2s ease-in-out infinite;
+    }
+
+    .cta-invite {
+      margin-top: 18px;
+      color: rgba(244, 240, 233, 0.72);
+      font-size: 0.96rem;
+      line-height: 1.8;
+    }
+
+    .cta-band::before {
+      content: "";
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      right: -140px;
+      top: -120px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(194, 161, 111, 0.22), transparent 64%);
+      filter: blur(10px);
+    }
+
+    .cta-grid {
+      position: relative;
+      z-index: 1;
+      min-height: 520px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+      gap: 30px;
+      align-items: center;
+      padding: 44px;
+    }
+
+    .cta-copy h2 {
+      margin: 18px 0 0;
+      color: #f4f0e9;
+      font-size: clamp(2.4rem, 5vw, 4.8rem);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+    }
+
+    .cta-copy p {
+      margin: 20px 0 0;
+      max-width: 620px;
+      color: rgba(244, 240, 233, 0.74);
+      line-height: 1.88;
+      font-size: 1.04rem;
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .cta-photo {
+      position: relative;
+      justify-self: end;
+      width: min(100%, 460px);
+      height: 420px;
+      border-radius: 34px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.24);
+    }
+
+    .cta-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.5s var(--ease), filter 1.5s var(--ease);
+    }
+
+    .hero-photo,
+    .product-frame,
+    .vision-photo,
+    .cta-photo {
+      transition: box-shadow .8s var(--ease), filter .8s var(--ease);
+    }
+
+    .hero-photo:hover img,
+    .product-frame:hover img,
+    .vision-photo:hover img,
+    .cta-photo:hover img,
+    .mini-avatar img:hover {
+      transform: scale(1.03);
+      filter: brightness(1.04) saturate(1.03);
+    }
+
+    .hero-photo:hover,
+    .product-frame:hover,
+    .vision-photo:hover,
+    .cta-photo:hover {
+      box-shadow: 0 30px 88px rgba(15, 16, 18, 0.18);
+      filter: brightness(1.01);
+    }
+
+    .cta-note {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 22px;
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(18px);
+      color: #fbf8f4;
+      line-height: 1.7;
+      font-size: 0.94rem;
+    }
+
+    .ending {
+      background:
+        linear-gradient(180deg, #111215 0%, #0f1012 100%);
+      color: #f4f0e9;
+    }
+
+    .ending-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 8px 0;
+    }
+
+    .ending-message {
+      opacity: 0;
+      transition: opacity 2.4s var(--ease);
+    }
+
+    .ending-message.in {
+      opacity: 1;
+    }
+
+    .ending-message p {
+      margin: 0;
+      font-size: clamp(1.28rem, 2.6vw, 2.25rem);
+      line-height: 1.55;
+      letter-spacing: -0.04em;
+      color: rgba(244, 240, 233, 0.92);
+    }
+
+    .ending-message p + p {
+      margin-top: 30px;
+      font-size: clamp(1.08rem, 2vw, 1.5rem);
+      color: rgba(244, 240, 233, 0.72);
+      line-height: 1.8;
+    }
+
+    footer {
+      background: #101114;
+      color: rgba(244, 240, 233, 0.78);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 44px 0 60px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr .8fr .8fr;
+      gap: 26px;
+    }
+
+    .footer-brand strong {
+      display: block;
+      margin-bottom: 12px;
+      color: #f4f0e9;
+      font-size: 1.14rem;
+      letter-spacing: -0.03em;
+    }
+
+    .footer-brand p,
+    .footer-col a,
+    .footer-col p,
+    .footer-meta {
+      color: rgba(244, 240, 233, 0.66);
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col h4 {
+      margin: 0 0 12px;
+      color: #f4f0e9;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .footer-line {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: var(--green);
+      color: #fff;
+      font-weight: 700;
+      margin-top: 8px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 34px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    @media (max-width: 1180px) {
+      .hero-grid,
+      .quick-start,
+      .trust-foundation-grid,
+      .story-block,
+      .vision-wrap,
+      .cta-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .story-block.reverse .story-copy,
+      .story-block.reverse .story-visual {
+        order: initial;
+      }
+
+      .core-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .preview-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .future-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .trust-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .section-header,
+      .hero-copy,
+      .story-copy h3,
+      .story-copy p,
+      .cta-copy p {
+        max-width: 100%;
+      }
+
+      .hero-visual {
+        max-width: 720px;
+        margin: 0 auto;
+      }
+
+      .cta-photo {
+        justify-self: start;
+        max-width: 560px;
+      }
+    }
+
+    @media (max-width: 980px) {
+      body::before,
+      body::after {
+        opacity: 0.42;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero-copy h1 {
+        font-size: clamp(2.7rem, 11vw, 4.8rem);
+      }
+
+      .hero-visual {
+        min-height: 690px;
+      }
+
+      .hero-photo {
+        width: 230px;
+        height: 292px;
+        right: 0;
+      }
+
+      .float-card.one {
+        left: 0;
+        top: 88px;
+        width: 208px;
+      }
+
+      .float-card.two {
+        right: 0;
+        bottom: 58px;
+        width: 220px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .container {
+        width: min(calc(100% - 24px), var(--max));
+      }
+
+      .section {
+        padding: 84px 0;
+      }
+
+      .section.compact {
+        padding: 66px 0;
+      }
+
+      .nav-right .btn.primary {
+        display: none;
+      }
+
+      .lang-toggle button {
+        padding: 8px 10px;
+      }
+
+      .scroll-whisper {
+        left: 12px;
+        right: 12px;
+        bottom: 16px;
+        transform: none;
+        text-align: center;
+      }
+
+      .scroll-whisper.visible {
+        transform: none;
+      }
+
+      .hero {
+        padding-top: 24px;
+      }
+
+      .hero-visual {
+        min-height: 620px;
+      }
+
+      .hero-photo {
+        width: 176px;
+        height: 220px;
+        top: 2px;
+      }
+
+      .float-card {
+        position: static;
+        width: 100% !important;
+        margin-top: 14px;
+      }
+
+      .hero-actions,
+      .cta-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .phone {
+        width: min(100%, 320px);
+      }
+
+      .screen {
+        min-height: 590px;
+      }
+
+      .metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .core-grid,
+      .preview-grid,
+      .future-grid,
+      .trust-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-grid {
+        padding: 28px;
+      }
+
+      .cta-band {
+        border-radius: 28px;
+      }
+
+      .cta-photo {
+        height: 320px;
+      }
+
+      .cursor-glow {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body::before,
+      .btn.primary.idle-pulse,
+      .btn.line.idle-pulse,
+      .cta-band.awake .btn.line {
+        animation: none !important;
+      }
+
+      .cursor-glow,
+      .reveal,
+      .hero-photo img,
+      .product-frame img,
+      .vision-photo img,
+      .cta-photo img,
+      .mini-avatar img {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+  <header class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="#home" class="brand" aria-label="PetQ AI home">
+        <div class="brand-mark"></div>
+        <span>PetQ AI</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#home"><span data-en="Home" data-th="หน้าแรก">Home</span></a>
+        <a href="#features"><span data-en="Features" data-th="ฟีเจอร์">Features</span></a>
+        <a href="#vision"><span data-en="Vision" data-th="วิสัยทัศน์">Vision</span></a>
+        <a href="#app"><span data-en="App" data-th="แอป">App</span></a>
+        <a href="#contact"><span data-en="Contact" data-th="ติดต่อ">Contact</span></a>
+      </nav>
+
+      <div class="nav-right">
+        <div class="lang-toggle" aria-label="Language toggle">
+          <button type="button" class="active" data-lang-btn="en">EN</button>
+          <button type="button" data-lang-btn="th">TH</button>
+        </div>
+        <a class="btn line" href="https://line.me/R/ti/p/@petqai" target="_blank" rel="noreferrer">
+          <span data-en="Chat via LINE" data-th="แชทผ่าน LINE">Chat via LINE</span>
+        </a>
+        <a class="btn primary" href="#try-now">
+          <span data-en="Try PetQ AI" data-th="ลองใช้ PetQ AI">Try PetQ AI</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero section" id="home">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <span class="eyebrow">
+            <span data-en="Premium AI pet care platform" data-th="แพลตฟอร์ม AI ดูแลสัตว์เลี้ยงระดับพรีเมียม">Premium AI pet care platform</span>
+          </span>
+          <h1 data-en="AI pet care, designed for the life they deserve." data-th="AI ดูแลสัตว์เลี้ยง เพื่อชีวิตที่ดีที่สุดของพวกเขา">AI pet care, designed for the life they deserve.</h1>
+          <p data-en="PetQ AI helps pet owners care with more clarity, more confidence, and more heart — through intelligent guidance, gentle support, emotional connection, and a platform built for the future." data-th="PetQ AI ช่วยให้เจ้าของดูแลสัตว์เลี้ยงได้อย่างมั่นใจ อ่อนโยน และลึกซึ้งยิ่งขึ้น ผ่านคำแนะนำอัจฉริยะ ระบบดูแลที่อบอุ่น ความผูกพันทางอารมณ์ และแพลตฟอร์มที่สร้างมาเพื่ออนาคต">PetQ AI helps pet owners care with more clarity, more confidence, and more heart — through intelligent guidance, gentle support, emotional connection, and a platform built for the future.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#try-now">
+              <span data-en="Try PetQ AI" data-th="ลองใช้ PetQ AI">Try PetQ AI</span>
+            </a>
+            <a class="btn line" href="https://line.me/R/ti/p/@petqai" target="_blank" rel="noreferrer">
+              <span data-en="Chat via LINE" data-th="แชทผ่าน LINE">Chat via LINE</span>
+            </a>
+          </div>
+          <div class="hero-proof">
+            <span data-en="For dogs and cats" data-th="สำหรับสุนัขและแมว">For dogs and cats</span>
+            <span data-en="Built in Thailand, designed globally" data-th="สร้างในไทย ออกแบบเพื่อคนทั่วโลก">Built in Thailand, designed globally</span>
+            <span data-en="Private by design" data-th="คำนึงถึงความเป็นส่วนตัวตั้งแต่ต้น">Private by design</span>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal">
+          <div class="hero-glow"></div>
+
+          <div class="hero-photo">
+            <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=900&q=80" alt="Premium dog portrait in natural light" />
+          </div>
+
+          <div class="float-card one">
+            <h4 data-en="Clearer daily care" data-th="การดูแลทุกวันที่ชัดเจนขึ้น">Clearer daily care</h4>
+            <p data-en="Questions, reminders, and emotional support designed to feel calm and genuinely useful." data-th="คำถาม การแจ้งเตือน และการดูแลทางอารมณ์ ที่ถูกออกแบบให้สงบและใช้ได้จริง">Questions, reminders, and emotional support designed to feel calm and genuinely useful.</p>
+          </div>
+
+          <div class="phone" aria-label="PetQ AI app preview">
+            <div class="screen">
+              <div class="status-row">
+                <span>9:41</span>
+                <span>PetQ AI</span>
+              </div>
+
+              <div class="glass screen-card">
+                <small data-en="Today with Luna" data-th="วันนี้กับ Luna">Today with Luna</small>
+                <h3 data-en="Care with more confidence and heart." data-th="ดูแลด้วยความมั่นใจและความใส่ใจมากขึ้น">Care with more confidence and heart.</h3>
+                <div class="pet-row">
+                  <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=600&q=80" alt="Dog profile thumbnail" />
+                  <div>
+                    <strong>Luna</strong>
+                    <span data-en="Golden Retriever • 4 years" data-th="โกลเด้น รีทรีฟเวอร์ • 4 ปี">Golden Retriever • 4 years</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="metrics">
+                <div class="metric">
+                  <label data-en="Next reminder" data-th="การแจ้งเตือนถัดไป">Next reminder</label>
+                  <strong data-en="Evening walk • 18:30" data-th="พาเดินช่วงเย็น • 18:30">Evening walk • 18:30</strong>
+                </div>
+                <div class="metric">
+                  <label data-en="Care status" data-th="สถานะการดูแล">Care status</label>
+                  <strong data-en="Routine on track" data-th="กิจวัตรเป็นไปตามแผน">Routine on track</strong>
+                </div>
+              </div>
+
+              <div class="glass" style="padding:16px; margin-bottom:14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                  <strong style="font-size:.98rem;" data-en="AI Pet Q&A" data-th="ถามตอบ AI สัตว์เลี้ยง">AI Pet Q&amp;A</strong>
+                  <span style="font-size:.78rem; color:#857e76;" data-en="Live preview" data-th="พรีวิวแบบสด">Live preview</span>
+                </div>
+                <div class="snippet" data-en="“Luna has been scratching more than usual today.”" data-th="“วันนี้ Luna เกามากกว่าปกติ”">“Luna has been scratching more than usual today.”</div>
+                <div class="snippet" style="margin-top:10px; background:rgba(239,233,223,0.88);" data-en="Let’s review recent changes, routine, and possible irritation triggers in a calm, practical way." data-th="มาดูความเปลี่ยนแปลงล่าสุด กิจวัตร และปัจจัยที่อาจทำให้ระคายเคืองอย่างสงบและเป็นระบบกัน">Let’s review recent changes, routine, and possible irritation triggers in a calm, practical way.</div>
+              </div>
+
+              <div class="glass" style="padding:16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                  <strong style="font-size:.98rem;" data-en="Memory timeline" data-th="ไทม์ไลน์ความทรงจำ">Memory timeline</strong>
+                  <span style="font-size:.78rem; color:#857e76;" data-en="This week" data-th="สัปดาห์นี้">This week</span>
+                </div>
+                <div class="snippet" data-en="New favorite sleeping spot. Calm after grooming. Appetite normal." data-th="เจอมุมโปรดใหม่สำหรับนอน สงบหลังอาบน้ำ กินอาหารได้ปกติ">New favorite sleeping spot. Calm after grooming. Appetite normal.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="float-card two">
+            <h4 data-en="More than passive reading" data-th="มากกว่าการเลื่อนอ่านเฉย ๆ">More than passive reading</h4>
+            <p data-en="PetQ AI is designed to move people from reading about care to interacting with it immediately." data-th="PetQ AI ถูกออกแบบให้ผู้ใช้ขยับจากการอ่านเรื่องการดูแล ไปสู่การเริ่มโต้ตอบได้ทันที">PetQ AI is designed to move people from reading about care to interacting with it immediately.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip reveal">
+      <div class="container trust-grid">
+        <div class="trust-item" data-en="Built with care" data-th="สร้างขึ้นด้วยความใส่ใจ">Built with care</div>
+        <div class="trust-item" data-en="Privacy-conscious" data-th="คำนึงถึงความเป็นส่วนตัว">Privacy-conscious</div>
+        <div class="trust-item" data-en="Designed for real pet life" data-th="ออกแบบเพื่อชีวิตจริงของสัตว์เลี้ยง">Designed for real pet life</div>
+        <div class="trust-item" data-en="Future-ready platform" data-th="แพลตฟอร์มที่พร้อมสำหรับอนาคต">Future-ready platform</div>
+      </div>
+    </section>
+
+    <section class="section compact" id="try-now">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow"><span data-en="Try now" data-th="ลองใช้ตอนนี้">Try now</span></span>
+          <h2 data-en="See the product before you read the whole story." data-th="สัมผัสตัวผลิตภัณฑ์ก่อนที่จะอ่านรายละเอียดทั้งหมด">See the product before you read the whole story.</h2>
+          <p data-en="This lightweight demo preview shows how PetQ AI can help people ask better questions, organize care, and move toward action faster." data-th="เดโมพรีวิวนี้แสดงให้เห็นว่า PetQ AI ช่วยให้ผู้ใช้ถามคำถามได้ดีขึ้น จัดระเบียบการดูแลได้ชัดเจนขึ้น และไปสู่การลงมือทำได้เร็วขึ้นอย่างไร">This lightweight demo preview shows how PetQ AI can help people ask better questions, organize care, and move toward action faster.</p>
+        </div>
+
+        <div class="quick-start reveal">
+          <div class="quick-left">
+            <h3 data-en="Start with a real concern" data-th="เริ่มต้นจากคำถามจริงที่คุณกังวล">Start with a real concern</h3>
+            <p data-en="Choose a sample prompt below to see how PetQ AI can respond in a calmer, clearer, and more helpful way." data-th="เลือกคำถามตัวอย่างด้านล่าง เพื่อดูว่า PetQ AI สามารถตอบกลับอย่างสงบ ชัดเจน และช่วยได้จริงอย่างไร">Choose a sample prompt below to see how PetQ AI can respond in a calmer, clearer, and more helpful way.</p>
+            <div class="prompt-list">
+              <button class="prompt-chip" type="button" data-demo="itching">
+                <span data-en="My dog is scratching more than usual today." data-th="วันนี้สุนัขของฉันเกามากกว่าปกติ">My dog is scratching more than usual today.</span>
+              </button>
+              <button class="prompt-chip" type="button" data-demo="appetite">
+                <span data-en="My cat ate less than usual this morning." data-th="เช้านี้แมวของฉันกินน้อยกว่าปกติ">My cat ate less than usual this morning.</span>
+              </button>
+              <button class="prompt-chip" type="button" data-demo="routine">
+                <span data-en="Help me build a better daily care routine." data-th="ช่วยจัดกิจวัตรดูแลประจำวันให้ดีขึ้น">Help me build a better daily care routine.</span>
+              </button>
+            </div>
+            <div class="demo-meta">
+              <div class="demo-tag" data-en="Frontend-only preview" data-th="พรีวิวแบบ frontend-only">Frontend-only preview</div>
+              <div class="demo-tag" data-en="No backend required" data-th="ไม่ต้องมี backend">No backend required</div>
+              <div class="demo-tag" data-en="Built for immediate interaction" data-th="ออกแบบให้เริ่มโต้ตอบได้ทันที">Built for immediate interaction</div>
+            </div>
+          </div>
+
+          <div class="quick-right">
+            <h3 data-en="PetQ AI demo preview" data-th="เดโมพรีวิวของ PetQ AI">PetQ AI demo preview</h3>
+            <p data-en="A better homepage should let visitors feel the product quickly. This sample interaction turns passive reading into active exploration." data-th="หน้าเว็บที่ดีกว่าควรทำให้ผู้ใช้สัมผัสตัวผลิตภัณฑ์ได้เร็ว เดโมนี้จึงเปลี่ยนจากการเลื่อนอ่านเฉย ๆ ไปสู่การทดลองใช้งานจริงทันที">A better homepage should let visitors feel the product quickly. This sample interaction turns passive reading into active exploration.</p>
+            <div class="demo-chat">
+              <div class="bubble user" id="demo-user">My dog is scratching more than usual today.</div>
+              <div class="bubble ai" id="demo-ai">Let’s start with a few calm checks: when it began, whether the skin looks irritated, and whether anything changed in food, shampoo, bedding, or outdoor exposure today.</div>
+            </div>
+            <div class="hero-actions" style="margin-top:22px;">
+              <a class="btn primary" href="mailto:info@petqai.com">
+                <span data-en="Start now" data-th="เริ่มตอนนี้">Start now</span>
+              </a>
+              <a class="btn line" href="https://line.me/R/ti/p/@petqai" target="_blank" rel="noreferrer">
+                <span data-en="Chat via LINE" data-th="แชทผ่าน LINE">Chat via LINE</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow"><span data-en="Core product value" data-th="คุณค่าหลักของผลิตภัณฑ์">Core product value</span></span>
+          <h2 data-en="Three product layers that make care feel clearer, calmer, and more connected." data-th="3 แกนหลักของผลิตภัณฑ์ ที่ทำให้การดูแลชัดเจน สงบ และเชื่อมโยงมากขึ้น">Three product layers that make care feel clearer, calmer, and more connected.</h2>
+          <p data-en="Instead of overwhelming visitors with too many separate ideas, the experience becomes easier to understand when it is framed around what people actually need: ask, remember, and stay supported." data-th="แทนที่จะทำให้ผู้ใช้เจอกับแนวคิดหลายอย่างพร้อมกัน ประสบการณ์จะเข้าใจง่ายขึ้นมาก เมื่อเล่าโดยยึดสิ่งที่ผู้คนต้องการจริง ๆ คือ ถามได้ จำได้ และได้รับการดูแลต่อเนื่อง">Instead of overwhelming visitors with too many separate ideas, the experience becomes easier to understand when it is framed around what people actually need: ask, remember, and stay supported.</p>
+        </div>
+
+        <div class="core-grid reveal">
+          <div class="core-card">
+            <h3 data-en="AI Guidance" data-th="คำแนะนำจาก AI">AI Guidance</h3>
+            <p data-en="Intelligent answers for everyday pet care, with clearer context and less confusion." data-th="คำตอบอัจฉริยะสำหรับการดูแลสัตว์เลี้ยงในทุกวัน พร้อมบริบทที่ชัดเจนและลดความสับสน">Intelligent answers for everyday pet care, with clearer context and less confusion.</p>
+          </div>
+          <div class="core-card">
+            <h3 data-en="Memory & Connection" data-th="ความทรงจำและความผูกพัน">Memory &amp; Connection</h3>
+            <p data-en="A place for moments, milestones, and meaningful observations across a pet’s life." data-th="พื้นที่สำหรับบันทึกช่วงเวลา เหตุการณ์สำคัญ และรายละเอียดที่มีความหมายตลอดชีวิตของสัตว์เลี้ยง">A place for moments, milestones, and meaningful observations across a pet’s life.</p>
+          </div>
+          <div class="core-card">
+            <h3 data-en="Daily Support" data-th="ผู้ช่วยในชีวิตประจำวัน">Daily Support</h3>
+            <p data-en="Gentle reminders, profile context, and routine continuity designed to feel human." data-th="การแจ้งเตือนอย่างอ่อนโยน บริบทจากโปรไฟล์ และความต่อเนื่องของกิจวัตร ที่ถูกออกแบบให้รู้สึกเป็นมนุษย์">Gentle reminders, profile context, and routine continuity designed to feel human.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark">
+      <div class="container">
+        <div class="story-block reveal">
+          <div class="story-copy">
+            <span class="eyebrow"><span data-en="AI Pet Q&A" data-th="ถามตอบ AI สัตว์เลี้ยง">AI Pet Q&amp;A</span></span>
+            <h3 data-en="Ask with clarity. Care with confidence." data-th="ถามอย่างชัดเจน ดูแลอย่างมั่นใจ">Ask with clarity. Care with confidence.</h3>
+            <p data-en="Ask about symptoms, behavior, routines, and concerns with a calmer, more understandable experience." data-th="สอบถามเรื่องอาการ พฤติกรรม กิจวัตร และความกังวลต่าง ๆ ได้อย่างเข้าใจง่าย สงบ และมั่นใจมากขึ้น">Ask about symptoms, behavior, routines, and concerns with a calmer, more understandable experience.</p>
+            <div class="story-points">
+              <span data-en="Structured, calmer daily guidance" data-th="คำแนะนำรายวันที่มีโครงสร้างและสงบมากขึ้น">Structured, calmer daily guidance</span>
+              <span data-en="Designed for everyday pet life" data-th="ออกแบบเพื่อชีวิตจริงของสัตว์เลี้ยงในทุกวัน">Designed for everyday pet life</span>
+              <span data-en="Clearer care conversations" data-th="ทำให้การดูแลเป็นบทสนทนาที่ชัดเจนขึ้น">Clearer care conversations</span>
+            </div>
+          </div>
+          <div class="story-visual">
+            <div class="product-frame">
+              <img src="https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?auto=format&fit=crop&w=1200&q=80" alt="Attentive cat portrait" />
+              <div class="product-overlay">
+                <strong data-en="Calm answers, better next steps" data-th="คำตอบที่สงบ และขั้นตอนถัดไปที่ชัดเจนกว่า">Calm answers, better next steps</strong>
+                <p data-en="PetQ AI helps turn uncertainty into more structured, understandable care moments." data-th="PetQ AI ช่วยเปลี่ยนความไม่แน่ใจให้กลายเป็นช่วงเวลาการดูแลที่เป็นระบบและเข้าใจได้มากขึ้น">PetQ AI helps turn uncertainty into more structured, understandable care moments.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="story-block reverse reveal">
+          <div class="story-copy">
+            <span class="eyebrow"><span data-en="Pet Profile" data-th="โปรไฟล์สัตว์เลี้ยง">Pet Profile</span></span>
+            <h3 data-en="A home for every detail that matters." data-th="พื้นที่เดียวสำหรับทุกข้อมูลสำคัญของน้อง">A home for every detail that matters.</h3>
+            <p data-en="Keep each pet’s profile, care notes, reminders, and key information in one elegant place." data-th="จัดเก็บโปรไฟล์ ข้อมูลสำคัญ บันทึกการดูแล และการแจ้งเตือนของสัตว์เลี้ยงไว้ในที่เดียวอย่างเป็นระเบียบ">Keep each pet’s profile, care notes, reminders, and key information in one elegant place.</p>
+            <div class="story-points">
+              <span data-en="One place for continuity" data-th="รวมทุกอย่างเพื่อความต่อเนื่องในการดูแล">One place for continuity</span>
+              <span data-en="More useful over time" data-th="ยิ่งใช้ ยิ่งมีประโยชน์มากขึ้น">More useful over time</span>
+              <span data-en="Built around real routines" data-th="ออกแบบจากกิจวัตรการดูแลจริง">Built around real routines</span>
+            </div>
+          </div>
+          <div class="story-visual">
+            <div class="ui-card">
+              <h4 data-en="Profile overview" data-th="ภาพรวมโปรไฟล์">Profile overview</h4>
+              <div class="metrics">
+                <div class="metric">
+                  <label data-en="Profile" data-th="โปรไฟล์">Profile</label>
+                  <strong data-en="Name, breed, age" data-th="ชื่อ สายพันธุ์ อายุ">Name, breed, age</strong>
+                </div>
+                <div class="metric">
+                  <label data-en="Reminders" data-th="การแจ้งเตือน">Reminders</label>
+                  <strong data-en="Meals, care, notes" data-th="อาหาร การดูแล บันทึก">Meals, care, notes</strong>
+                </div>
+                <div class="metric">
+                  <label data-en="History" data-th="ประวัติ">History</label>
+                  <strong data-en="Timeline ready" data-th="พร้อมเชื่อมกับไทม์ไลน์">Timeline ready</strong>
+                </div>
+                <div class="metric">
+                  <label data-en="Support" data-th="การช่วยดูแล">Support</label>
+                  <strong data-en="Daily context" data-th="บริบทประจำวัน">Daily context</strong>
+                </div>
+              </div>
+              <div class="mini-card">
+                <p data-en="A richer profile makes every future interaction feel more relevant, personal, and thoughtful." data-th="โปรไฟล์ที่สมบูรณ์ขึ้น ช่วยให้ทุกการใช้งานในอนาคตรู้สึกตรงบริบท เป็นส่วนตัว และใส่ใจมากขึ้น">A richer profile makes every future interaction feel more relevant, personal, and thoughtful.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="story-block reveal">
+          <div class="story-copy">
+            <span class="eyebrow"><span data-en="Gentle Notifications" data-th="การแจ้งเตือนอย่างอ่อนโยน">Gentle Notifications</span></span>
+            <h3 data-en="Reminders that feel thoughtful, not robotic." data-th="การแจ้งเตือนที่อบอุ่น ไม่ใช่แค่ระบบอัตโนมัติ">Reminders that feel thoughtful, not robotic.</h3>
+            <p data-en="Receive soft, caring prompts designed to support daily pet life with empathy." data-th="รับการแจ้งเตือนที่อ่อนโยนและใส่ใจ เพื่อช่วยดูแลชีวิตประจำวันของสัตว์เลี้ยงอย่างเข้าอกเข้าใจ">Receive soft, caring prompts designed to support daily pet life with empathy.</p>
+            <div class="story-points">
+              <span data-en="Less mechanical, more human" data-th="ลดความแข็งของระบบ และใกล้ความเป็นมนุษย์มากขึ้น">Less mechanical, more human</span>
+              <span data-en="A calmer notification language" data-th="ภาษาการแจ้งเตือนที่สงบขึ้น">A calmer notification language</span>
+              <span data-en="Built for everyday consistency" data-th="ช่วยให้การดูแลสม่ำเสมอในทุกวัน">Built for everyday consistency</span>
+            </div>
+          </div>
+          <div class="story-visual">
+            <div class="product-frame">
+              <img src="https://images.unsplash.com/photo-1511044568932-338cba0ad803?auto=format&fit=crop&w=1200&q=80" alt="Peaceful resting cat" />
+              <div class="product-overlay">
+                <strong data-en="Gentle support, better rhythm" data-th="การช่วยดูแลที่อ่อนโยน และจังหวะชีวิตที่ดีขึ้น">Gentle support, better rhythm</strong>
+                <p data-en="Prompts are designed to feel like help from a caring companion, not pressure from a system." data-th="การแจ้งเตือนถูกออกแบบให้รู้สึกเหมือนความช่วยเหลือจากผู้ช่วยที่ใส่ใจ ไม่ใช่แรงกดดันจากระบบ">Prompts are designed to feel like help from a caring companion, not pressure from a system.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="story-block reverse reveal">
+          <div class="story-copy">
+            <span class="eyebrow"><span data-en="Health Tracking" data-th="การติดตามสุขภาพ">Health Tracking</span></span>
+            <h3 data-en="Better awareness, one day at a time." data-th="เข้าใจสุขภาพได้ดีขึ้น ทีละวัน">Better awareness, one day at a time.</h3>
+            <p data-en="Track habits, routines, observations, and health patterns with a cleaner long-term view." data-th="ติดตามพฤติกรรม กิจวัตร การสังเกต และแนวโน้มด้านสุขภาพ เพื่อมองเห็นภาพระยะยาวได้ชัดเจนขึ้น">Track habits, routines, observations, and health patterns with a cleaner long-term view.</p>
+            <div class="story-points">
+              <span data-en="Pattern awareness over time" data-th="มองเห็นแนวโน้มได้ชัดขึ้นเมื่อเวลาผ่านไป">Pattern awareness over time</span>
+              <span data-en="Clearer long-term context" data-th="บริบทระยะยาวที่ชัดเจนยิ่งขึ้น">Clearer long-term context</span>
+              <span data-en="Designed to support better observation" data-th="ออกแบบมาเพื่อช่วยให้การสังเกตดีขึ้น">Designed to support better observation</span>
+            </div>
+          </div>
+          <div class="story-visual">
+            <div class="ui-card">
+              <h4 data-en="Health rhythm" data-th="จังหวะสุขภาพ">Health rhythm</h4>
+              <div class="mini-card">
+                <p data-en="Movement, appetite, sleep, and routine consistency surfaced as a calmer weekly view." data-th="การเคลื่อนไหว ความอยากอาหาร การนอน และความสม่ำเสมอของกิจวัตร ถูกนำเสนอในมุมมองรายสัปดาห์ที่สงบและอ่านง่าย">Movement, appetite, sleep, and routine consistency surfaced as a calmer weekly view.</p>
+                <div class="chart">
+                  <span style="height:40px"></span>
+                  <span style="height:56px"></span>
+                  <span style="height:34px"></span>
+                  <span style="height:62px"></span>
+                  <span style="height:48px"></span>
+                  <span style="height:68px"></span>
+                </div>
+              </div>
+              <div class="mini-grid" style="margin-top:14px;">
+                <div class="mini-card">
+                  <p data-en="A cleaner record helps people notice what feels different before it gets forgotten." data-th="บันทึกที่ชัดเจนช่วยให้ผู้คนสังเกตความเปลี่ยนแปลงได้ก่อนที่รายละเอียดจะเลือนหายไป">A cleaner record helps people notice what feels different before it gets forgotten.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="story-block reveal">
+          <div class="story-copy">
+            <span class="eyebrow"><span data-en="Emotional Timeline" data-th="ไทม์ไลน์ความผูกพัน">Emotional Timeline</span></span>
+            <h3 data-en="Because care is also memory." data-th="เพราะการดูแล คือความทรงจำด้วยเช่นกัน">Because care is also memory.</h3>
+            <p data-en="Capture milestones, emotional moments, and meaningful memories across your pet’s life." data-th="บันทึกช่วงเวลาสำคัญ ความทรงจำ และความผูกพันที่มีความหมายตลอดเส้นทางชีวิตของสัตว์เลี้ยง">Capture milestones, emotional moments, and meaningful memories across your pet’s life.</p>
+            <div class="story-points">
+              <span data-en="Milestones with emotional meaning" data-th="เก็บช่วงเวลาสำคัญที่มีคุณค่าทางความรู้สึก">Milestones with emotional meaning</span>
+              <span data-en="A more human memory layer" data-th="ชั้นความทรงจำที่ใกล้ความเป็นมนุษย์มากขึ้น">A more human memory layer</span>
+              <span data-en="Built for the bond, not only the data" data-th="ออกแบบมาเพื่อความผูกพัน ไม่ใช่แค่ข้อมูล">Built for the bond, not only the data</span>
+            </div>
+          </div>
+          <div class="story-visual">
+            <div class="product-frame">
+              <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=1200&q=80" alt="Emotional moment between owner and dog" />
+              <div class="product-overlay">
+                <strong data-en="A record of life together" data-th="บันทึกของชีวิตที่เติบโตไปด้วยกัน">A record of life together</strong>
+                <p data-en="Moments become easier to hold onto when memories and meaningful notes live in one thoughtful timeline." data-th="ช่วงเวลาอันมีค่าจะไม่เลือนหายง่าย เมื่อความทรงจำและบันทึกที่มีความหมายอยู่รวมกันในไทม์ไลน์ที่ใส่ใจ">Moments become easier to hold onto when memories and meaningful notes live in one thoughtful timeline.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="story-block reverse reveal">
+          <div class="story-copy">
+            <span class="eyebrow"><span data-en="Future Clinic Integration" data-th="การเชื่อมต่อคลินิกในอนาคต">Future Clinic Integration</span></span>
+            <h3 data-en="Built for a more connected future." data-th="สร้างมาเพื่ออนาคตที่เชื่อมต่อกันมากขึ้น">Built for a more connected future.</h3>
+            <p data-en="PetQ AI is designed with a future-ready foundation for deeper continuity between care, records, and real-world support." data-th="PetQ AI ถูกออกแบบบนรากฐานที่พร้อมสำหรับอนาคต เพื่อเชื่อมต่อการดูแล ข้อมูล และการสนับสนุนในโลกจริงได้อย่างต่อเนื่อง">PetQ AI is designed with a future-ready foundation for deeper continuity between care, records, and real-world support.</p>
+            <div class="story-points">
+              <span data-en="A serious platform direction" data-th="ทิศทางแพลตฟอร์มที่จริงจังและชัดเจน">A serious platform direction</span>
+              <span data-en="Better continuity around care" data-th="สร้างความต่อเนื่องที่ดีขึ้นในการดูแล">Better continuity around care</span>
+              <span data-en="Designed to scale responsibly" data-th="ออกแบบมาเพื่อการเติบโตอย่างมีความรับผิดชอบ">Designed to scale responsibly</span>
+            </div>
+          </div>
+          <div class="story-visual">
+            <div class="ui-card">
+              <h4 data-en="Future-ready continuity" data-th="ความต่อเนื่องที่พร้อมสำหรับอนาคต">Future-ready continuity</h4>
+              <div class="mini-grid">
+                <div class="mini-card">
+                  <p data-en="Owner history, structured context, and thoughtful records can create stronger continuity across future support touchpoints." data-th="ประวัติของเจ้าของ บริบทที่เป็นระบบ และข้อมูลที่จัดเก็บอย่างใส่ใจ สามารถช่วยสร้างความต่อเนื่องที่แข็งแรงขึ้นสำหรับการดูแลในอนาคต">Owner history, structured context, and thoughtful records can create stronger continuity across future support touchpoints.</p>
+                </div>
+                <div class="metrics" style="margin-bottom:0;">
+                  <div class="metric">
+                    <label data-en="Owner layer" data-th="ชั้นข้อมูลเจ้าของ">Owner layer</label>
+                    <strong data-en="Daily context" data-th="บริบทประจำวัน">Daily context</strong>
+                  </div>
+                  <div class="metric">
+                    <label data-en="Future layer" data-th="ชั้นข้อมูลอนาคต">Future layer</label>
+                    <strong data-en="Connected support" data-th="การสนับสนุนที่เชื่อมต่อกัน">Connected support</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="app">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow"><span data-en="App preview" data-th="ตัวอย่างแอป">App preview</span></span>
+          <h2 data-en="Designed to feel calm, clear, and deeply human." data-th="ออกแบบมาให้สงบ ชัดเจน และใกล้ความรู้สึกของมนุษย์">Designed to feel calm, clear, and deeply human.</h2>
+          <p data-en="The product experience should feel premium, believable, and immediately useful — not just visually impressive." data-th="ประสบการณ์ของผลิตภัณฑ์ควรรู้สึกพรีเมียม น่าเชื่อถือ และมีประโยชน์ได้ทันที ไม่ใช่แค่ดูสวยเท่านั้น">The product experience should feel premium, believable, and immediately useful — not just visually impressive.</p>
+        </div>
+
+        <div class="preview-grid">
+          <div class="mini-phone reveal">
+            <div class="mini-screen">
+              <div class="mini-top"><span>9:41</span><span data-en="Home" data-th="หน้าแรก">Home</span></div>
+              <div class="mini-card">
+                <div class="mini-title" data-en="Home dashboard" data-th="แดชบอร์ดหลัก">Home dashboard</div>
+                <p data-en="A calm summary of care, reminders, and today’s focus." data-th="ภาพรวมการดูแล การแจ้งเตือน และสิ่งสำคัญของวันนี้อย่างสงบและชัดเจน">A calm summary of care, reminders, and today’s focus.</p>
+              </div>
+              <div class="mini-card">
+                <div class="mini-avatar">
+                  <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=400&q=80" alt="Dog preview" />
+                  <div>
+                    <div class="mini-title" style="font-size:.94rem;">Nori</div>
+                    <p style="margin:2px 0 0;" data-en="Routine on track" data-th="กิจวัตรเป็นไปตามแผน">Routine on track</p>
+                  </div>
+                </div>
+              </div>
+              <div class="mini-card"><p data-en="Walk completed • Water refreshed • Mood calm" data-th="พาเดินแล้ว • เติมน้ำแล้ว • อารมณ์สงบ">Walk completed • Water refreshed • Mood calm</p></div>
+            </div>
+          </div>
+
+          <div class="mini-phone reveal">
+            <div class="mini-screen">
+              <div class="mini-top"><span>9:41</span><span data-en="Profile" data-th="โปรไฟล์">Profile</span></div>
+              <div class="mini-card">
+                <div class="mini-title" data-en="Pet profile" data-th="โปรไฟล์สัตว์เลี้ยง">Pet profile</div>
+                <p data-en="Identity, reminders, habits, notes, and context in one place." data-th="ข้อมูลตัวตน การแจ้งเตือน พฤติกรรม บันทึก และบริบททั้งหมดอยู่ในที่เดียว">Identity, reminders, habits, notes, and context in one place.</p>
+              </div>
+              <div class="metrics" style="margin-bottom:0;">
+                <div class="metric"><label data-en="Age" data-th="อายุ">Age</label><strong data-en="5 years" data-th="5 ปี">5 years</strong></div>
+                <div class="metric"><label data-en="Routine" data-th="กิจวัตร">Routine</label><strong data-en="Stable" data-th="สม่ำเสมอ">Stable</strong></div>
+                <div class="metric"><label data-en="Notes" data-th="บันทึก">Notes</label><strong data-en="Food-sensitive" data-th="แพ้อาหารบางอย่าง">Food-sensitive</strong></div>
+                <div class="metric"><label data-en="Care" data-th="การดูแล">Care</label><strong data-en="Daily logs" data-th="บันทึกประจำวัน">Daily logs</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mini-phone reveal">
+            <div class="mini-screen">
+              <div class="mini-top"><span>9:41</span><span data-en="AI Chat" data-th="AI แชท">AI Chat</span></div>
+              <div class="mini-card">
+                <div class="mini-title" data-en="AI pet chat" data-th="แชทถาม AI">AI pet chat</div>
+                <p data-en="Ask about symptoms, behavior, and daily concerns in a calmer way." data-th="ถามเรื่องอาการ พฤติกรรม และความกังวลประจำวันได้อย่างสงบและชัดเจน">Ask about symptoms, behavior, and daily concerns in a calmer way.</p>
+              </div>
+              <div class="mini-card"><p data-en="“My dog ate less than usual this morning.”" data-th="“เช้านี้สุนัขกินอาหารน้อยกว่าปกติ”">“My dog ate less than usual this morning.”</p></div>
+              <div class="mini-card"><p data-en="Let’s review appetite, mood, water intake, and any routine changes today." data-th="มาดูความอยากอาหาร อารมณ์ การดื่มน้ำ และความเปลี่ยนแปลงของกิจวัตรวันนี้กัน">Let’s review appetite, mood, water intake, and any routine changes today.</p></div>
+            </div>
+          </div>
+
+          <div class="mini-phone reveal">
+            <div class="mini-screen">
+              <div class="mini-top"><span>9:41</span><span data-en="Timeline" data-th="ไทม์ไลน์">Timeline</span></div>
+              <div class="mini-card">
+                <div class="mini-title" data-en="Reminder & timeline" data-th="การเตือนและไทม์ไลน์">Reminder &amp; timeline</div>
+                <p data-en="A thoughtful record of routines, moments, and milestones." data-th="บันทึกกิจวัตร ช่วงเวลา และเหตุการณ์สำคัญอย่างมีความหมาย">A thoughtful record of routines, moments, and milestones.</p>
+              </div>
+              <div class="mini-card"><p data-en="First beach walk. Favorite sleeping corner. Calm evening after grooming." data-th="เดินชายหาดครั้งแรก มุมโปรดสำหรับนอน ช่วงเย็นที่สงบหลังอาบน้ำ">First beach walk. Favorite sleeping corner. Calm evening after grooming.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark" id="vision">
+      <div class="container vision-wrap">
+        <div class="vision-card reveal">
+          <span class="eyebrow"><span data-en="Vision" data-th="วิสัยทัศน์">Vision</span></span>
+          <h2 data-en="More than a product. A new way to care." data-th="มากกว่าแอป แต่นี่คือรูปแบบใหม่ของการดูแล">More than a product. A new way to care.</h2>
+          <p data-en="Built for the bond between people and the animals they love, PetQ AI reimagines pet care as something more thoughtful, connected, and emotionally aware." data-th="PetQ AI ถูกสร้างขึ้นเพื่อความผูกพันระหว่างผู้คนกับสัตว์ที่พวกเขารัก โดยนิยามการดูแลสัตว์เลี้ยงใหม่ให้ลึกซึ้ง เชื่อมโยง และเข้าใจความรู้สึกมากยิ่งขึ้น">Built for the bond between people and the animals they love, PetQ AI reimagines pet care as something more thoughtful, connected, and emotionally aware.</p>
+        </div>
+        <div class="vision-photo reveal">
+          <img src="https://images.unsplash.com/photo-1548681528-6a5c45b66b42?auto=format&fit=crop&w=1200&q=80" alt="Elegant cat portrait in minimal interior" />
+        </div>
+      </div>
+    </section>
+
+    <section class="section compact">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow"><span data-en="Future-ready platform" data-th="แพลตฟอร์มที่พร้อมสำหรับอนาคต">Future-ready platform</span></span>
+          <h2 data-en="Thoughtful by design. Built for trust. Ready to grow." data-th="ออกแบบอย่างใส่ใจ สร้างบนความไว้วางใจ และพร้อมเติบโต">Thoughtful by design. Built for trust. Ready to grow.</h2>
+          <p data-en="PetQ AI is shaped with a careful product mindset — where emotional intelligence, safety-aware direction, privacy-conscious thinking, and scalable design all belong in the same system." data-th="PetQ AI ถูกวางรากฐานด้วยแนวคิดด้านผลิตภัณฑ์ที่รอบคอบ ซึ่งผสานความเข้าใจทางอารมณ์ ทิศทางที่คำนึงถึงความปลอดภัย แนวคิดเรื่องความเป็นส่วนตัว และการออกแบบที่พร้อมเติบโตไว้ในระบบเดียวกัน">PetQ AI is shaped with a careful product mindset — where emotional intelligence, safety-aware direction, privacy-conscious thinking, and scalable design all belong in the same system.</p>
+        </div>
+
+        <div class="future-grid">
+          <div class="future-card reveal">
+            <div>
+              <strong data-en="Thoughtful Design" data-th="การออกแบบอย่างใส่ใจ">Thoughtful Design</strong>
+              <p data-en="Calm interfaces and refined product decisions built to respect attention and emotion." data-th="อินเทอร์เฟซที่สงบและการตัดสินใจด้านผลิตภัณฑ์ที่ประณีต เพื่อเคารพทั้งเวลาและความรู้สึกของผู้ใช้">Calm interfaces and refined product decisions built to respect attention and emotion.</p>
+            </div>
+          </div>
+          <div class="future-card reveal">
+            <div>
+              <strong data-en="Safety-Aware Direction" data-th="ทิศทางที่คำนึงถึงความปลอดภัย">Safety-Aware Direction</strong>
+              <p data-en="Designed to support responsible care with thoughtful boundaries and clarity." data-th="ออกแบบมาเพื่อสนับสนุนการดูแลอย่างรับผิดชอบ ด้วยกรอบการใช้งานที่ชัดเจนและรอบคอบ">Designed to support responsible care with thoughtful boundaries and clarity.</p>
+            </div>
+          </div>
+          <div class="future-card reveal">
+            <div>
+              <strong data-en="Privacy-Conscious Mindset" data-th="แนวคิดที่คำนึงถึงความเป็นส่วนตัว">Privacy-Conscious Mindset</strong>
+              <p data-en="Built with respect for trust, personal information, and user control." data-th="สร้างขึ้นบนความเคารพต่อความไว้วางใจ ข้อมูลส่วนบุคคล และสิทธิในการควบคุมของผู้ใช้">Built with respect for trust, personal information, and user control.</p>
+            </div>
+          </div>
+          <div class="future-card reveal">
+            <div>
+              <strong data-en="Scalable Ecosystem" data-th="ระบบที่พร้อมเติบโต">Scalable Ecosystem</strong>
+              <p data-en="A platform vision built to extend thoughtfully over time." data-th="วิสัยทัศน์ของแพลตฟอร์มที่พร้อมขยายอย่างมีทิศทางและรอบคอบในอนาคต">A platform vision built to extend thoughtfully over time.</p>
+            </div>
+          </div>
+          <div class="future-card reveal">
+            <div>
+              <strong data-en="Built in Thailand, Designed for Global Scale" data-th="สร้างจากประเทศไทย เพื่อเติบโตสู่ระดับโลก">Built in Thailand, Designed for Global Scale</strong>
+              <p data-en="Local understanding with global design ambition and a serious long-term brand direction." data-th="ความเข้าใจจากบริบทท้องถิ่น ผสานความทะเยอทะยานด้านการออกแบบระดับโลก และทิศทางแบรนด์ระยะยาวที่ชัดเจน">Local understanding with global design ambition and a serious long-term brand direction.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="early-access">
+      <div class="container">
+        <div class="cta-band reveal">
+          <div class="cta-grid">
+            <div class="cta-copy">
+              <span class="eyebrow"><span data-en="Join early access" data-th="ร่วมเป็นกลุ่มแรก">Join early access</span></span>
+              <h2 data-en="The future of pet care begins with love." data-th="อนาคตของการดูแลสัตว์เลี้ยง เริ่มต้นจากความรัก">The future of pet care begins with love.</h2>
+              <p data-en="Join the first wave of people following PetQ AI and help shape a more thoughtful future for dogs and cats." data-th="ร่วมเป็นกลุ่มแรกที่ติดตาม PetQ AI และช่วยสร้างอนาคตของการดูแลสุนัขและแมวให้ลึกซึ้งและใส่ใจยิ่งขึ้น">Join the first wave of people following PetQ AI and help shape a more thoughtful future for dogs and cats.</p>
+              <div class="cta-invite" data-en="Be the first to experience PetQ AI" data-th="ร่วมเป็นกลุ่มแรกที่ได้สัมผัส PetQ AI">Be the first to experience PetQ AI</div>
+              <div class="cta-actions">
+                <a class="btn primary" href="mailto:info@petqai.com">
+                  <span data-en="Join Early Access" data-th="ลงทะเบียนล่วงหน้า">Join Early Access</span>
+                </a>
+                <a class="btn line" href="https://line.me/R/ti/p/@petqai" target="_blank" rel="noreferrer">
+                  <span data-en="Chat via LINE" data-th="แชทผ่าน LINE">Chat via LINE</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="cta-photo">
+              <img src="https://images.unsplash.com/photo-1519052537078-e6302a4968d4?auto=format&fit=crop&w=1200&q=80" alt="Emotional pet portrait in warm light" />
+              <div class="cta-note" data-en="PetQ AI is being built to help people care better, remember more, and stay closer to the animals they love." data-th="PetQ AI กำลังถูกสร้างขึ้นเพื่อช่วยให้ผู้คนดูแลได้ดีขึ้น จดจำได้มากขึ้น และใกล้ชิดกับสัตว์ที่พวกเขารักมากขึ้น">PetQ AI is being built to help people care better, remember more, and stay closer to the animals they love.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section compact ending" id="meaning">
+      <div class="container">
+        <div class="ending-wrap">
+          <div class="ending-message reveal" id="ending-message">
+            <p data-en="Because they cannot tell us what they feel<br>We are building something that tries to understand them for you" data-th="เพราะพวกเขาไม่สามารถบอกเราได้ว่าพวกเขารู้สึกอย่างไร<br>เราจึงกำลังสร้างบางสิ่งที่พยายามเข้าใจพวกเขาแทนคุณ">Because they cannot tell us what they feel<br>We are building something that tries to understand them for you</p>
+            <p data-en="We are building PetQ AI<br>So you never have to face that uncertainty alone" data-th="เรากำลังสร้าง PetQ AI<br>เพื่อให้คุณไม่ต้องเผชิญความไม่แน่ใจนั้นเพียงลำพัง">We are building PetQ AI<br>So you never have to face that uncertainty alone</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="scroll-whisper" id="scroll-whisper" aria-live="polite">You’re not alone</div>
+
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <strong>PetQ AI</strong>
+          <p data-en="AI-powered pet care built from love, gratitude, empathy, and intelligent support for dogs and cats." data-th="แพลตฟอร์ม AI ดูแลสัตว์เลี้ยง ที่สร้างขึ้นจากความรัก ความกตัญญู ความเข้าใจ และการช่วยเหลืออย่างชาญฉลาดสำหรับสุนัขและแมว">AI-powered pet care built from love, gratitude, empathy, and intelligent support for dogs and cats.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-en="Contact" data-th="ติดต่อ">Contact</h4>
+          <a href="mailto:info@petqai.com">info@petqai.com</a>
+          <a href="https://www.petqai.com" target="_blank" rel="noreferrer">www.petqai.com</a>
+          <a href="https://line.me/R/ti/p/@petqai" target="_blank" rel="noreferrer">@petqai</a>
+          <a class="footer-line" href="https://line.me/R/ti/p/@petqai" target="_blank" rel="noreferrer">
+            <span data-en="Chat via LINE" data-th="แชทผ่าน LINE">Chat via LINE</span>
+          </a>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-en="Navigate" data-th="เมนู">Navigate</h4>
+          <a href="#home"><span data-en="Home" data-th="หน้าแรก">Home</span></a>
+          <a href="#features"><span data-en="Features" data-th="ฟีเจอร์">Features</span></a>
+          <a href="#vision"><span data-en="Vision" data-th="วิสัยทัศน์">Vision</span></a>
+          <a href="#app"><span data-en="App" data-th="แอป">App</span></a>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-en="Brand" data-th="แบรนด์">Brand</h4>
+          <p data-en="Love them. Thank them. Give them the best life possible." data-th="รักพวกเขา ขอบคุณพวกเขา และมอบชีวิตที่ดีที่สุดให้พวกเขา">Love them. Thank them. Give them the best life possible.</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-meta">© <span id="year"></span> PetQ AI. All rights reserved.</div>
+        <div class="footer-meta" data-en="Built in Thailand, designed for global scale." data-th="สร้างจากประเทศไทย เพื่อเติบโตสู่ระดับโลก">Built in Thailand, designed for global scale.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById("navbar");
+    const revealEls = document.querySelectorAll(".reveal");
+    const year = document.getElementById("year");
+    const langButtons = document.querySelectorAll("[data-lang-btn]");
+    const translatable = document.querySelectorAll("[data-en][data-th]");
+    const promptButtons = document.querySelectorAll("[data-demo]");
+    const demoUser = document.getElementById("demo-user");
+    const demoAi = document.getElementById("demo-ai");
+    const scrollWhisper = document.getElementById("scroll-whisper");
+    const ctaBand = document.querySelector(".cta-band");
+    const endingMessage = document.getElementById("ending-message");
+    const sections = document.querySelectorAll(".section");
+    const cursorGlow = document.getElementById("cursor-glow");
+    const textReactiveNodes = document.querySelectorAll(".section-header h2, .story-copy h3, .vision-card h2, .cta-copy h2, .section-header p, .story-copy p, .vision-card p, .cta-copy p, .core-card p, .future-card p, .bubble, .mini-card p");
+    const pulseButtons = document.querySelectorAll(".btn.primary, .btn.line");
+    const finePointer = window.matchMedia("(pointer: fine)").matches;
+    let currentLang = "en";
+    let lastScrollY = window.scrollY;
+    let lastScrollTime = Date.now();
+    let idleTimer;
+    let returnTimer;
+    let activeSection;
+    let cursorFrame;
+    let pointerActive = false;
+    let targetX = window.innerWidth / 2;
+    let targetY = window.innerHeight / 2;
+    let currentX = targetX;
+    let currentY = targetY;
+    const whisperCopy = {
+      en: ["You're not alone", "We're here with you"],
+      th: ["คุณไม่ได้อยู่ลำพัง", "เราอยู่ตรงนี้กับคุณ"]
+    };
+
+    const demoCopy = {
+      itching: {
+        en: {
+          user: "My dog is scratching more than usual today.",
+          ai: "Let’s start with a few calm checks: when it began, whether the skin looks irritated, and whether anything changed in food, shampoo, bedding, or outdoor exposure today."
+        },
+        th: {
+          user: "วันนี้สุนัขของฉันเกามากกว่าปกติ",
+          ai: "เริ่มจากการเช็กอย่างสงบก่อนว่าเริ่มเกามากขึ้นตั้งแต่เมื่อไร ผิวหนังดูแดงหรือไม่ และมีอะไรเปลี่ยนไปบ้าง เช่น อาหาร แชมพู ที่นอน หรือการออกไปข้างนอก"
+        }
+      },
+      appetite: {
+        en: {
+          user: "My cat ate less than usual this morning.",
+          ai: "A good first step is to compare today with yesterday: appetite, water intake, mood, and whether anything changed in routine, food texture, or stress around feeding time."
+        },
+        th: {
+          user: "เช้านี้แมวของฉันกินน้อยกว่าปกติ",
+          ai: "ขั้นแรกที่ดีคือเปรียบเทียบกับเมื่อวาน ทั้งความอยากอาหาร การดื่มน้ำ อารมณ์ และดูว่ามีอะไรเปลี่ยนไปไหม เช่น กิจวัตร ลักษณะอาหาร หรือความเครียดตอนให้อาหาร"
+        }
+      },
+      routine: {
+        en: {
+          user: "Help me build a better daily care routine.",
+          ai: "PetQ AI can help you shape a calmer daily rhythm around meals, water, walks, litter, notes, and small check-ins so care feels easier to maintain every day."
+        },
+        th: {
+          user: "ช่วยจัดกิจวัตรดูแลประจำวันให้ดีขึ้น",
+          ai: "PetQ AI ช่วยออกแบบจังหวะการดูแลรายวันที่สงบขึ้นได้ ตั้งแต่มื้ออาหาร น้ำ การพาเดิน การดูแลกระบะทราย บันทึก และการเช็กเล็ก ๆ เพื่อให้ดูแลง่ายและสม่ำเสมอมากขึ้นในทุกวัน"
+        }
+      }
+    };
+
+    const applyLanguage = (lang) => {
+      currentLang = lang;
+      document.documentElement.lang = lang === "th" ? "th" : "en";
+      document.body.dataset.lang = lang;
+      translatable.forEach((node) => {
+        const value = node.getAttribute(`data-${lang}`);
+        if (value.includes("<br>")) {
+          node.innerHTML = value;
+        } else {
+          node.textContent = value;
+        }
+      });
+      langButtons.forEach((button) => {
+        button.classList.toggle("active", button.dataset.langBtn === lang);
+      });
+      if (!scrollWhisper.classList.contains("visible")) {
+        scrollWhisper.textContent = whisperCopy[lang][0];
+      }
+
+      const activePrompt = document.querySelector("[data-demo].is-active")?.dataset.demo || "itching";
+      demoUser.textContent = demoCopy[activePrompt][lang].user;
+      demoAi.textContent = demoCopy[activePrompt][lang].ai;
+    };
+
+    promptButtons.forEach((button, index) => {
+      if (index === 0) button.classList.add("is-active");
+      button.addEventListener("click", () => {
+        promptButtons.forEach((item) => item.classList.remove("is-active"));
+        button.classList.add("is-active");
+        const lang = document.documentElement.lang === "th" ? "th" : "en";
+        const key = button.dataset.demo;
+        demoUser.textContent = demoCopy[key][lang].user;
+        demoAi.textContent = demoCopy[key][lang].ai;
+      });
+    });
+
+    langButtons.forEach((button) => {
+      button.addEventListener("click", () => applyLanguage(button.dataset.langBtn));
+    });
+
+    textReactiveNodes.forEach((node) => {
+      node.classList.add("text-reactive");
+      let hoverTimer;
+      node.addEventListener("mouseenter", () => {
+        hoverTimer = setTimeout(() => {
+          node.classList.add("is-noticed");
+        }, 140);
+      });
+      node.addEventListener("mouseleave", () => {
+        clearTimeout(hoverTimer);
+        node.classList.remove("is-noticed");
+      });
+    });
+
+    pulseButtons.forEach((button) => {
+      button.classList.add("idle-pulse");
+      button.addEventListener("mouseenter", () => button.classList.remove("idle-pulse"));
+      button.addEventListener("mouseleave", () => button.classList.add("idle-pulse"));
+      button.addEventListener("focus", () => button.classList.remove("idle-pulse"));
+      button.addEventListener("blur", () => button.classList.add("idle-pulse"));
+    });
+
+    if (finePointer && cursorGlow) {
+      const animateCursor = () => {
+        currentX += (targetX - currentX) * 0.08;
+        currentY += (targetY - currentY) * 0.08;
+        cursorGlow.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`;
+        cursorFrame = window.requestAnimationFrame(animateCursor);
+      };
+
+      document.addEventListener("mousemove", (event) => {
+        targetX = event.clientX;
+        targetY = event.clientY;
+        if (!pointerActive) {
+          pointerActive = true;
+          document.body.classList.add("cursor-active");
+          animateCursor();
+        }
+      }, { passive: true });
+
+      document.addEventListener("mouseleave", () => {
+        document.body.classList.remove("cursor-active");
+        pointerActive = false;
+        if (cursorFrame) {
+          window.cancelAnimationFrame(cursorFrame);
+          cursorFrame = null;
+        }
+      });
+    }
+
+    const onScroll = () => {
+      navbar.classList.toggle("scrolled", window.scrollY > 18);
+      scrollWhisper.classList.remove("visible");
+
+      const now = Date.now();
+      const currentY = window.scrollY;
+      const delta = currentY - lastScrollY;
+      const distance = Math.abs(delta);
+      const duration = Math.max(now - lastScrollTime, 16);
+      const speed = distance / duration;
+
+      document.body.classList.toggle("attentive", speed > 0.01 && speed < 0.18);
+      document.body.classList.toggle("fast-scroll", speed > 1.05);
+
+      if (delta < -10) {
+        document.body.classList.add("return-flow");
+        clearTimeout(returnTimer);
+        returnTimer = setTimeout(() => {
+          document.body.classList.remove("return-flow");
+        }, 900);
+      }
+
+      lastScrollY = currentY;
+      lastScrollTime = now;
+
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => {
+        const messages = whisperCopy[currentLang];
+        const choice = currentY > 500 ? messages[1] : messages[0];
+        scrollWhisper.textContent = choice;
+        scrollWhisper.classList.add("visible");
+      }, 2400);
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.14,
+      rootMargin: "0px 0px -40px 0px"
+    });
+
+    revealEls.forEach((el, index) => {
+      el.style.transitionDelay = `${Math.min(index * 35, 180)}ms`;
+      observer.observe(el);
+    });
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        if (activeSection && activeSection !== entry.target) {
+          activeSection.classList.remove("section-aware");
+        }
+        entry.target.classList.add("section-aware");
+        activeSection = entry.target;
+      });
+    }, {
+      threshold: 0.38,
+      rootMargin: "-12% 0px -22% 0px"
+    });
+
+    sections.forEach((section) => sectionObserver.observe(section));
+
+    const ctaObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.target === ctaBand) {
+          ctaBand.classList.toggle("awake", entry.isIntersecting);
+        }
+        if (entry.target === endingMessage && entry.isIntersecting) {
+          endingMessage.classList.add("in");
+        }
+      });
+    }, {
+      threshold: 0.28
+    });
+
+    ctaObserver.observe(ctaBand);
+    ctaObserver.observe(endingMessage);
+
+    year.textContent = new Date().getFullYear();
+    applyLanguage("en");
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  </script>
+</body>
+</html>
