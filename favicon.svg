@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title>PetQ AI favicon</title>
+  <desc>Black and gold PetQ AI monogram favicon.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#151515" />
+      <stop offset="100%" stop-color="#050505" />
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f1d39c" />
+      <stop offset="100%" stop-color="#c9a86a" />
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="64" fill="url(#bg)" />
+  <rect x="18" y="18" width="220" height="220" rx="52" fill="none" stroke="rgba(241,211,156,0.3)" />
+  <text x="128" y="146" text-anchor="middle" font-family="Manrope, Arial, sans-serif" font-size="86" font-weight="800" letter-spacing="-6" fill="url(#gold)">PQ</text>
+</svg>

@@ -1,0 +1,17 @@
+{
+  "name": "PetQ AI",
+  "short_name": "PetQ AI",
+  "description": "Premium AI pet care for dogs and cats with Thai and English support.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#090909",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
