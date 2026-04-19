@@ -30,43 +30,63 @@
           <div class="reveal">
             <p class="eyebrow">Contact</p>
             <h1>พร้อมพูดคุยกับผู้ใช้กลุ่มแรก พันธมิตร และผู้สนใจเติบโตไปกับ PetQ AI</h1>
-            <p class="page-lead">หากคุณสนใจ launch updates, business collaboration, clinic integration, media inquiry, หรือ investor conversation เราพร้อมรับการติดต่ออย่างเป็นทางการ</p>
+            <p class="page-lead">หากคุณสนใจ launch updates, business collaboration, clinic integration, media inquiry, หรือ investor conversation เราพร้อมรับการติดต่ออย่างเป็นทางการผ่านช่องทางที่ชัดเจนและเหมาะสมกับบริบทธุรกิจ</p>
           </div>
-          <div class="quote-panel reveal reveal-delay-1">
-            <p class="quote-text">info@petqai.com</p>
-            <p class="quote-caption">Primary business contact</p>
-          </div>
+          <figure class="page-side-photo reveal reveal-delay-1">
+            <img
+              src="https://images.pexels.com/photos/35049096/pexels-photo-35049096.jpeg?auto=compress&cs=tinysrgb&w=1200"
+              alt="สุนัขมองตรงอย่างเป็นมิตรในแสงนุ่ม ช่วยให้หน้าติดต่อรู้สึกเปิดรับและเข้าถึงง่าย"
+              decoding="async"
+            />
+          </figure>
         </div>
       </section>
       <section class="section">
         <div class="container contact-page-grid">
-          <form class="contact-form reveal" action="#" method="post">
+          <form class="contact-form reveal" action="#" method="post" novalidate data-contact-form>
+            <div class="section-heading compact">
+              <p class="eyebrow">Inquiry Form</p>
+              <h2>ส่งรายละเอียดเบื้องต้นให้ทีม PetQ AI</h2>
+              <p>เราออกแบบฟอร์มนี้ให้พร้อมสำหรับการเปิดใช้งานอย่างเป็นทางการ โดยระหว่างนี้ยังสามารถใช้เพื่อเตรียมรายละเอียดและตรวจความครบถ้วนของข้อมูลก่อนติดต่อผ่านอีเมลได้</p>
+            </div>
             <div class="field-grid">
               <div class="field">
                 <label for="name">ชื่อ / Name</label>
-                <input id="name" name="name" type="text" />
+                <input id="name" name="name" type="text" autocomplete="name" required aria-describedby="name-help name-error" />
+                <p class="field-help" id="name-help">กรอกชื่อที่ต้องการให้ทีมใช้ในการติดต่อกลับ</p>
+                <p class="field-error" id="name-error" aria-live="polite"></p>
               </div>
               <div class="field">
                 <label for="email">อีเมล / Email</label>
-                <input id="email" name="email" type="email" />
+                <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="email-help email-error" />
+                <p class="field-help" id="email-help">ใช้อีเมลที่สะดวกสำหรับการติดตามต่อ</p>
+                <p class="field-error" id="email-error" aria-live="polite"></p>
               </div>
             </div>
             <div class="field">
               <label for="category">ประเภทการติดต่อ</label>
-              <select id="category" name="category">
-                <option>Waitlist / Early access</option>
-                <option>Partner inquiry</option>
-                <option>Clinic inquiry</option>
-                <option>Investor inquiry</option>
-                <option>Media / business inquiry</option>
+              <select id="category" name="category" required aria-describedby="category-help category-error">
+                <option value="">เลือกหัวข้อที่ใกล้เคียงที่สุด</option>
+                <option value="waitlist">Waitlist / Early access</option>
+                <option value="partner">Partner inquiry</option>
+                <option value="clinic">Clinic inquiry</option>
+                <option value="investor">Investor inquiry</option>
+                <option value="media-business">Media / business inquiry</option>
               </select>
+              <p class="field-help" id="category-help">ช่วยให้ทีมจัดลำดับการตอบกลับได้เหมาะสมขึ้น</p>
+              <p class="field-error" id="category-error" aria-live="polite"></p>
             </div>
             <div class="field">
               <label for="message">ข้อความ</label>
-              <textarea id="message" name="message" rows="7"></textarea>
+              <textarea id="message" name="message" rows="7" required aria-describedby="message-help message-error"></textarea>
+              <p class="field-help" id="message-help">สรุปบริบทหรือความต้องการของคุณสั้น ๆ เพื่อให้ทีมเข้าใจได้เร็วขึ้น</p>
+              <p class="field-error" id="message-error" aria-live="polite"></p>
             </div>
-            <button class="button button-primary" type="submit">Send Inquiry</button>
-            <p class="form-note">ฟอร์มนี้เป็นโครงสร้างพร้อมเชื่อมต่อระบบจริงภายหลัง และยังไม่ส่งข้อมูลไปยัง endpoint ใด</p>
+            <div class="form-actions">
+              <button class="button button-primary" type="submit">Prepare Inquiry</button>
+              <p class="form-note">ระบบรับส่งฟอร์มกำลังอยู่ในขั้นตอนจัดเตรียมอย่างเป็นทางการ ระหว่างนี้หากต้องการติดต่อทันที สามารถใช้อีเมลหรือ LINE ด้านขวาได้เลย</p>
+            </div>
+            <div class="form-status" aria-live="polite" data-form-status></div>
           </form>
 
           <div class="contact-info reveal reveal-delay-1">
